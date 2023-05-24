@@ -16,9 +16,9 @@
 
 ---
 
-# instruções
+# instruções para implementação do backend:
 
 1. sete a variável de ambiente para se conectar ao banco de dados
     - `DATABASE_URL=postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=SCHEMA`
-2. use o comando dpara fazer as migrations do database:
+2. use o comando para fazer as migrations do database:
     - `npx prisma migrate dev --name init`
