@@ -1,0 +1,264 @@
+{
+  "uuid": "b09bad0f-d23c-4990-8a8f-f50293de77a4",
+  "lastMigration": 27,
+  "name": "SGCursos",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 5050,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "8f546b4a-f2e2-48f0-8297-bd83241d5a8d",
+      "type": "http",
+      "documentation": "Essa rota lista as turmas para um usuário específico. Nessa rota tu precisa tbm adicionar um tratamento para um query param chamado status, nele vc pode filtrar pelas turmas completas e disponíveis para o usuário.",
+      "method": "get",
+      "endpoint": "classes",
+      "responses": [
+        {
+          "uuid": "0e71f40f-ffce-411b-94bc-6b574009582f",
+          "body": "{\n  \"data\": [\n    {\n      \"id\": 1,\n      \"slug\": \"macuxi-digital\",\n      \"course_name\": \"Macuxi Digital\",\n      \"course_photo\": \"https://lh4.googleusercontent.com/QgxvXiGu8k8FDxqQvZp2FK9lztHiHkpZytVjDHU01SGONe0J5ZSyK6bcMYaFMNEGsB1m6PCy-iWHYDU2KrICRzc=w16383\",\n      \"course_workload\": 60,\n      \"start_date\": \"2021-09-27 15:22:53.679985+02\",\n      \"end_date\": \"2021-09-27 15:22:53.679985+02\",\n      \"teacher\": \"Acauan Ribeiro\",\n      \"course_category\": \"Programming\"\n    },\n    {\n      \"id\": 2,\n      \"slug\": \"programacao-orientada-a-objetos-com-java\",\n      \"course_name\": \"Programação Orientada a Objetos com Java\",\n      \"course_photo\": \"https://blog.logrocket.com/wp-content/uploads/2019/01/1_-y966xjyDL3Lxu_8hvu7nA.png?w=1024\",\n      \"course_workload\": 60,\n      \"start_date\": \"2021-09-27 15:22:53.679985+02\",\n      \"end_date\": \"2021-09-27 15:22:53.679985+02\",\n      \"teacher\": \"Acauan Ribeiro\",\n      \"course_category\": \"Programming\"\n    },\n    {\n      \"id\": 3,\n      \"slug\": \"usando-o-helmet-no-nodejs-para-proteger-seu-app\",\n      \"course_name\": \"Usando o Helmet no Node.js para proteger seu app\",\n      \"course_photo\": \"https://blog.logrocket.com/wp-content/uploads/2023/03/Using-Helmet-Node-js-secure-application.png?w=1024\",\n      \"course_workload\": 60,\n      \"start_date\": \"2021-09-27 15:22:53.679985+02\",\n      \"end_date\": \"2021-09-27 15:22:53.679985+02\",\n      \"teacher\": \"Acauan Ribeiro\",\n      \"course_category\": \"Programming\"\n    },\n    {\n      \"id\": 4,\n      \"slug\": \"criando-transicoes-css-mais-suaves-com-o-animate-css-grid\",\n      \"course_name\": \"Criando transições CSS mais suaves com o Animate CSS Grid\",\n      \"course_photo\": \"https://blog.logrocket.com/wp-content/uploads/2022/12/creating-smoother-css-transitions-animate-css-grid-nocdn.png?w=1024\",\n      \"course_workload\": 60,\n      \"start_date\": \"2021-09-27 15:22:53.679985+02\",\n      \"end_date\": \"2021-09-27 15:22:53.679985+02\",\n      \"teacher\": \"Acauan Ribeiro\",\n      \"course_category\": \"Programming\"\n    },\n    {\n      \"id\": 5,\n      \"slug\": \"explorando-os-metodos-de-simulacao-go-e-a-estrutura-gomock\",\n      \"course_name\": \"Explorando os métodos de simulação Go e a estrutura GoMock\",\n      \"course_photo\": \"https://blog.logrocket.com/wp-content/uploads/2023/05/Exploring-Go-mocking-methods-GoMock-framework.png?w=1024\",\n      \"course_workload\": 60,\n      \"start_date\": \"2021-09-27 15:22:53.679985+02\",\n      \"end_date\": \"2021-09-27 15:22:53.679985+02\",\n      \"teacher\": \"Acauan Ribeiro\",\n      \"course_category\": \"Programming\"\n    },\n    {\n      \"id\": 6,\n      \"slug\": \"tanstack-query-e-websockets-busca-de-dados-react-em-tempo-real\",\n      \"course_name\": \"TanStack Query e WebSockets: busca de dados React em tempo real\",\n      \"course_photo\": \"https://blog.logrocket.com/wp-content/uploads/2023/05/tanstack-query-websockets.png?w=1024\",\n      \"course_workload\": 60,\n      \"start_date\": \"2021-09-27 15:22:53.679985+02\",\n      \"end_date\": \"2021-09-27 15:22:53.679985+02\",\n      \"teacher\": \"Acauan Ribeiro\",\n      \"course_category\": \"Programming\"\n    }\n  ],\n  \"errors\": null\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer JWT"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "a2219da1-402f-49bc-b8da-305d9256d69f",
+      "type": "http",
+      "documentation": "{     username: \"hugolima03\",     password: \"senhaDoHugo\" }",
+      "method": "post",
+      "endpoint": "signin",
+      "responses": [
+        {
+          "uuid": "24ab841f-7222-4d5a-aad9-a58d46361954",
+          "body": "{\n  \"data\": {\n    \"username\": \"hugolima03\",\n    \"full_name\": \"HugoasdasdLima Romão\",\n    \"photo\": \"https://lh6.googleusercontent.com/yvuannfjE5cY7150sPurKYe8G8s9t2LilwZOXOaIEhIJ8TFUpB8IrQ7Or0cN_egXa8P6pQQo-iEb4_wl88IQqhsJDO2KmzOgtPNhQJ8e3Piag2iy6vgg3XYmRbqc5I_4RA=w1280\",\n    \"jwt\": \"jwtToken\",\n    \"role\": \"student\"\n  },\n  \"errors\": null\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "dcd31c52-0fc6-4e74-a8e8-5e567a0f1653",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "3bb28cba-d906-4570-b3a0-2f8c27c05037",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "classes/1",
+      "responses": [
+        {
+          "uuid": "ea6523a2-9d91-4c95-afd7-ac11b9ce0351",
+          "body": "{\n  \"data\": {\n    \"course_name\": \"Macuxi Digital\",\n    \"course_description\": \"Este projeto é uma ação que incentiva a presença e a atuação de meninas e mulheres na tecnologia, estimulando o acesso desse público às áreas das ciências exatas. sobre pensamento computacional, habilidades de criação de apps e de divulgação profissional no LinkedIn.\",\n    \"workload\": 120,\n    \"start_date\": \"datetime\",\n    \"end_date\": \"datetime\",\n    \"photo\":\"https://lh4.googleusercontent.com/QgxvXiGu8k8FDxqQvZp2FK9lztHiHkpZytVjDHU01SGONe0J5ZSyK6bcMYaFMNEGsB1m6PCy-iWHYDU2KrICRzc=w16383\",\n    \"total_enrollments\": 12,\n    \"couse_category\": \"\",\n    \"tasks\": [\n      {\n        \"id\": 1,\n        \"title\": \"title\",\n        \"description\": \"description\",\n        \"type\": \"globe\",\n        \"external_link\": \"https://www.youtube.com/@cursoabcia\",\n        \"done\": true\n      },\n      {\n        \"id\": 1,\n        \"title\": \"title\",\n        \"description\": \"description\",\n        \"type\": \"file\",\n        \"external_link\": \"https://www.youtube.com/@cursoabcia\",\n        \"done\": false\n      },\n      {\n        \"id\": 1,\n        \"title\": \"title\",\n        \"description\": \"description\",\n        \"type\": \"beaker\",\n        \"external_link\": \"https://www.youtube.com/@cursoabcia\",\n        \"done\": false\n      }\n    ]\n  },\n  \"errors\": null\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "8769f90e-a296-4aac-89a4-48179b67a64f",
+      "type": "http",
+      "documentation": "{     username: \"\",     password: \"\",     full_name: \"\",     mail: \"\",     phone: \"\",     photo: \"\",     institution: \"\", }",
+      "method": "post",
+      "endpoint": "signup",
+      "responses": [
+        {
+          "uuid": "5fb0dd96-e6ce-4829-9ccb-aa94b223c30a",
+          "body": "{\n  \"data\": {\n    \"username\": \"hugolima03\",\n    \"password\": \"hugo123\",\n    \"full_name\": \"Hugo Lima Romão\",\n    \"mail\": \"hugo8romao@gmail.com\",\n    \"phone\": \"95984230269\",\n    \"photo\": \"https://staticg.sportskeeda.com/editor/2022/12/f9b36-16707362586877-1920.jpg\",\n    \"institution\": \"UFRR\"\n  },\n  \"errors\": null\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "822c8581-b468-4519-ac88-3116c84fdbe7",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "user/{username}/badges",
+      "responses": [
+        {
+          "uuid": "10b26739-62f0-4b84-b7bb-735c86712b8d",
+          "body": "{\n  \"data\": [\n    {\n      \"id\": 1,\n      \"name\": \"Docker\",\n      \"photo\": \"https://www.holopin.io/_next/image?url=https%3A%2F%2Fassets.holopin.io%2FeyJidWNrZXQiOiJob2xvcGluLWFzc2V0cyIsImtleSI6ImFzc2V0cy9jbDlmczZqdWgxNjI1ODA5bWkyNXAyNjRtbiIsImVkaXRzIjp7InJvdGF0ZSI6bnVsbH19&w=3840&q=75\"\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Dino\",\n      \"photo\": \"https://www.holopin.io/_next/image?url=https%3A%2F%2Fassets.holopin.io%2FeyJidWNrZXQiOiJob2xvcGluLWFzc2V0cyIsImtleSI6ImFzc2V0cy9jbDd0ZDhncDUwMTMyMDlrMHd1OHFlNHg5IiwiZWRpdHMiOnsicm90YXRlIjpudWxsfX0%3D&w=3840&q=75\"\n    },\n        {\n      \"id\": 3,\n      \"name\": \"DigitalOcean\",\n      \"photo\": \"https://www.holopin.io/_next/image?url=https%3A%2F%2Fassets.holopin.io%2FeyJidWNrZXQiOiJob2xvcGluLWFzc2V0cyIsImtleSI6ImFzc2V0cy9jbDhlcTN6OWMwMzU3MDlsM2Z4OTluOHg2IiwiZWRpdHMiOnsicm90YXRlIjpudWxsfX0%3D&w=3840&q=75\"\n    },\n        {\n      \"id\": 4,\n      \"name\": \"Hack Club\",\n      \"photo\": \"https://www.holopin.io/_next/image?url=https%3A%2F%2Fassets.holopin.io%2FeyJidWNrZXQiOiJob2xvcGluLWFzc2V0cyIsImtleSI6ImFzc2V0cy9jbGhwNW50NDYxOTcwMjBma3hyc3F2NDlheCIsImVkaXRzIjp7InJvdGF0ZSI6bnVsbH19&w=3840&q=75\"\n    },\n        {\n      \"id\": 5,\n      \"name\": \"Egg\",\n      \"photo\": \"https://www.holopin.io/_next/image?url=https%3A%2F%2Fassets.holopin.io%2FeyJidWNrZXQiOiJob2xvcGluLWFzc2V0cyIsImtleSI6ImFzc2V0cy9jbGJ2ZGRhZWE4MTk3MDhsaTdqZ2Y2cHRyIiwiZWRpdHMiOnsicm90YXRlIjpudWxsfX0%3D&w=3840&q=75\"\n    },\n        {\n      \"id\": 6,\n      \"name\": \"Pokemon master\",\n      \"photo\": \"https://www.holopin.io/_next/image?url=https%3A%2F%2Fassets.holopin.io%2FeyJidWNrZXQiOiJob2xvcGluLWFzc2V0cyIsImtleSI6ImFzc2V0cy9jbGZsejFkOXExMTMzMGZtaWdpMXdmMTJyIiwiZWRpdHMiOnsicm90YXRlIjpudWxsfX0%3D&w=3840&q=75\"\n    },\n        {\n      \"id\": 7,\n      \"name\": \"Linux tips\",\n      \"photo\": \"https://www.holopin.io/_next/image?url=https%3A%2F%2Fassets.holopin.io%2FeyJidWNrZXQiOiJob2xvcGluLWFzc2V0cyIsImtleSI6ImFzc2V0cy9jbGgwYjY3amwxNjE3MzBmbDlnb3A1eHl4YSIsImVkaXRzIjp7InJvdGF0ZSI6bnVsbH19&w=3840&q=75\"\n    },\n        {\n      \"id\": 8,\n      \"name\": \"Batman code\",\n      \"photo\": \"https://www.holopin.io/_next/image?url=https%3A%2F%2Fassets.holopin.io%2FeyJidWNrZXQiOiJob2xvcGluLWFzc2V0cyIsImtleSI6ImFzc2V0cy9jbGZjMDFlc2UyMjg3MGZsOTJ4cWNoNGNxIiwiZWRpdHMiOnsicm90YXRlIjpudWxsfX0%3D&w=3840&q=75\"\n    },\n        {\n      \"id\": 9,\n      \"name\": \"Label\",\n      \"photo\": \"https://www.holopin.io/_next/image?url=https%3A%2F%2Fassets.holopin.io%2FeyJidWNrZXQiOiJob2xvcGluLWFzc2V0cyIsImtleSI6ImFzc2V0cy9jbGVoMWQzdHIyMzQ1MjA4ams2aXZkcXp4bCIsImVkaXRzIjp7InJvdGF0ZSI6bnVsbH19&w=3840&q=75\"\n    },\n  ],\n  \"errors\": null\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "92d67381-491b-4a27-bb8c-653f9545077b",
+      "type": "http",
+      "documentation": "{     username: \"\",     password: \"\",     full_name: \"\",     mail: \"\",     phone: \"\",     photo: \"\",     institution: \"\", }",
+      "method": "post",
+      "endpoint": "user/1/edit",
+      "responses": [
+        {
+          "uuid": "2db5de3c-b4b7-44c7-8109-2bd3a256beb7",
+          "body": "{\n  \"data\": {\n    \"username\": \"hugolima03\",\n    \"password\": \"hugo123\",\n    \"full_name\": \"Hugo L.\",\n    \"mail\": \"hugo8romao@gmail.com\",\n    \"phone\": \"95984230269\",\n    \"photo\": \"https://staticg.sportskeeda.com/editor/2022/12/f9b36-16707362586877-1920.jpg\",\n    \"institution\": \"UFRR\"\n  },\n  \"errors\": null\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "8f546b4a-f2e2-48f0-8297-bd83241d5a8d"
+    },
+    {
+      "type": "route",
+      "uuid": "3bb28cba-d906-4570-b3a0-2f8c27c05037"
+    },
+    {
+      "type": "route",
+      "uuid": "822c8581-b468-4519-ac88-3116c84fdbe7"
+    },
+    {
+      "type": "route",
+      "uuid": "a2219da1-402f-49bc-b8da-305d9256d69f"
+    },
+    {
+      "type": "route",
+      "uuid": "8769f90e-a296-4aac-89a4-48179b67a64f"
+    },
+    {
+      "type": "route",
+      "uuid": "92d67381-491b-4a27-bb8c-653f9545077b"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": []
+}
