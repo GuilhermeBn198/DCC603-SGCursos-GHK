@@ -6,7 +6,7 @@
 
 # SGCursos - Sistema de Gerenciamento de Cursos(em sistema distribuído) do departamento de Ciência da Computação da UFRR
 
-## Ministrado por: Acauan Ribeiro.
+## Ministrado por: [Acauan Ribeiro](https://github.com/acauanrr).
 
 ## Grupo:
 
@@ -44,10 +44,14 @@
 
 ---
 
-# instruções para implementação do database da aplicação e do servidor nodejs
+# instruções para implementação do database da aplicação e do servidor nodejs:
 
 ## [click here](./backend/README.md)
 
-# instruções para implementação do frontend da aplicação
+# instruções para implementação do frontend da aplicação:
 
 ## [click here](./frontend/README.md)
+
+# Relatório de desenvolvimento da aplicação:
+
+## [click here]()
