@@ -1,10 +1,10 @@
 import * as S from './styles'
 
-type EditProps = {
+type AuthProps = {
   children: React.ReactNode
 }
 
-const Edit = ({ children }: EditProps) => {
+const Auth = ({ children }: AuthProps) => {
   return (
     <S.Container>
       <S.FormContainer>{children}</S.FormContainer>
@@ -12,4 +12,4 @@ const Edit = ({ children }: EditProps) => {
   )
 }
 
-export default Edit
+export default Auth

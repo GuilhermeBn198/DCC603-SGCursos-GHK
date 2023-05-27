@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Edit from '.';
+import Auth from '.';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
-const meta: Meta<typeof Edit> = {
-  title: 'Edit',
-  component: Edit,
+const meta: Meta<typeof Auth> = {
+  title: 'Auth',
+  component: Auth,
   tags: ['autodocs']
 };
 
 export default meta;
-type Story = StoryObj<typeof Edit>;
+type Story = StoryObj<typeof Auth>;
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Primary: Story = {};

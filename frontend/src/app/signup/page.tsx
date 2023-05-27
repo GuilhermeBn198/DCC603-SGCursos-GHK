@@ -1,47 +1,48 @@
 'use client'
 import React from 'react'
-
-import { Input } from '@nextui-org/react'
-import { Button } from '@nextui-org/react'
-import { useRouter } from 'next/navigation'
+import { Form } from 'components/Form'
+import { useForm } from 'react-hook-form'
+import { Button, Input } from '@nextui-org/react'
 
 import Auth from 'templates/Auth'
-
-import * as S from './styles'
-import { useForm } from 'react-hook-form'
-import { useSession } from 'next-auth/react'
-
-import { Form } from 'components/Form'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 type Inputs = {
+  username: string
+  password: string
   full_name: string
-  photo: string
   email: string
   phone: string
+  photo: string
   institution: string
 }
 
-const Page = () => {
+const SignUp = () => {
   const { push } = useRouter()
-  const { handleSubmit, register } = useForm<Inputs>()
-  const { data: session } = useSession()
+  const { register, handleSubmit } = useForm<Inputs>()
 
   async function onSubmit(data: Inputs) {
-    await fetch(`http://localhost:5050/user/1/edit`, {
+    await fetch(`http://localhost:5050/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     }).then((r) => r.json())
+
+    await signIn('credentials', {
+      username: data.username,
+      password: data.password,
+      redirect: false
+    })
     push('/dashboard')
   }
 
   return (
     <Auth>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <S.Title>Editar perfil: {session?.user.full_name}</S.Title>
-
+        <h1>Criar conta</h1>
         <Input
           type="text"
           placeholder="Nome"
@@ -72,11 +73,10 @@ const Page = () => {
           aria-label="Instituição"
           {...register('institution', { required: true })}
         />
-
         <Button type="submit">Enviar</Button>
       </Form>
     </Auth>
   )
 }
 
-export default Page
+export default SignUp
