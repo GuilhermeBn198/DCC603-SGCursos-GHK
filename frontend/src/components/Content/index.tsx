@@ -1,8 +1,7 @@
 'use client'
+import { styled } from "styled-components";
 
-import styled from 'styled-components'
-
-export const Container = styled.div`
+export const Content = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -16,9 +15,9 @@ export const Container = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-`
 
-export const Title = styled.h1`
-  font-size: 3.2rem;
-  font-weight: 600;
+  h1 {
+    font-size: 3.2rem;
+    font-weight: 600;
+  }
 `
