@@ -25,7 +25,7 @@ docker pull postgres:14.8
 6. Após esse comando faça este outro para poder rodar as informações do servidor e settar as variaveis de ambiente:
 
     ```bash
-    docker compose -f ./backend/docker-compose.yml up
+    docker compose -f docker-compose.yml up
     ```
 
 # Tutorial de instalação do servidor nodejs da aplicação

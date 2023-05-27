@@ -1,48 +1,33 @@
 version: "3.9"
 services:
     postgres:
-        image: postgres:14.5
+        image: postgres:14.8
         restart: always
         environment:
-            - POSTGRES_USER=${DB_USER}
-            - POSTGRES_PASSWORD=${DB_PASSWORD}
-            - POSTGRES_DB=${DB_NAME}
+            POSTGRES_USER: ${DB_USER}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+            POSTGRES_DB: ${DB_NAME}
         volumes:
             - postgres_data:/var/lib/postgresql/data
         ports:
             - "5432:5432"
-    node_server:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        ports:
-            - "3000:3000"
-        depends_on:
-            - postgres
-        # environment:
-        #     DATABASE_URL: postgresql://postgres:@localhost:5432/sgcursos?schema=public
-        env_file:
-            - .env
+        networks:
+            - backend_network
+
+        # node_server:
+        #     build:
+        #         context: .
+        #         dockerfile: Dockerfile
+        #     ports:
+        #         - "3000:3000"
+        #     depends_on:
+        #         - postgres
+        #     env_file:
+        #         - .env
+
+networks:
+    backend_network:
+        driver: bridge
+
 volumes:
     postgres_data:
-# version: "3.9"
-# services:
-#     db:
-#         image: postgres:14.5
-#         restart: always
-#         environment:
-#             POSTGRES_USER: postgres
-#             POSTGRES_PASSWORD: 1234
-#             POSTGRES_DB: sgcursos
-#         volumes:
-#             - db-data:/var/lib/postgresql/data
-#     app:
-#         build: .
-#         ports:
-#             - "3000:3000"
-#         depends_on:
-#             - db
-#         environment:
-#             DATABASE_URL: db
-# volumes:
-#     db-data:

@@ -6,8 +6,12 @@ const prisma = new PrismaClient();
 // imports
 
 router.get("/users", async (req, res) => {
-    const users = await prisma.user.findMany();
-    res.json(users);
+    try {
+        const users = await prisma.user.findMany();
+        res.json(users);
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 module.exports = router;
