@@ -35,6 +35,15 @@ const nextConfig = {
         hostname: 'lh6.googleusercontent.com'
       }
     ]
+  },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/dashboard',
+        permanent: true
+      }
+    ]
   }
 }
 

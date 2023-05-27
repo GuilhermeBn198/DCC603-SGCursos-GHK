@@ -9,9 +9,9 @@ export const Container = styled(Link)`
   align-items: center;
   text-decoration: none;
   width: fit-content;
-  gap: 1.6rem;
+  gap: 16px;
 
-  margin-bottom: 3.2rem;
+  margin-bottom: 32px;
 
   img {
     object-fit: cover;
@@ -26,15 +26,15 @@ export const Profile = styled(Image)`
 export const Column = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 8px;
 `
 
 export const Title = styled.strong`
-  font-size: 2rem;
+  font-size: 20px;
   font-weight: 600;
 `
 export const Text = styled.p`
-  font-size: 1.4rem;
+  font-size: 14px;
   font-weight: 300;
   color: #334155;
 `

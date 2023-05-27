@@ -19,16 +19,16 @@ export const SidebarContainer = styled.aside<SidebarContainerProps>`
     position: relative;
 
     height: 100vh;
-    width: 20rem;
+    width: 200px;
 
     transition: all 0.2s;
 
     ${$small
       ? css`
-          width: 5rem;
+          width: 50px;
 
           ${SidebarLink} {
-            padding: 1.6rem;
+            padding: 16px;
           }
         `
       : ''}
@@ -38,13 +38,13 @@ export const SidebarContainer = styled.aside<SidebarContainerProps>`
 export const SidebarLink = styled(Link)`
   ${() => css`
     display: flex;
-    padding: 1.6rem;
-    width: 20rem;
+    padding: 16px;
+    width: 200px;
 
-    gap: 1.8rem;
+    gap: 18px;
 
     transition: all 0.2s;
-    font-size: 1.6rem;
+    font-size: 16px;
     text-decoration: none;
 
     background-color: transparent;
@@ -52,8 +52,8 @@ export const SidebarLink = styled(Link)`
     cursor: pointer;
 
     svg {
-      width: 1.6rem;
-      height: 1.6rem;
+      width: 16px;
+      height: 16px;
     }
 
     p {

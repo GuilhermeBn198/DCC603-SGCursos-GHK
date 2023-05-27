@@ -1,6 +1,8 @@
 'use client'
 import React from 'react'
 
+import { usePathname } from 'next/navigation'
+
 import Badges from 'components/Badges'
 import Sidebar from 'components/Sidebar'
 import CourseDetails from 'components/CourseDetails'
@@ -14,6 +16,10 @@ type BaseProps = {
 
 const Base = ({ children }: BaseProps) => {
   const { activeCourse } = useGlobal()
+  const pathname = usePathname()
+  const paths = ['/signin', '/signup', '/profile']
+
+  if (paths.includes(pathname)) return <S.Main>{children}</S.Main>
 
   return (
     <S.Container $hasActiveCourse={!!activeCourse}>

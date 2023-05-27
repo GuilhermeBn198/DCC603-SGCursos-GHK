@@ -3,7 +3,7 @@ import fetcher from 'utils/fetcher'
 
 export interface ClassResponse {
   data: Class[]
-  error: any
+  errors: any
 }
 
 export interface Class {
@@ -27,7 +27,7 @@ function useClasses() {
   return {
     classes: data?.data,
     isLoading,
-    isError: data?.error || error
+    isError: data?.errors || error
   }
 }
 

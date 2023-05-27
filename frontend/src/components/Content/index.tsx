@@ -1,14 +1,14 @@
 'use client'
-import { styled } from "styled-components";
+import { styled } from 'styled-components'
 
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
 
-  padding: 2.4rem;
-  padding-top: 5.4rem;
+  padding: 24px;
+  padding-top: 54px;
 
-  gap :2.4rem;
+  gap: 24px;
   height: -webkit-fill-available;
   overflow: auto;
 
@@ -17,7 +17,7 @@ export const Content = styled.div`
   }
 
   h1 {
-    font-size: 3.2rem;
+    font-size: 32px;
     font-weight: 600;
   }
 `

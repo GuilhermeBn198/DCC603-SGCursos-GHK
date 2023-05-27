@@ -4,10 +4,10 @@ import { styled } from 'styled-components'
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
+  gap: 16px;
 
   h1 {
-    font-size: 2.4rem;
+    font-size: 24px;
     font-weight: 700;
   }
 `

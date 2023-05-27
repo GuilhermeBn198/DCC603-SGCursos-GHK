@@ -18,7 +18,7 @@ const Sidebar = ({ small = false }: SidebarProps) => {
     <S.SidebarContainer $small={small}>
       {small ? null : (
         <Logo
-          style={{ top: '2.4rem', left: '50%', transform: 'translateX(-50%)' }}
+          style={{ top: '24px', left: '50%', transform: 'translateX(-50%)' }}
         />
       )}
       <S.SidebarLink href="/">
@@ -38,7 +38,7 @@ const Sidebar = ({ small = false }: SidebarProps) => {
         </S.SidebarLink>
       )}
       <S.SidebarLink as="button" onClick={() => signOut()} href="/support">
-      <SignOut size={16} />
+        <SignOut size={16} />
         <p>Sair</p>
       </S.SidebarLink>
     </S.SidebarContainer>

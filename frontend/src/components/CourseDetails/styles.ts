@@ -4,61 +4,61 @@ import styled from 'styled-components'
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  border-left: 0.1rem solid #EBEBF0;
+  border-left: 1px solid #EBEBF0;
 
   overflow: auto;
 
-  padding: 2.4rem;
-  gap: 1.6rem;
+  padding: 24px;
+  gap: 16px;
  `
 
 export const GoBack = styled.button`
   width: fit-content;
   border: none;
-  font-size: 1.4rem;
+  font-size: 14px;
   text-decoration: underline;
   background-color: transparent;
   cursor: pointer;
 `
 
 export const ImageWrapper = styled.div`
-  min-height: 40rem;
+  min-height: 400px;
   position: relative;
 `
 
 export const CoursePhoto = styled(Image)`
-  border-radius: 0.8rem;
+  border-radius: 8px;
   object-fit: cover;
 `
 
 export const Title = styled.h1`
-  font-size: 3.2rem;
+  font-size: 32px;
   font-weight: 500;
-  margin-top: 1.6rem;
+  margin-top: 16px;
 `
 
 export const Text = styled.p`
-  font-size: 1.6rem;
+  font-size: 16px;
   line-height: normal;
 
   text-align: justify;
-  text-indent: 5rem;
+  text-indent: 50px;
 `
 
 export const Row = styled.div`
   display: flex;
   justify-content: space-between;
 
-  margin: 2.4rem 0;
+  margin: 24px 0;
 `
 
 export const H3 = styled.h3`
-  font-size: 1.8rem;
+  font-size: 18px;
   font-weight: 700;
 `
 
 export const Counter = styled.p`
-  font-size: 1.2rem;
+  font-size: 12px;
   color:#ababab;
 `
 

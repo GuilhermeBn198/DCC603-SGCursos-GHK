@@ -4,15 +4,12 @@ import React from 'react'
 import * as S from './styles'
 import { useSession } from 'next-auth/react'
 
+import { roles } from 'components/User'
+
 const ProfileButton = () => {
   const { data } = useSession()
 
   if (data === null) return null
-
-  const roles = {
-    student: 'Estudante',
-    admin: 'Administrador'
-  }
 
   return (
     <S.Container href="/profile">

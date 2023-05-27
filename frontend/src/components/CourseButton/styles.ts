@@ -12,7 +12,7 @@ export const Container = styled.button<ContainerProps>`
     display: flex;
     flex-direction: row;
 
-    border: 0.1rem solid #ebebf0;
+    border: 1px solid #ebebf0;
     background-color: white;
     text-decoration: none;
     cursor: pointer;
@@ -23,22 +23,22 @@ export const Container = styled.button<ContainerProps>`
       ? css`
           border: none;
           ${Content} {
-            padding: 1.6rem;
+            padding: 16px;
             justify-content: center;
-            gap: 1.6rem;
+            gap: 16px;
           }
 
           ${Subtitle} {
-            font-size: 1.2rem;
+            font-size: 12px;
           }
 
           ${Strong} {
-            font-size: 1.6rem;
+            font-size: 16px;
             margin: 0;
           }
 
           ${CourseImage}, ${CouseImageContainer} {
-            border-radius: 0.8rem;
+            border-radius: 8px;
           }
         `
       : null}
@@ -51,7 +51,7 @@ export const Container = styled.button<ContainerProps>`
 
     ${$active
       ? css`
-          border-radius: 0.8rem;
+          border-radius: 8px;
           box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
             rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
         `
@@ -62,7 +62,7 @@ export const Container = styled.button<ContainerProps>`
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 3.2rem 4.2rem;
+  padding: 32px 42px;
   align-self: stretch;
 
   transition: all 0.2s;
@@ -84,15 +84,15 @@ export const CourseImage = styled(Image)`
 `
 
 export const Subtitle = styled.p`
-  font-size: 1.6rem;
+  font-size: 16px;
   font-weight: 300;
   color: #ababab;
 `
 
 export const Strong = styled.strong`
-  font-size: 2.4rem;
+  font-size: 24px;
   font-weight: 500;
 
   margin-top: auto;
-  max-width: 30rem;
+  max-width: 300px;
 `

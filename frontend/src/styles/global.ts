@@ -51,9 +51,6 @@ export const GlobalStyle = createGlobalStyle`
     border-collapse: collapse;
     border-spacing: 0;
   }
-  html {
-    font-size: 62.5%;
-  }
 
   h1, h2, h3, h4, h5, h6, p, a {
     color: #0F172A;

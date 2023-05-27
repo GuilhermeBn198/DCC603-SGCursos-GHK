@@ -5,7 +5,7 @@ export const Container = styled.label`
   align-items: center;
   justify-content: space-between;
 
-  padding: 0.8rem;
+  padding: 8px;
 
   background: white;
 
@@ -15,11 +15,11 @@ export const Container = styled.label`
 export const Row = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 8px;
  `
 
 export const Text = styled.p`
-  font-size: 1.6rem;
+  font-size: 16px;
  `
 
 const colors = {
@@ -39,13 +39,13 @@ export const IconWrapper = styled.div<IconWrapperProps>`
     justify-content: center;
     background-color: ${colors[type]};
 
-    border-radius: 0.8rem;
+    border-radius: 8px;
 
-    width: 4rem;
-    height: 4rem;
+    width: 40px;
+    height: 40px;
 
     svg {
-      height: 2.4rem;
+      height: 24px;
       fill: white;
     }
   `}
