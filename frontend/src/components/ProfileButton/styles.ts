@@ -1,9 +1,8 @@
 'use client'
-import Link from 'next/link'
 import Image from 'next/image'
 import styled from 'styled-components'
 
-export const Container = styled(Link)`
+export const Container = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -12,6 +11,8 @@ export const Container = styled(Link)`
   gap: 16px;
 
   margin-bottom: 32px;
+
+  cursor: pointer;
 
   img {
     object-fit: cover;
