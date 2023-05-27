@@ -2,7 +2,7 @@
 import React from 'react'
 
 import { signOut, useSession } from 'next-auth/react'
-import { Book, Home, Person, SignOut } from '@styled-icons/octicons'
+import { Home, Person, SignOut, Stack } from '@styled-icons/octicons'
 
 import Logo from 'components/Logo'
 import * as S from './styles'
@@ -26,9 +26,9 @@ const Sidebar = ({ small = false }: SidebarProps) => {
         <p>Início</p>
       </S.SidebarLink>
       {data?.user.role === 'admin' && (
-        <S.SidebarLink href="/students">
-          <Book size={16} />
-          <p>Gerenciar cursos</p>
+        <S.SidebarLink href="/categories">
+          <Stack size={16} />
+          <p>Categorias</p>
         </S.SidebarLink>
       )}
       {data?.user.role === 'admin' && (
