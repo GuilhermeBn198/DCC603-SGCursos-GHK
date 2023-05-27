@@ -1,29 +1,11 @@
-# DCC603-finalProj-backend-GHK
-
-## Repositório do projeto final da disciplina DCC603 - Banco de dados II.
-
-## Ministrado por: Acauan Ribeiro.
-
-## Grupo:
-
--   Guilherme Lucas Pereira Bernardo
--   Hugo Lima Romão
--   Kelvin Araújo Ferreira
-
----
-
----
-
----
-
-# instruções para implementação do database
+# Tutorial de instalação do database da aplicação
 
 1. certifique-se de que tem docker na sua máquina
 
-2. executar o comando:
+2. execute o comando:
 
 ```bash
-docker pull postgres:14.5
+docker pull postgres:14.8
 ```
 
 3. verifique que a imagem do docker foi baixada
@@ -45,7 +27,7 @@ docker pull postgres:14.5
     docker compose -f [FILE NAME] up
     ```
 
-# instruções para implementação do backend:
+# Tutorial de instalação do servidor nodejs da aplicação
 
 1. sete a variável de ambiente para se conectar ao banco de dados
     - `DATABASE_URL=postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=SCHEMA`
