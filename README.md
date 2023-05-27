@@ -4,7 +4,7 @@
 
 ---
 
-# SGCursos - Sistema de Gerenciamento de Cursos do departamento de Ciência da Computação da UFRR
+# SGCursos - Sistema de Gerenciamento de Cursos(em sistema distribuído) do departamento de Ciência da Computação da UFRR
 
 ## Ministrado por: Acauan Ribeiro.
 
@@ -13,6 +13,30 @@
 -   Guilherme Lucas Pereira Bernardo
 -   Hugo Lima Romão
 -   Kelvin Araújo Ferreira
+
+---
+
+---
+
+---
+
+### Tecnologias usadas:
+
+-   JavaScript
+-   TypeScript
+-   Html
+-   CSS
+-   React.js
+-   Next.js
+-   Node.js
+-   Jest
+-   Prisma
+-   PostgreSQL
+-   Docker
+-   Styled Components
+-   Storybook
+-   Git hooks
+-   Mokoon
 
 ---
 
