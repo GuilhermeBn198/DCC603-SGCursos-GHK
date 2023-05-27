@@ -1,13 +1,14 @@
 const express = require("express");
-const { PrismaClient } = require("@prisma/client");
 const router = express.Router();
-const prisma = new PrismaClient();
-
-// imports
+const { User } = require("./models"); // Assuming you have a models/index.js file exporting your models
 
 router.get("/users", async (req, res) => {
-    const users = await prisma.user.findMany();
-    res.json(users);
+    try {
+        const users = await User.findAll();
+        res.json(users);
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 module.exports = router;
