@@ -3,12 +3,12 @@ import Image from 'next/image'
 import styled, { css } from 'styled-components'
 
 type ContainerProps = {
-  small: boolean
-  active: boolean
+  $small: boolean
+  $active: boolean
 }
 
 export const Container = styled.button<ContainerProps>`
-  ${({ small, active }) => css`
+  ${({ $small, $active }) => css`
     display: flex;
     flex-direction: row;
 
@@ -19,7 +19,7 @@ export const Container = styled.button<ContainerProps>`
     padding: 0;
     transition: all 0.2s;
 
-    ${small
+    ${$small
       ? css`
           border: none;
           ${Content} {
@@ -49,7 +49,7 @@ export const Container = styled.button<ContainerProps>`
       }
     }
 
-    ${active
+    ${$active
       ? css`
           border-radius: 0.8rem;
           box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,

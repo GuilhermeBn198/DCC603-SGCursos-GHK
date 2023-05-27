@@ -59,6 +59,12 @@ export const authOptions: NextAuthOptions = {
     }
   },
   session: { maxAge: 60 * 60 * 12 },
+  theme: {
+    colorScheme: "light", // "auto" | "dark" | "light"
+    brandColor: "#03a9f4", // Hex color code
+    logo: "https://github.com/acauanrr/sgc-project/blob/main/frontend/public/images/icon.png?raw=true", // Absolute URL to image
+    buttonText: "#0F172A" // Hex color code
+  }
 }
 
 const handler = NextAuth(authOptions)

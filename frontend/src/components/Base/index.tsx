@@ -16,7 +16,7 @@ const Base = ({ children }: BaseProps) => {
   const { activeCourse } = useGlobal()
 
   return (
-    <S.Container hasActiveCourse={!!activeCourse}>
+    <S.Container $hasActiveCourse={!!activeCourse}>
       <Sidebar small={!!activeCourse} />
       <S.Main>{children}</S.Main>
       {activeCourse ? <CourseDetails /> : <Badges />}

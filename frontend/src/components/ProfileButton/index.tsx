@@ -7,7 +7,12 @@ import { useSession } from 'next-auth/react'
 const ProfileButton = () => {
   const { data } = useSession()
 
-  if (data ===null) return null
+  if (data === null) return null
+
+  const roles = {
+    student: 'Estudante',
+    admin: 'Administrador'
+  }
 
   return (
     <S.Container href="/profile">
@@ -21,7 +26,7 @@ const ProfileButton = () => {
       ) : null}
       <S.Column>
         <S.Title>{data?.user?.full_name}</S.Title>
-        <S.Text>Boa Vista, RR</S.Text>
+        <S.Text>{roles[data?.user?.role as 'student']} • Boa Vista, RR</S.Text>
       </S.Column>
     </S.Container>
   )

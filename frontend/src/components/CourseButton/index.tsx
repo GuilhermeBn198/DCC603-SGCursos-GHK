@@ -35,7 +35,7 @@ const CourseButton = ({
     : { width: 324, height: 215 }
 
   return (
-    <S.Container small={small} onClick={() => setActiveCourse(id)} active={active}>
+    <S.Container $small={small} onClick={() => setActiveCourse(id)} $active={active}>
       <S.CouseImageContainer>
         <S.CourseImage src={course_photo} alt={course_name} {...imgProps} />
       </S.CouseImageContainer>

@@ -4,11 +4,11 @@ import Link from 'next/link'
 import styled, { css } from 'styled-components'
 
 type SidebarContainerProps = {
-  small: boolean
+  $small: boolean
 }
 
 export const SidebarContainer = styled.aside<SidebarContainerProps>`
-  ${({ small }) => css`
+  ${({ $small }) => css`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -23,7 +23,7 @@ export const SidebarContainer = styled.aside<SidebarContainerProps>`
 
     transition: all 0.2s;
 
-    ${small
+    ${$small
       ? css`
           width: 5rem;
 

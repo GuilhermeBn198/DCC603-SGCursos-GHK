@@ -48,13 +48,15 @@ const CourseDetails = () => {
   return (
     <S.Container>
       <S.GoBack onClick={() => setActiveCourse(undefined)}>Voltar</S.GoBack>
-      <S.ImageWrapper>
-        <S.CoursePhoto
-          src={classDetails?.photo || ''}
-          alt="Course photo"
-          fill
-        />
-      </S.ImageWrapper>
+      {classDetails?.photo ? (
+        <S.ImageWrapper>
+          <S.CoursePhoto
+            src={classDetails.photo}
+            alt="Course photo"
+            fill
+          />
+        </S.ImageWrapper>
+      ) : null}
 
       <S.Title>{classDetails?.course_name}</S.Title>
       <S.Text>{classDetails?.course_description}</S.Text>
