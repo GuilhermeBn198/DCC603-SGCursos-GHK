@@ -8,12 +8,7 @@ type AppModalProps = {
   setVisible: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function AppModal({
-  title,
-  children,
-  visible,
-  setVisible
-}: AppModalProps) {
+const AppModal = ({ title, children, visible, setVisible }: AppModalProps) => {
   const closeHandler = () => {
     setVisible(false)
   }
@@ -35,3 +30,5 @@ export default function AppModal({
     </Modal>
   )
 }
+
+export default AppModal
