@@ -64,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
             as: "completedTasks",
         });
 
-        User.hasOne(models.Role, {
+        User.belongsTo(models.Role, {
             foreignKey: "roleId",
             as: "getrole",
         });
