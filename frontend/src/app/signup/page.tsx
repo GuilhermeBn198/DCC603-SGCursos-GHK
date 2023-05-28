@@ -1,8 +1,8 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { Form } from 'components/Form'
 import { useForm } from 'react-hook-form'
-import { Button, Input } from '@nextui-org/react'
+import { Button, Input, Loading, Text } from '@nextui-org/react'
 
 import Auth from 'templates/Auth'
 import { signIn } from 'next-auth/react'
@@ -10,20 +10,44 @@ import { useRouter } from 'next/navigation'
 
 type Inputs = {
   username: string
-  password: string
   full_name: string
-  email: string
+  institution: string
+  password: string
+  mail: string
   phone: string
   photo: string
+  postal_code: string
+  house_number: string
+}
+
+export interface Response {
+  data: Data
+  errors: string[]
+}
+
+export interface Data {
+  id: number
+  username: string
+  mail: string
+  phone: string
+  password: string
+  full_name: string
+  photo: string
   institution: string
+  postal_code: string
 }
 
 const SignUp = () => {
   const { push } = useRouter()
   const { register, handleSubmit } = useForm<Inputs>()
 
+  const [loading, setLoading] = useState(false)
+  const [errors, setErrors] = useState<string[]>([])
+
   async function onSubmit(data: Inputs) {
-    await fetch(`http://localhost:5050/signup`, {
+    setLoading(true)
+
+    const response: Response = await fetch(`http://localhost:5050/api/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -31,35 +55,60 @@ const SignUp = () => {
       body: JSON.stringify(data)
     }).then((r) => r.json())
 
-    await signIn('credentials', {
-      username: data.username,
-      password: data.password,
-      redirect: false
-    })
-    push('/dashboard')
+    if (response.data) {
+      await signIn('credentials', {
+        username: data.username,
+        password: data.password,
+        redirect: false
+      })
+      push('/dashboard')
+    }
+
+    if (response.errors.length) {
+      setLoading(false)
+      setErrors(response.errors)
+    }
   }
 
   return (
     <Auth>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <h1>Criar conta</h1>
+        {errors.map((err) => (
+          <Text key={err} color="red">
+            {err}
+          </Text>
+        ))}
+
         <Input
           type="text"
-          placeholder="Nome"
-          aria-label="Nome"
+          placeholder="Usuário"
+          aria-label="Usuário"
+          {...register('username', { required: true })}
+        />
+        <Input
+          type="password"
+          placeholder="Senha"
+          aria-label="Senha"
+          {...register('password', { required: true })}
+        />
+        <Input
+          type="text"
+          placeholder="Nome Completo"
+          aria-label="Nome Completo"
           {...register('full_name', { required: true })}
         />
         <Input
           type="text"
-          placeholder="Photo"
-          aria-label="Photo"
+          placeholder="Foto"
+          aria-label="Foto"
           {...register('photo', { required: true })}
         />
         <Input
           type="email"
           placeholder="E-mail"
           aria-label="E-mail"
-          {...register('email', { required: true })}
+          {...register('mail', { required: true })}
         />
         <Input
           type="tel"
@@ -73,7 +122,13 @@ const SignUp = () => {
           aria-label="Instituição"
           {...register('institution', { required: true })}
         />
-        <Button type="submit">Enviar</Button>
+        <Input
+          type="text"
+          placeholder="CEP"
+          aria-label="CEP"
+          {...register('postal_code', { required: true })}
+        />
+        {loading ? <Loading /> : <Button type="submit">Enviar</Button>}
       </Form>
     </Auth>
   )

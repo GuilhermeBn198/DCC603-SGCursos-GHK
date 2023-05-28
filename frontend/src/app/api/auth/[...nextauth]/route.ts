@@ -22,7 +22,7 @@ export const authOptions: NextAuthOptions = {
         const { username, password } = credentials as Credentials
 
         try {
-          const data = await fetch(`http://localhost:5050/signin`, {
+          const data = await fetch(`http://localhost:5050/api/signin`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

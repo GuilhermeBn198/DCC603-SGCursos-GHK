@@ -11,7 +11,7 @@ export const prisma = new PrismaClient();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const port: number = 3000;
+const port: number = 5050;
 
 attachRouters(app)
 

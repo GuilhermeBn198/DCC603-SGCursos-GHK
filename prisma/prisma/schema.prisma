@@ -32,7 +32,6 @@ model User {
   photo         String          @db.VarChar(255)
   institution   String          @db.VarChar(255)
   postal_code   String          @db.VarChar(255)
-  house_number   String          @db.VarChar(255)
   // enrollment    Enrollment[]
   // certificate   Certificate[]
   // Class         Class[]

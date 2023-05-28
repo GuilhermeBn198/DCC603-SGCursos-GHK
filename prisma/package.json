@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node ./src/app.ts",
+    "migrate": "prisma migrate dev",
     "dev": "nodemon ./src/app.ts"
   },
   "dependencies": {
