@@ -1,14 +1,14 @@
-import { prisma } from "app";
 import express from "express";
+
+import { prisma } from "app";
 
 export const index = async (req: express.Request, res: express.Response) => {
   try {
-    const resp = await prisma.user.create({
+    const data = await prisma.user.create({
       data: req.body
     });
-    return res.status(200).json(resp);
+    return res.status(200).json({ data, errors: [] });
   } catch (err) {
-    console.error('Falha ao criar usuário', err)
-    res.status(500)
+    res.status(500).json({ data: null, errors: ['Falha no servidor'] })
   }
 };

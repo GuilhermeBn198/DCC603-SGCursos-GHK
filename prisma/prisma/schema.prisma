@@ -22,7 +22,7 @@ datasource db {
 
 model User {
   id            Int             @id @default(autoincrement())
-  username      String          @db.VarChar(255)
+  username      String          @unique @db.VarChar(255)
   mail          String          @db.VarChar(255)
   // userRoles     Int
   // getrole       Role            @relation(fields: [userRoles], references: [id])
