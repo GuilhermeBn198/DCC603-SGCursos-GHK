@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true,
                 type: DataTypes.INTEGER,
             },
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
         },
         {
             sequelize,
@@ -20,7 +24,9 @@ module.exports = (sequelize, DataTypes) => {
 
     Permission.associate = (models) => {
         Permission.belongsToMany(models.Role, {
-            foreignKey: "Rolepermissions",
+            through: {
+                model: "RolePermissions",
+            },
         });
     };
 

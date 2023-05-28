@@ -1,5 +1,3 @@
-"use strict";
-
 module.exports = {
     up: async (queryInterface, Sequelize) => {
         await queryInterface.createTable("permissions", {
@@ -8,6 +6,9 @@ module.exports = {
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER,
+            },
+            name: {
+                type: Sequelize.STRING,
             },
         });
     },
