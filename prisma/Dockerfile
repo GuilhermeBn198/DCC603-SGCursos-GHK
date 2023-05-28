@@ -8,14 +8,14 @@ COPY package*.json ./
 # generated prisma files
 COPY prisma ./prisma/
 
-# COPY ENV variable
-COPY .env ./
-
 # COPY tsconfig.json file
 COPY tsconfig.json ./
 
 # COPY
 COPY . .
+
+# COPY ENV variable
+COPY .env.production ./.env
 
 RUN npm install
 
