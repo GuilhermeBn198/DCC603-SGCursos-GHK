@@ -1,9 +1,10 @@
 import signInRouter from 'routes/signin'
+import signUpRouter from 'routes/signup'
 // import { serviceMiddleware, userMiddleware } from '@/middleware';
 
 import express from 'express'
 
-const routers = [{ '/signin': signInRouter }];
+const routers = [{ '/signin': signInRouter }, { '/signup': signUpRouter }];
 
 const middlewares: [] = [] //[serviceMiddleware.get, userMiddleware.get];
 
