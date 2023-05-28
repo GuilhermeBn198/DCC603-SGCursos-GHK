@@ -18,15 +18,12 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DATE,
             allowNull: false,
         },
-        courseClass: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        getcourse: {
+        courseId: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                modelName: "Course",
+                model: "Course",
+                key: "id",
             },
         },
         teacher: {
@@ -48,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Class.associate = (models) => {
         Class.belongsTo(models.Course, {
-            foreignKey: "courseClass",
+            foreignKey: "courseId",
             as: "course",
         });
         Class.belongsTo(models.User, {

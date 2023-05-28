@@ -3,37 +3,42 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class CourseTask extends Model {}
 
-    CourseTask.init({
-        id: {
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true,
-            type: DataTypes.INTEGER,
+    CourseTask.init(
+        {
+            id: {
+                allowNull: false,
+                autoIncrement: true,
+                primaryKey: true,
+                type: DataTypes.INTEGER,
+            },
+            title: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            description: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            external_link: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
         },
-        title: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        description: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        external_link: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-    });
+        {
+            sequelize,
+            modelName: "CourseTask",
+        }
+    );
 
     CourseTask.associate = (models) => {
-        CourseTask.belongsTo(models.Course, {
-            foreignKey: "courseId",
+        CourseTask.hasMany(models.Course, {
+            foreignKey: "tasksCourse",
             as: "courses",
-            multiple: true,
         });
-        CourseTask.belongsTo(models.CompletedTask, {
-            foreignKey: "completedTaskId",
+        CourseTask.belongsToMany(models.CompletedTask, {
+            through: "CourseTaskCompletedTask",
             as: "completedTasks",
-            multiple: true,
+            foreignKey: "courseTaskId",
         });
     };
 

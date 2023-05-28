@@ -15,10 +15,6 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            userpermissions: {
-                type: DataTypes.INTEGER,
-                allowNull: false,
-            },
         },
         {
             sequelize,
@@ -33,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         });
         Role.hasMany(models.Permission, {
             foreignKey: "roleId",
-            as: "getpermission",
+            as: "permissions",
         });
     };
 

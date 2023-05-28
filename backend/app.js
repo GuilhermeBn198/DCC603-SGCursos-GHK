@@ -3,17 +3,18 @@ const express = require("express");
 const app = express();
 const router = require("./routes/router");
 // app.js
-const { Sequelize } = require("sequelize");
-const db = require("./db");
+const config = require("./config/config.json");
+const env = process.env.NODE_ENV || "development";
+const dbConfig = config[env];
 
 const sequelize = new Sequelize(
-    db.Sequelize,
-    db.sequelize.config.database,
-    db.sequelize.config.username,
-    db.sequelize.config.password,
+    dbConfig.database,
+    dbConfig.username,
+    dbConfig.password,
     {
-        host: db.sequelize.config.host,
-        dialect: db.sequelize.associate(db.sequelize.of(db.Sequelize)).dialect,
+        host: dbConfig.host,
+        dialect: dbConfig.dialect,
+        logging: dbConfig.options.logging,
     }
 );
 

@@ -1,34 +1,40 @@
 // models/badge.js
-const { Model } = require("sequelize");
+const { Model, DataTypes } = require("sequelize");
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
     class Badge extends Model {}
 
-    Badge.init({
-        id: {
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true,
-            type: DataTypes.INTEGER,
+    Badge.init(
+        {
+            id: {
+                allowNull: false,
+                autoIncrement: true,
+                primaryKey: true,
+                type: DataTypes.INTEGER,
+            },
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            photo: {
+                type: DataTypes.STRING,
+                allowNull: true,
+            },
         },
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        photo: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-    });
+        {
+            sequelize,
+            modelName: "Badge",
+        }
+    );
 
     Badge.associate = (models) => {
         Badge.belongsTo(models.Course, {
             foreignKey: "courseId",
             as: "courses",
         });
-        Badge.belongsTo(models.UserBadge, {
-            foreignKey: "userBadgeId",
-            as: "userBadge",
+        Badge.hasMany(models.UserBadge, {
+            foreignKey: "badgeId",
+            as: "userBadges",
         });
     };
 

@@ -10,7 +10,15 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             type: DataTypes.INTEGER,
         },
+        courseId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
         classId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        courseClass: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
@@ -23,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             references: {
                 modelName: "User",
+                key: "id",
             },
         },
         enrollment_date: {
@@ -34,15 +43,27 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         cancellation_reason: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        start_date: {
+            type: DataTypes.DATE,
+            allowNull: false,
+        },
+        end_date: {
+            type: DataTypes.DATE,
             allowNull: false,
         },
     });
 
     Enrollment.associate = (models) => {
-        Enrollment.belongsTo(models.User, {
-            foreignKey: "userEnrollment",
-            as: "user",
+        Enrollment.belongsTo(models.Class, {
+            foreignKey: "classId",
+            as: "class",
+        });
+        Enrollment.belongsTo(models.Course, {
+            foreignKey: "courseId",
+            as: "course",
         });
     };
 

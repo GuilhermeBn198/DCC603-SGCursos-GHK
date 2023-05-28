@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             type: DataTypes.INTEGER,
         },
-        courseCertificate: {
+        courseId: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
                 modelName: "Course",
             },
         },
-        userCertificate: {
+        classId: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
@@ -31,10 +31,6 @@ module.exports = (sequelize, DataTypes) => {
             references: {
                 modelName: "User",
             },
-        },
-        classCertificate: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
         },
         getclasses: {
             type: DataTypes.INTEGER,
@@ -55,8 +51,8 @@ module.exports = (sequelize, DataTypes) => {
             as: "getusers",
         });
         Certificate.belongsTo(models.Class, {
-            foreignKey: "classCertificate",
-            as: "getclasses",
+            foreignKey: "classId",
+            as: "class",
         });
     };
 

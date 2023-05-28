@@ -18,10 +18,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        userRoles: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
         getrole: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -43,22 +39,6 @@ module.exports = (sequelize, DataTypes) => {
         },
         institution: {
             type: DataTypes.STRING,
-            allowNull: false,
-        },
-        enrollment: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        certificate: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        Class: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        CompletedTask: {
-            type: DataTypes.INTEGER,
             allowNull: false,
         },
     });
