@@ -16,12 +16,13 @@ const AppModal = ({ title, children, visible, setVisible }: AppModalProps) => {
   return (
     <Modal
       closeButton
-      aria-labelledby="modal-title"
+      blur
+      aria-labelledby={title}
       open={visible}
       onClose={closeHandler}
     >
       <Modal.Header>
-        <Text id="modal-title" size={18}>
+        <Text id={title} size={18}>
           {title}
         </Text>
       </Modal.Header>
