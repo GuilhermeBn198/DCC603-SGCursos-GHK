@@ -1,9 +1,14 @@
-import NextAuth, { NextAuthOptions } from 'next-auth'
+import NextAuth, { NextAuthOptions, User } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 type Credentials = {
   username: string
   password: string
+}
+
+export interface Response {
+  data: User
+  errors: any[]
 }
 
 export const authOptions: NextAuthOptions = {
@@ -18,11 +23,10 @@ export const authOptions: NextAuthOptions = {
         password: { label: 'Senha', type: 'password' }
       },
       async authorize(credentials) {
-        console.log('sign in...')
         const { username, password } = credentials as Credentials
 
         try {
-          const data = await fetch(`http://localhost:5050/api/signin`, {
+          const data: Response = await fetch(`http://localhost:5050/api/signin`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -33,10 +37,10 @@ export const authOptions: NextAuthOptions = {
             })
           }).then((r) => r.json())
 
-          if (!data.error) {
+          if (!data.errors.length) {
             return data.data
           } else {
-            throw new Error(data.error)
+            return null
           }
         } catch {
           throw new Error('Falha ao fazer login')

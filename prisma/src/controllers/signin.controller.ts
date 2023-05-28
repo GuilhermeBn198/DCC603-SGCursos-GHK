@@ -9,7 +9,7 @@ export const index = async (req: express.Request, res: express.Response) => {
     const { username, password } = req.body
     const data = await prisma.user.findFirst({ where: { username, password } })
 
-    if (!data?.username) return res.status(404).json({ errors: ['User not found'] })
+    if (!data?.username) return res.status(404).json({ data: null, errors: ['Usuário ou senha inválidas'] })
 
     const secretKey: string = process.env.SECRET_KEY!
     jwt.sign(data, secretKey, (err, jwt) => {
@@ -24,6 +24,6 @@ export const index = async (req: express.Request, res: express.Response) => {
     });
   } catch (err) {
     console.error(err)
-    res.status(500)
+    res.status(500).json({ data: null, errors: ['Falha no servidor'] })
   }
 };

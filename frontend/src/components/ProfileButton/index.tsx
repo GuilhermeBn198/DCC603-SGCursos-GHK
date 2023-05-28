@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 
 import { useSession } from 'next-auth/react'
 
-import { roles } from 'components/User'
 import AppModal from 'components/AppModal'
 
 import * as S from './styles'
@@ -55,9 +54,9 @@ const ProfileButton = () => {
         ) : null}
         <S.Column>
           <S.Title>{data?.user?.full_name}</S.Title>
-          <S.Text>
+          {/* <S.Text>
             {roles[data?.user?.role as 'student']} • Boa Vista, RR
-          </S.Text>
+          </S.Text> */}
         </S.Column>
       </S.Container>
 
