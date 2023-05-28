@@ -15,3 +15,126 @@ model Todo {
   description String?
   completed Boolean @default(false)
 }
+
+model Permission {
+  id   Int    @id @default(autoincrement())
+  role Role[]
+}
+
+model Role {
+  id              Int        @id @default(autoincrement())
+  name            String     @db.VarChar(255)
+  userpermissions Int
+  getpermission   Permission @relation(fields: [userpermissions], references: [id])
+  user            User[]
+}
+
+model User {
+  id            Int             @id @default(autoincrement())
+  username      String          @db.VarChar(255)
+  mail          String          @db.VarChar(255)
+  userRoles     Int
+  getrole       Role            @relation(fields: [userRoles], references: [id])
+  phone         Int
+  password      String          @db.VarChar(255)
+  full_name     String          @db.VarChar(255)
+  photo         String          @db.VarChar(255)
+  institution   String          @db.VarChar(255)
+  enrollment    Enrollment[]
+  certificate   Certificate[]
+  Class         Class[]
+  CompletedTask CompletedTask[]
+}
+
+model Enrollment {
+  id                  Int  @id @default(autoincrement())
+  class               Int
+  userEnrollment      Int
+  getuser             User @relation(fields: [userEnrollment], references: [id])
+  enrollment_date     Int
+  cancelled           Int
+  cancellation_reason Int
+}
+
+model Class {
+  id          Int           @id @default(autoincrement())
+  start_date  Int
+  end_date    Int
+  courseClass Int
+  getcourse   Course        @relation(fields: [courseClass], references: [id])
+  teacher     Int
+  getteacher  User          @relation(fields: [teacher], references: [id])
+  certificate Certificate[]
+}
+
+model Certificate {
+  id                Int    @id @default(autoincrement())
+  courseCertificate Int
+  getcourses        Course @relation(fields: [courseCertificate], references: [id])
+  userCertificate   Int
+  getusers          User   @relation(fields: [userCertificate], references: [id])
+  classCertificate  Int
+  getclasses        Class  @relation(fields: [classCertificate], references: [id])
+}
+
+model Course {
+  id             Int            @id @default(autoincrement())
+  workload       Int
+  name           String         @db.VarChar(255)
+  categoryCourse Int
+  getcategories  CourseCategory @relation(fields: [categoryCourse], references: [id])
+  tasksCourse    Int
+  gettaskes      CourseTask     @relation(fields: [tasksCourse], references: [id])
+  statusCourse   Int
+  getstatuses    CourseStatus   @relation(fields: [statusCourse], references: [id])
+  badgesCourse   Int
+  getbadgess     Badge          @relation(fields: [badgesCourse], references: [id])
+  class          Class[]
+  certificate    Certificate[]
+}
+
+model CourseCategory {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(255)
+  description String   @db.VarChar(255)
+  course      Course[]
+}
+
+model CourseStatus {
+  id          Int      @id @default(autoincrement())
+  status_name String   @db.VarChar(255)
+  courses     Course[]
+}
+
+model CourseTask {
+  id            Int             @id @default(autoincrement())
+  title         String          @db.VarChar(255)
+  description   String          @db.VarChar(255)
+  external_link String          @db.VarChar(255)
+  Course        Course[]
+  CompletedTask CompletedTask[]
+}
+
+model Badge {
+  id        Int         @id @default(autoincrement())
+  name      String      @db.VarChar(255)
+  photo     String      @db.VarChar(255)
+  Course    Course[]
+  UserBadge UserBadge[]
+}
+
+model CompletedTask {
+  id                Int        @id @default(autoincrement())
+  userCompletedtask Int
+  getusers          User       @relation(fields: [userCompletedtask], references: [id])
+  completed         Int
+  completedtaskId   Int
+  getTaskId         CourseTask @relation(fields: [completedtaskId], references: [id])
+}
+
+model UserBadge {
+  id          Int   @id @default(autoincrement())
+  badgeId     Int
+  getbadgeId  Badge @relation(fields: [badgeId], references: [id])
+  certificate Int
+}
