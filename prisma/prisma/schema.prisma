@@ -7,31 +7,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// model Permission {
-//   id   Int    @id @default(autoincrement())
-//   role Role[]
-// }
-
-// model Role {
-//   id              Int        @id @default(autoincrement())
-//   name            String     @db.VarChar(255)
-//   userpermissions Int
-//   getpermission   Permission @relation(fields: [userpermissions], references: [id])
-//   // user            User[]
-// }
+model Role {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(255)
+  User User[]
+}
 
 model User {
-  id            Int             @id @default(autoincrement())
-  username      String          @unique @db.VarChar(255)
-  mail          String          @db.VarChar(255)
-  // userRoles     Int
-  // getrole       Role            @relation(fields: [userRoles], references: [id])
-  phone         String          @db.VarChar(255)
-  password      String          @db.VarChar(255)
-  full_name     String          @db.VarChar(255)
-  photo         String          @db.VarChar(255)
-  institution   String          @db.VarChar(255)
-  postal_code   String          @db.VarChar(255)
+  id          Int    @id @default(autoincrement())
+  username    String @unique @db.VarChar(255)
+  mail        String @db.VarChar(255)
+  phone       String @db.VarChar(255)
+  password    String @db.VarChar(255)
+  full_name   String @db.VarChar(255)
+  photo       String @db.VarChar(255)
+  institution String @db.VarChar(255)
+  postal_code String @db.VarChar(255)
+
+  roleId Int
+  role   Role @relation(fields: [roleId], references: [id])
   // enrollment    Enrollment[]
   // certificate   Certificate[]
   // Class         Class[]

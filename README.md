@@ -36,7 +36,7 @@
 -   Styled Components
 -   Storybook
 -   Git hooks
--   Mokoon
+-   Mockoon
 
 ---
 
