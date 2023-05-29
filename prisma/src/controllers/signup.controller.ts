@@ -1,8 +1,8 @@
-import express from "express";
+import express, { NextFunction } from "express";
 
 import { prisma } from "app";
 
-export const index = async (req: express.Request, res: express.Response) => {
+export const index = async (req: express.Request, res: express.Response, next: NextFunction) => {
   try {
     const hasUsername = await prisma.user.findFirst({ where: { username: req.body.username } })
 
@@ -12,8 +12,7 @@ export const index = async (req: express.Request, res: express.Response) => {
       data: req.body
     });
     return res.status(200).json({ data, errors: [] });
-  } catch (err) {
-    console.error(err)
-    res.status(500).json({ data: null, errors: [`Falha no servidor`] })
+  } catch (error) {
+    next(error)
   }
 };
