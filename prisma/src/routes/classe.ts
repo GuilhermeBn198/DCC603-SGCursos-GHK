@@ -4,7 +4,7 @@ import {
   createClass,
   listClasses,
   deleteClass,
-} from "controllers/classes.controller";
+} from "controllers/class.controller";
 
 export default express
   .Router()

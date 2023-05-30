@@ -21,7 +21,17 @@ export interface Course {
   workload: number
   name: string
   photo: string
+  description: string
+  categoryId: number
+  category: Category
 }
+
+export interface Category {
+  id: number
+  name: string
+  description: string
+}
+
 
 function useClasses() {
   const { data: session } = useSession()

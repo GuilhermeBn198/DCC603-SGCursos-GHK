@@ -8,7 +8,7 @@ export const listClasses = async (
   next: NextFunction
 ) => {
   try {
-    const data = await prisma.class.findMany({ include: { course: {} } })
+    const data = await prisma.class.findMany({ include: { course: { include: { category: {} } } } })
     return res.status(200).json({ data, errors: [] });
   } catch (error) {
     console.log(error);

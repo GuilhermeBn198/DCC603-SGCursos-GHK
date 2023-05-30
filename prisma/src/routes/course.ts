@@ -4,7 +4,7 @@ import {
   listCourses,
   createCourse,
   deleteCourse,
-} from "controllers/courses.controller";
+} from "controllers/course.controller";
 
 export default express
   .Router()

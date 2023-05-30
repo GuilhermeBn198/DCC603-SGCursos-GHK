@@ -14,9 +14,9 @@ export const listCourses = async (req: express.Request, res: express.Response, n
 
 export const createCourse = async (req: express.Request, res: express.Response, next: NextFunction) => {
   try {
-    const newCourse = req.body
+    const newCourse = req.body.course
     const data = await prisma.course.create({
-      data: { ...newCourse }
+      data: { category: { connect: { id: req.body.categoryId } }, ...newCourse }
     })
     return res.status(200).json({ data, errors: [] });
   } catch (error) {

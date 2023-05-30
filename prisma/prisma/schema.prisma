@@ -63,24 +63,25 @@ model Class {
 }
 
 model Course {
-  id       Int     @id @default(autoincrement())
-  workload Int
-  name     String  @db.VarChar(255)
-  photo    String  @db.VarChar(255)
-  classes  Class[]
+  id          Int            @id @default(autoincrement())
+  workload    Int
+  name        String         @db.VarChar(255)
+  photo       String         @db.VarChar(255)
+  description String         @db.Text
+  classes     Class[]
   // certificates   Certificate[]
   // tasksIds       CourseTasks[]
-  // categoryId     Int
-  // category       CourseCategory @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+  category    CourseCategory @relation(fields: [categoryId], references: [id])
   // CourseStatusId Int
   // status         CourseStatus   @relation(fields: [CourseStatusId], references: [id])
 }
 
 model CourseCategory {
-  id          Int    @id @default(autoincrement())
-  name        String @db.VarChar(255)
-  description String @db.VarChar(255)
-  // courses     Course[]
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(255)
+  description String   @db.VarChar(255)
+  courses     Course[]
 }
 
 model CourseStatus {

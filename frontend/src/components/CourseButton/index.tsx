@@ -35,7 +35,9 @@ const CourseButton = ({ sgclass, small, active }: CourseButtonProps) => {
         />
       </S.CouseImageContainer>
       <S.Content>
-        <S.Subtitle>{`Categoria • ${dayjs().format('DD/MM/YYYY')}`}</S.Subtitle>
+        <S.Subtitle>{`${sgclass.course.category.name} • ${dayjs().format(
+          'DD/MM/YYYY'
+        )}`}</S.Subtitle>
         <S.Strong>{sgclass.course.name}</S.Strong>
       </S.Content>
     </S.Container>
