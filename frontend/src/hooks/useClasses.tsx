@@ -1,28 +1,43 @@
+import { useSession } from 'next-auth/react'
+import { useEffect } from 'react'
 import useSWR from 'swr'
 import fetcher from 'utils/fetcher'
 
 export interface ClassResponse {
   data: Class[]
-  errors: any
+  errors: any[]
 }
 
 export interface Class {
-  id: string
-  slug: string
-  course_name: string
-  course_photo: string
-  course_workload: number
+  id: number
   start_date: string
   end_date: string
-  teacher: string
-  course_category: string
+  courseId: number
+  course: Course
+}
+
+export interface Course {
+  id: number
+  workload: number
+  name: string
+  photo: string
 }
 
 function useClasses() {
-  const { data, error, isLoading } = useSWR<ClassResponse>(
-    `http://localhost:5050/classes`,
-    fetcher
+  const { data: session } = useSession()
+  const { data, error, isLoading, mutate } = useSWR<ClassResponse>(
+    `http://localhost:5050/api/classes`,
+    (params) =>
+      fetcher(params, {
+        headers: {
+          Authorization: `Bearer ${session?.user.jwt}`
+        }
+      })
   )
+
+  useEffect(() => {
+    mutate()
+  }, [mutate, session?.user.jwt])
 
   return {
     classes: data?.data,

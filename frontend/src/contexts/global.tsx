@@ -9,8 +9,8 @@ import {
 } from 'react'
 
 export type GlobalContextData = {
-  activeCourse: string | undefined
-  setActiveCourse: Dispatch<SetStateAction<string | undefined>>
+  activeCourse: number | undefined
+  setActiveCourse: Dispatch<SetStateAction<number | undefined>>
 }
 
 export const GlobalContextDefaultValues = {
@@ -27,7 +27,7 @@ export type GlobalProviderProps = {
 }
 
 const GlobalProvider = ({ children }: GlobalProviderProps) => {
-  const [activeCourse, setActiveCourse] = useState<string | undefined>()
+  const [activeCourse, setActiveCourse] = useState<number | undefined>()
 
   return (
     <GlobalContext.Provider

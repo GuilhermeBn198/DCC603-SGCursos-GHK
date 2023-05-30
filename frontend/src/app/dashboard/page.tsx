@@ -10,7 +10,6 @@ import useClasses from 'hooks/useClasses'
 
 const Page = () => {
   const { activeCourse } = useGlobal()
-
   const { classes } = useClasses()
 
   return (
@@ -19,7 +18,7 @@ const Page = () => {
       <h1>Cursos</h1>
       {classes?.map((item) => (
         <CourseButton
-          key={item.slug}
+          key={item.id}
           small={!!activeCourse}
           active={activeCourse === item.id}
           {...item}
