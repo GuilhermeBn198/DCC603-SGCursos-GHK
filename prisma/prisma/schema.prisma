@@ -8,119 +8,102 @@ datasource db {
 }
 
 model Role {
-  id   Int    @id @default(autoincrement())
-  name String @db.VarChar(255)
-  User User[]
+  id    Int    @id @default(autoincrement())
+  name  String @db.VarChar(255)
+  Users User[]
 }
 
 model User {
-  id          Int    @id @default(autoincrement())
-  username    String @unique @db.VarChar(255)
-  mail        String @db.VarChar(255)
-  phone       String @db.VarChar(255)
-  password    String @db.VarChar(255)
-  full_name   String @db.VarChar(255)
-  photo       String @db.VarChar(255)
-  institution String @db.VarChar(255)
-  postal_code String @db.VarChar(255)
-
-  roleId Int
-  role   Role @relation(fields: [roleId], references: [id])
-  // enrollment    Enrollment[]
-  // certificate   Certificate[]
-  // Class         Class[]
-  // CompletedTask CompletedTask[]
+  id             Int             @id @default(autoincrement())
+  username       String          @unique @db.VarChar(255)
+  mail           String          @db.VarChar(255)
+  phone          String          @db.VarChar(255)
+  password       String          @db.VarChar(255)
+  full_name      String          @db.VarChar(255)
+  photo          String          @db.VarChar(255)
+  institution    String          @db.VarChar(255)
+  postal_code    String          @db.VarChar(255)
+  enrollments    Enrollment[]
+  certificates   Certificate[]
+  completedTasks CompletedTask[]
+  roleId         Int
+  role           Role            @relation(fields: [roleId], references: [id])
 }
 
-// model Enrollment {
-//   id                  Int  @id @default(autoincrement())
-//   class               Int
-//   userEnrollment      Int
-//   // getuser             User @relation(fields: [userEnrollment], references: [id])
-//   enrollment_date     Int
-//   cancelled           Int
-//   cancellation_reason Int
-// }
+model Certificate {
+  id       Int    @id @default(autoincrement())
+  courseId Int
+  course   Course @relation(fields: [courseId], references: [id])
+  classId  Int
+  class    Class  @relation(fields: [classId], references: [id])
+  userId   Int    @unique
+  User     User   @relation(fields: [userId], references: [id])
+}
 
-// model Class {
-//   id          Int           @id @default(autoincrement())
-//   start_date  Int
-//   end_date    Int
-//   courseClass Int
-//   getcourse   Course        @relation(fields: [courseClass], references: [id])
-//   teacher     Int
-//   // getteacher  User          @relation(fields: [teacher], references: [id])
-//   certificate Certificate[]
-// }
+model Enrollment {
+  id                  Int      @id @default(autoincrement())
+  enrollment_date     Int
+  cancellation_reason String
+  created_by          DateTime @default(now())
+  updated_by          DateTime @updatedAt
+  userEnrollmentId    Int      @unique
+  user                User     @relation(fields: [userEnrollmentId], references: [id])
+  classId             Int      @unique
+  class               Class    @relation(fields: [classId], references: [id])
+}
 
-// model Certificate {
-//   id                Int    @id @default(autoincrement())
-//   courseCertificate Int
-//   getcourses        Course @relation(fields: [courseCertificate], references: [id])
-//   userCertificate   Int
-//   // getusers          User   @relation(fields: [userCertificate], references: [id])
-//   classCertificate  Int
-//   getclasses        Class  @relation(fields: [classCertificate], references: [id])
-// }
+model Class {
+  id           Int           @id @default(autoincrement())
+  start_date   Int
+  end_date     Int
+  courseId     Int
+  course       Course        @relation(fields: [courseId], references: [id])
+  enrollments  Enrollment[]
+  certificates Certificate[]
+}
 
-// model Course {
-//   id             Int            @id @default(autoincrement())
-//   workload       Int
-//   name           String         @db.VarChar(255)
-//   categoryCourse Int
-//   getcategories  CourseCategory @relation(fields: [categoryCourse], references: [id])
-//   tasksCourse    Int
-//   gettaskes      CourseTask     @relation(fields: [tasksCourse], references: [id])
-//   statusCourse   Int
-//   getstatuses    CourseStatus   @relation(fields: [statusCourse], references: [id])
-//   badgesCourse   Int
-//   getbadgess     Badge          @relation(fields: [badgesCourse], references: [id])
-//   class          Class[]
-//   certificate    Certificate[]
-// }
+model Course {
+  id             Int            @id @default(autoincrement())
+  workload       Int
+  name           String         @db.VarChar(255)
+  Classes        Class[]
+  certificates   Certificate[]
+  tasksIds       CourseTasks[]
+  categoryId     Int
+  category       CourseCategory @relation(fields: [categoryId], references: [id])
+  CourseStatusId Int
+  status         CourseStatus   @relation(fields: [CourseStatusId], references: [id])
+}
 
-// model CourseCategory {
-//   id          Int      @id @default(autoincrement())
-//   name        String   @db.VarChar(255)
-//   description String   @db.VarChar(255)
-//   course      Course[]
-// }
+model CourseCategory {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(255)
+  description String   @db.VarChar(255)
+  courses     Course[]
+}
 
-// model CourseStatus {
-//   id          Int      @id @default(autoincrement())
-//   status_name String   @db.VarChar(255)
-//   courses     Course[]
-// }
+model CourseStatus {
+  id          Int      @id @default(autoincrement())
+  status_name String   @db.VarChar(255)
+  courses     Course[]
+}
 
-// model CourseTask {
-//   id            Int             @id @default(autoincrement())
-//   title         String          @db.VarChar(255)
-//   description   String          @db.VarChar(255)
-//   external_link String          @db.VarChar(255)
-//   Course        Course[]
-//   CompletedTask CompletedTask[]
-// }
+model CourseTasks {
+  id              Int            @id @default(autoincrement())
+  title           String         @db.VarChar(255)
+  description     String         @db.VarChar(255)
+  external_link   String         @db.VarChar(255)
+  CourseId        Int
+  Course          Course         @relation(fields: [CourseId], references: [id])
+  CompletedTaskId Int
+  CompletedTask   CompletedTask?
+}
 
-// model Badge {
-//   id        Int         @id @default(autoincrement())
-//   name      String      @db.VarChar(255)
-//   photo     String      @db.VarChar(255)
-//   Course    Course[]
-//   UserBadge UserBadge[]
-// }
-
-// model CompletedTask {
-//   id                Int        @id @default(autoincrement())
-//   userCompletedtask Int
-//   // getusers          User       @relation(fields: [userCompletedtask], references: [id])
-//   completed         Int
-//   completedtaskId   Int
-//   getTaskId         CourseTask @relation(fields: [completedtaskId], references: [id])
-// }
-
-// model UserBadge {
-//   id          Int   @id @default(autoincrement())
-//   badgeId     Int
-//   getbadgeId  Badge @relation(fields: [badgeId], references: [id])
-//   certificate Int
-// }
+model CompletedTask {
+  id                  Int         @id @default(autoincrement())
+  userCompletedtaskId Int
+  user                User        @relation(fields: [userCompletedtaskId], references: [id])
+  completed           Int
+  CourseTasksId       Int         @unique
+  CourseTask          CourseTasks @relation(fields: [CourseTasksId], references: [id])
+}
