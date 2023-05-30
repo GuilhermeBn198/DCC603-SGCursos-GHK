@@ -1,49 +1,49 @@
 'use client'
-import React, { useState } from 'react'
+import React from 'react'
 
 import { useSession } from 'next-auth/react'
 
-import AppModal from 'components/AppModal'
+// import AppModal from 'components/AppModal'
 
 import * as S from './styles'
-import { Button, Input, Modal } from '@nextui-org/react'
-import { useForm } from 'react-hook-form'
+// import { Button, Input, Modal } from '@nextui-org/react'
+// import { useForm } from 'react-hook-form'
 
-type Inputs = {
-  password: string
-  full_name: string
-  mail: string
-  phone: string
-  photo: string
-  institution: string
-}
+// type Inputs = {
+//   password: string
+//   full_name: string
+//   mail: string
+//   phone: string
+//   photo: string
+//   institution: string
+// }
 
 const ProfileButton = () => {
-  const { handleSubmit, register } = useForm<Inputs>()
+  // const { handleSubmit, register } = useForm<Inputs>()
 
-  const [visible, setVisible] = useState(false)
+  // const [visible, setVisible] = useState(false)
   const { data } = useSession()
 
   if (data === null) return null
 
-  function closeHandler() {
-    setVisible(false)
-  }
+  // function closeHandler() {
+  //   setVisible(false)
+  // }
 
-  async function onSubmit(data: Inputs) {
-    await fetch(`http://localhost:5050/user/1/edit`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    }).then((r) => r.json())
-    closeHandler()
-  }
+  // async function onSubmit(data: Inputs) {
+  //   await fetch(`http://localhost:5050/user/1/edit`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(data)
+  //   }).then((r) => r.json())
+  //   closeHandler()
+  // }
 
   return (
     <>
-      <S.Container onClick={() => setVisible(true)}>
+      <S.Container>
         {data?.user.photo ? (
           <S.Profile
             alt="Profile icon"
@@ -60,7 +60,7 @@ const ProfileButton = () => {
         </S.Column>
       </S.Container>
 
-      <AppModal title="Editar Perfil" visible={visible} setVisible={setVisible}>
+      {/* <AppModal title="Editar Perfil" visible={visible} setVisible={setVisible}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Modal.Body>
             <Input
@@ -98,7 +98,7 @@ const ProfileButton = () => {
             <Button type="submit">Editar</Button>
           </Modal.Footer>
         </form>
-      </AppModal>
+      </AppModal> */}
     </>
   )
 }

@@ -1,11 +1,13 @@
 import signInRouter from 'routes/signin'
 import signUpRouter from 'routes/signup'
+import coursesRouter from 'routes/courses'
+import classesRouter from 'routes/classes'
 
 import jwtMiddleware from 'middlewares/jwt';
 
 import express from 'express'
 
-const routers = [{ '/none': signUpRouter }];
+const routers = [{ '/courses': coursesRouter }, { '/classes': classesRouter }];
 
 const middlewares = [jwtMiddleware]
 

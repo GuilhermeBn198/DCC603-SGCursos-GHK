@@ -7,37 +7,37 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Role {
-  id    Int    @id @default(autoincrement())
-  name  String @db.VarChar(255)
-  Users User[]
-}
+// model Role {
+//   id    Int    @id @default(autoincrement())
+//   name  String @db.VarChar(255)
+//   Users User[]
+// }
 
 model User {
-  id             Int             @id @default(autoincrement())
-  username       String          @unique @db.VarChar(255)
-  mail           String          @db.VarChar(255)
-  phone          String          @db.VarChar(255)
-  password       String          @db.VarChar(255)
-  full_name      String          @db.VarChar(255)
-  photo          String          @db.VarChar(255)
-  institution    String          @db.VarChar(255)
-  postal_code    String          @db.VarChar(255)
-  enrollments    Enrollment[]
-  certificates   Certificate[]
-  completedTasks CompletedTask[]
-  roleId         Int
-  role           Role            @relation(fields: [roleId], references: [id])
+  id          Int    @id @default(autoincrement())
+  username    String @unique @db.VarChar(255)
+  mail        String @db.VarChar(255)
+  phone       String @db.VarChar(255)
+  password    String @db.VarChar(255)
+  full_name   String @db.VarChar(255)
+  photo       String @db.VarChar(255)
+  institution String @db.VarChar(255)
+  postal_code String @db.VarChar(255)
+  // enrollments    Enrollment[]
+  // certificates   Certificate[]
+  // completedTasks CompletedTask[]
+  // roleId         Int
+  // role           Role            @relation(fields: [roleId], references: [id])
 }
 
 model Certificate {
-  id       Int    @id @default(autoincrement())
+  id       Int @id @default(autoincrement())
   courseId Int
-  course   Course @relation(fields: [courseId], references: [id])
-  classId  Int
-  class    Class  @relation(fields: [classId], references: [id])
-  userId   Int    @unique
-  User     User   @relation(fields: [userId], references: [id])
+  // course   Course @relation(fields: [courseId], references: [id])
+  // classId  Int
+  // class    Class  @relation(fields: [classId], references: [id])
+  // userId   Int    @unique
+  // User     User   @relation(fields: [userId], references: [id])
 }
 
 model Enrollment {
@@ -46,64 +46,65 @@ model Enrollment {
   cancellation_reason String
   created_by          DateTime @default(now())
   updated_by          DateTime @updatedAt
-  userEnrollmentId    Int      @unique
-  user                User     @relation(fields: [userEnrollmentId], references: [id])
-  classId             Int      @unique
-  class               Class    @relation(fields: [classId], references: [id])
+  // userEnrollmentId    Int      @unique
+  // user                User     @relation(fields: [userEnrollmentId], references: [id])
+  // classId             Int      @unique
+  // class               Class    @relation(fields: [classId], references: [id])
 }
 
 model Class {
-  id           Int           @id @default(autoincrement())
-  start_date   Int
-  end_date     Int
-  courseId     Int
-  course       Course        @relation(fields: [courseId], references: [id])
-  enrollments  Enrollment[]
-  certificates Certificate[]
+  id         Int      @id @default(autoincrement())
+  start_date DateTime
+  end_date   DateTime
+  courseId   Int
+  course     Course   @relation(fields: [courseId], references: [id])
+  // enrollments  Enrollment[]
+  // certificates Certificate[]
 }
 
 model Course {
-  id             Int            @id @default(autoincrement())
-  workload       Int
-  name           String         @db.VarChar(255)
-  Classes        Class[]
-  certificates   Certificate[]
-  tasksIds       CourseTasks[]
-  categoryId     Int
-  category       CourseCategory @relation(fields: [categoryId], references: [id])
-  CourseStatusId Int
-  status         CourseStatus   @relation(fields: [CourseStatusId], references: [id])
+  id       Int     @id @default(autoincrement())
+  workload Int
+  name     String  @db.VarChar(255)
+  photo    String  @db.VarChar(255)
+  classes  Class[]
+  // certificates   Certificate[]
+  // tasksIds       CourseTasks[]
+  // categoryId     Int
+  // category       CourseCategory @relation(fields: [categoryId], references: [id])
+  // CourseStatusId Int
+  // status         CourseStatus   @relation(fields: [CourseStatusId], references: [id])
 }
 
 model CourseCategory {
-  id          Int      @id @default(autoincrement())
-  name        String   @db.VarChar(255)
-  description String   @db.VarChar(255)
-  courses     Course[]
+  id          Int    @id @default(autoincrement())
+  name        String @db.VarChar(255)
+  description String @db.VarChar(255)
+  // courses     Course[]
 }
 
 model CourseStatus {
-  id          Int      @id @default(autoincrement())
-  status_name String   @db.VarChar(255)
-  courses     Course[]
+  id          Int    @id @default(autoincrement())
+  status_name String @db.VarChar(255)
+  // courses     Course[]
 }
 
 model CourseTasks {
-  id              Int            @id @default(autoincrement())
-  title           String         @db.VarChar(255)
-  description     String         @db.VarChar(255)
-  external_link   String         @db.VarChar(255)
-  CourseId        Int
-  Course          Course         @relation(fields: [CourseId], references: [id])
-  CompletedTaskId Int
-  CompletedTask   CompletedTask?
+  id            Int    @id @default(autoincrement())
+  title         String @db.VarChar(255)
+  description   String @db.VarChar(255)
+  external_link String @db.VarChar(255)
+  // CourseId        Int
+  // Course          Course         @relation(fields: [CourseId], references: [id])
+  // CompletedTaskId Int
+  // CompletedTask   CompletedTask?
 }
 
 model CompletedTask {
-  id                  Int         @id @default(autoincrement())
-  userCompletedtaskId Int
-  user                User        @relation(fields: [userCompletedtaskId], references: [id])
-  completed           Int
-  CourseTasksId       Int         @unique
-  CourseTask          CourseTasks @relation(fields: [CourseTasksId], references: [id])
+  id        Int     @id @default(autoincrement())
+  // userCompletedtaskId Int
+  completed Boolean
+  // user                User        @relation(fields: [userCompletedtaskId], references: [id])
+  // CourseTasksId       Int         @unique
+  // CourseTask          CourseTasks @relation(fields: [CourseTasksId], references: [id])
 }

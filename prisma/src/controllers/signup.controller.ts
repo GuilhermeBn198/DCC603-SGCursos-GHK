@@ -8,11 +8,13 @@ export const index = async (req: express.Request, res: express.Response, next: N
 
     if (hasUsername) return res.status(409).json({ data: null, errors: ['Usuário já existe'] })
 
+    const newUser = req.body
     const data = await prisma.user.create({
-      data: req.body
+      data: {...newUser}
     });
     return res.status(200).json({ data, errors: [] });
   } catch (error) {
+    console.log(error)
     next(error)
   }
 };
