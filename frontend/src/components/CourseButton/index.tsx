@@ -5,17 +5,18 @@ import dayjs from 'dayjs'
 
 import { useGlobal } from 'contexts/global'
 
-import { Class } from 'hooks/useClasses'
+import { SGCLass } from 'hooks/useClasses'
 
 import * as S from './styles'
 
 type CourseButtonProps = {
+  sgclass: SGCLass
   small: boolean
   active: boolean
-} & Class
+}
 
-const CourseButton = ({ id, course, small, active }: CourseButtonProps) => {
-  const { setActiveCourse } = useGlobal()
+const CourseButton = ({ sgclass, small, active }: CourseButtonProps) => {
+  const { setActiveClass } = useGlobal()
   const imgProps = small
     ? { width: 125, height: 125 }
     : { width: 324, height: 215 }
@@ -23,19 +24,19 @@ const CourseButton = ({ id, course, small, active }: CourseButtonProps) => {
   return (
     <S.Container
       $small={small}
-      onClick={() => setActiveCourse(id)}
+      onClick={() => setActiveClass(sgclass)}
       $active={active}
     >
       <S.CouseImageContainer>
         <S.CourseImage
-          src={`/${course.photo}`}
-          alt={course.name}
+          src={`/${sgclass.course.photo}`}
+          alt={sgclass.course.name}
           {...imgProps}
         />
       </S.CouseImageContainer>
       <S.Content>
         <S.Subtitle>{`Categoria • ${dayjs().format('DD/MM/YYYY')}`}</S.Subtitle>
-        <S.Strong>{course.name}</S.Strong>
+        <S.Strong>{sgclass.course.name}</S.Strong>
       </S.Content>
     </S.Container>
   )

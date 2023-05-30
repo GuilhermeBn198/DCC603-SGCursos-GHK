@@ -1,5 +1,6 @@
 'use client'
 
+import { SGCLass } from 'hooks/useClasses'
 import {
   useContext,
   createContext,
@@ -9,13 +10,13 @@ import {
 } from 'react'
 
 export type GlobalContextData = {
-  activeCourse: number | undefined
-  setActiveCourse: Dispatch<SetStateAction<number | undefined>>
+  activeClass: SGCLass | undefined
+  setActiveClass: Dispatch<SetStateAction<SGCLass | undefined>>
 }
 
 export const GlobalContextDefaultValues = {
-  activeCourse: undefined,
-  setActiveCourse: () => ([])
+  activeClass: undefined,
+  setActiveClass: () => []
 }
 
 export const GlobalContext = createContext<GlobalContextData>(
@@ -27,13 +28,13 @@ export type GlobalProviderProps = {
 }
 
 const GlobalProvider = ({ children }: GlobalProviderProps) => {
-  const [activeCourse, setActiveCourse] = useState<number | undefined>()
+  const [activeClass, setActiveClass] = useState<SGCLass | undefined>()
 
   return (
     <GlobalContext.Provider
       value={{
-        activeCourse,
-        setActiveCourse
+        activeClass,
+        setActiveClass
       }}
     >
       {children}

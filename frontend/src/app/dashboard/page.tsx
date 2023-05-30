@@ -9,19 +9,19 @@ import { useGlobal } from 'contexts/global'
 import useClasses from 'hooks/useClasses'
 
 const Page = () => {
-  const { activeCourse } = useGlobal()
+  const { activeClass } = useGlobal()
   const { classes } = useClasses()
 
   return (
     <Content>
       <ProfileButton />
       <h1>Cursos</h1>
-      {classes?.map((item) => (
+      {classes?.map((sgclass) => (
         <CourseButton
-          key={item.id}
-          small={!!activeCourse}
-          active={activeCourse === item.id}
-          {...item}
+          key={sgclass.id}
+          small={!!activeClass}
+          sgclass={sgclass}
+          active={activeClass?.id === sgclass.id}
         />
       ))}
     </Content>

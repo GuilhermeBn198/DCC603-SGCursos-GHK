@@ -4,11 +4,11 @@ import useSWR from 'swr'
 import fetcher from 'utils/fetcher'
 
 export interface ClassResponse {
-  data: Class[]
+  data: SGCLass[]
   errors: any[]
 }
 
-export interface Class {
+export interface SGCLass {
   id: number
   start_date: string
   end_date: string

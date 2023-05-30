@@ -15,17 +15,17 @@ type BaseProps = {
 }
 
 const Base = ({ children }: BaseProps) => {
-  const { activeCourse } = useGlobal()
+  const { activeClass } = useGlobal()
   const pathname = usePathname()
   const paths = ['/signin', '/signup', '/profile']
 
   if (paths.includes(pathname)) return <S.Main>{children}</S.Main>
 
   return (
-    <S.Container $hasActiveCourse={!!activeCourse}>
-      <Sidebar small={!!activeCourse} />
+    <S.Container $hasActiveCourse={!!activeClass}>
+      <Sidebar small={!!activeClass} />
       <S.Main>{children}</S.Main>
-      {activeCourse ? <CourseDetails /> : <Badges />}
+      {activeClass ? <CourseDetails /> : <Badges />}
     </S.Container>
   )
 }

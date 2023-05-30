@@ -1,9 +1,9 @@
 'use client'
 import { useGlobal } from 'contexts/global'
 import * as S from './styles'
-import Task from 'components/Task'
-import fetcher from 'utils/fetcher'
-import { useEffect, useState } from 'react'
+// import Task from 'components/Task'
+// import fetcher from 'utils/fetcher'
+// import { useEffect, useState } from 'react'
 
 export interface Response {
   data: Class
@@ -32,47 +32,32 @@ export interface TypeTask {
 }
 
 const CourseDetails = () => {
-  const { setActiveCourse } = useGlobal()
-
-  const [classDetails, setClassDetails] = useState<Class>()
-
-  async function getCourseDetails() {
-    const response: Response = await fetcher('http://localhost:5050/classes/1')
-    setClassDetails(response.data)
-  }
-
-  useEffect(() => {
-    getCourseDetails()
-  }, [])
+  const { activeClass, setActiveClass } = useGlobal()
 
   return (
     <S.Container>
-      <S.GoBack onClick={() => setActiveCourse(undefined)}>Voltar</S.GoBack>
-      {classDetails?.photo ? (
+      <S.GoBack onClick={() => setActiveClass(undefined)}>Voltar</S.GoBack>
+      {activeClass?.course?.photo ? (
         <S.ImageWrapper>
-          <S.CoursePhoto
-            src={classDetails.photo}
-            alt="Course photo"
-            fill
-          />
+          <S.CoursePhoto src={`/${activeClass.course.photo}`} alt="Course photo" fill />
         </S.ImageWrapper>
       ) : null}
 
-      <S.Title>{classDetails?.course_name}</S.Title>
-      <S.Text>{classDetails?.course_description}</S.Text>
+      <S.Title>{activeClass?.course.name}</S.Title>
+      <S.Text>{activeClass?.course.name}</S.Text>
 
       <S.Row>
         <S.H3>Conteúdo do curso</S.H3>
         <S.Counter>
-          {classDetails?.tasks.length} • {classDetails?.workload} horas
+          2 • {activeClass?.course.workload} horas
         </S.Counter>
       </S.Row>
 
-      <S.TasksList>
+      {/* <S.TasksList>
         {classDetails?.tasks.map((task) => (
           <Task key={task.id} {...task} />
         ))}
-      </S.TasksList>
+      </S.TasksList> */}
     </S.Container>
   )
 }
