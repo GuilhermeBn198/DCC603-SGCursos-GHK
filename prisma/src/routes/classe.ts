@@ -1,4 +1,4 @@
-import express from "express";
+import express, { RequestHandler } from "express";
 
 import {
   createClass,
@@ -8,6 +8,6 @@ import {
 
 export default express
   .Router()
-  .get("/", listClasses)
+  .get("/", listClasses as RequestHandler)
   .post("/new", createClass)
   .delete("/delete/:id", deleteClass);

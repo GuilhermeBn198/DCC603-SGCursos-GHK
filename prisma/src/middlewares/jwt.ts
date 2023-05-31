@@ -1,5 +1,8 @@
 import { NextFunction, Request, Response } from "express";
+
 import jwtService from 'jsonwebtoken'
+
+import { User } from "types";
 
 const jwtMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const jwt = req.headers["authorization"]?.split(' ')[1] || '';
@@ -10,8 +13,7 @@ const jwtMiddleware = (req: Request, res: Response, next: NextFunction) => {
       res.status(403).end();
       return;
     }
-
-    (req as any).user = userInfo;
+    req.user = userInfo as User
     next();
   });
 };

@@ -1,15 +1,22 @@
-import express, { NextFunction } from "express";
+import express, { NextFunction, Request } from "express";
 
 import { prisma } from "app";
 
 export const listClasses = async (
-  req: express.Request,
+  req: Request,
   res: express.Response,
   next: NextFunction
 ) => {
   try {
+
     const data = await prisma.class.findMany({ include: { course: { include: { category: {} } } } })
-    return res.status(200).json({ data, errors: [] });
+
+    const customData = data.map(c => {
+      const enrolled = prisma.enrollment.findFirst({ where: { userId: req.user?.id, classId: c.id } })
+      const test = { ...c, enrolled: !!enrolled }
+      return test
+    })
+    return res.status(200).json({ data: customData, errors: [] });
   } catch (error) {
     console.log(error);
     next(error);

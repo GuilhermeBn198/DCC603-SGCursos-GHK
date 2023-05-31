@@ -14,16 +14,16 @@ datasource db {
 // }
 
 model User {
-  id          Int    @id @default(autoincrement())
-  username    String @unique @db.VarChar(255)
-  mail        String @db.VarChar(255)
-  phone       String @db.VarChar(255)
-  password    String @db.VarChar(255)
-  full_name   String @db.VarChar(255)
-  photo       String @db.VarChar(255)
-  institution String @db.VarChar(255)
-  postal_code String @db.VarChar(255)
-  // enrollments    Enrollment[]
+  id          Int         @id @default(autoincrement())
+  username    String      @unique @db.VarChar(255)
+  mail        String      @db.VarChar(255)
+  phone       String      @db.VarChar(255)
+  password    String      @db.VarChar(255)
+  full_name   String      @db.VarChar(255)
+  photo       String      @db.VarChar(255)
+  institution String      @db.VarChar(255)
+  postal_code String      @db.VarChar(255)
+  enrollments    Enrollment[]
   // certificates   Certificate[]
   // completedTasks CompletedTask[]
   // roleId         Int
@@ -41,24 +41,22 @@ model Certificate {
 }
 
 model Enrollment {
-  id                  Int      @id @default(autoincrement())
-  enrollment_date     Int
-  cancellation_reason String
-  created_by          DateTime @default(now())
-  updated_by          DateTime @updatedAt
-  // userEnrollmentId    Int      @unique
-  // user                User     @relation(fields: [userEnrollmentId], references: [id])
-  // classId             Int      @unique
-  // class               Class    @relation(fields: [classId], references: [id])
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  userId     Int      @unique
+  user       User     @relation(fields: [userId], references: [id])
+  classId    Int      @unique
+  class      Class    @relation(fields: [classId], references: [id])
 }
 
 model Class {
-  id         Int      @id @default(autoincrement())
-  start_date DateTime
-  end_date   DateTime
-  courseId   Int
-  course     Course   @relation(fields: [courseId], references: [id])
-  // enrollments  Enrollment[]
+  id          Int          @id @default(autoincrement())
+  start_date  DateTime
+  end_date    DateTime
+  courseId    Int
+  course      Course       @relation(fields: [courseId], references: [id])
+  enrollments Enrollment[]
   // certificates Certificate[]
 }
 
