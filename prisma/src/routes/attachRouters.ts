@@ -2,7 +2,9 @@ import signInRouter from "routes/signin";
 import signUpRouter from "routes/signup";
 import courseRouter from "routes/course";
 import classeRouter from "routes/classe";
+import courseTaskRouter from "routes/courseTask";
 import enrollmentRouter from "routes/enrollment";
+import completedTaskRouter from "routes/completedTask";
 import courseCategoryRouter from "routes/courseCategory";
 
 import jwtMiddleware from "middlewares/jwt";
@@ -14,6 +16,8 @@ const routers = [
   { "/courses/categories": courseCategoryRouter },
   { "/classes": classeRouter },
   { "/enrollments": enrollmentRouter },
+  { "/courses/tasks": courseTaskRouter },
+  { "/courses/completedTasks": completedTaskRouter },
 ];
 
 const middlewares = [jwtMiddleware];

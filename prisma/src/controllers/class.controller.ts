@@ -8,12 +8,18 @@ export const listClasses = async (
   next: NextFunction
 ) => {
   try {
-    const data = await prisma.class.findMany({ include: { course: { include: { category: {} } } } })
-    const customData = await Promise.all(data.map(async c => {
-      const enrolled = await prisma.enrollment.findFirst({ where: { userId: req.user?.id, classId: c.id } })
-      const test = { ...c, enrolled: !!enrolled }
-      return test
-    }));
+    const data = await prisma.class.findMany({
+      include: { course: { include: { category: {}, tasks: {} } } },
+    });
+    const customData = await Promise.all(
+      data.map(async (c) => {
+        const enrolled = await prisma.enrollment.findFirst({
+          where: { userId: req.user?.id, classId: c.id },
+        });
+        const test = { ...c, enrolled: !!enrolled };
+        return test;
+      })
+    );
 
     return res.status(200).json({ data: customData, errors: [] });
   } catch (error) {
@@ -21,7 +27,6 @@ export const listClasses = async (
     next(error);
   }
 };
-
 
 export const createClass = async (
   req: express.Request,
@@ -51,8 +56,10 @@ export const deleteClass = async (
   next: NextFunction
 ) => {
   try {
-    const courseId = (req.params.id)
-    const response = await prisma.class.delete({ where: { id: Number(courseId) } })
+    const courseId = req.params.id;
+    const response = await prisma.class.delete({
+      where: { id: Number(courseId) },
+    });
     return res.status(200).json({ data: response, errors: [] });
   } catch (error) {
     console.log(error);

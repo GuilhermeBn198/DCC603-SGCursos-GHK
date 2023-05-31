@@ -25,7 +25,21 @@ export interface Course {
   description: string
   categoryId: number
   category: Category
+  tasks: Task[]
 }
+
+export interface Task {
+  id: number
+  title: string
+  description: string
+  external_link: string
+  courseId: number
+}
+
+export type CourseDetailsTask = {
+  completed: boolean
+  completedTaskId: number
+} & Task
 
 export interface Category {
   id: number
@@ -33,15 +47,16 @@ export interface Category {
   description: string
 }
 
-
 function useClasses() {
   const { data: session } = useSession()
   const { data, error, isLoading, mutate } = useSWR<ClassResponse>(
     `http://localhost:5050/api/classes`,
     (params) =>
       fetcher(params, {
+        method: 'GET',
         headers: {
-          Authorization: `Bearer ${session?.user.jwt}`
+          'Content-Type': 'application/json',
+          Authorization: `${session?.user.jwt}`
         }
       })
   )

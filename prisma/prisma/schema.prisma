@@ -14,20 +14,21 @@ datasource db {
 // }
 
 model User {
-  id          Int         @id @default(autoincrement())
-  username    String      @unique @db.VarChar(255)
-  mail        String      @db.VarChar(255)
-  phone       String      @db.VarChar(255)
-  password    String      @db.VarChar(255)
-  full_name   String      @db.VarChar(255)
-  photo       String      @db.VarChar(255)
-  institution String      @db.VarChar(255)
-  postal_code String      @db.VarChar(255)
-  enrollments    Enrollment[]
+  id            Int             @id @default(autoincrement())
+  username      String          @unique @db.VarChar(255)
+  mail          String          @db.VarChar(255)
+  phone         String          @db.VarChar(255)
+  password      String          @db.VarChar(255)
+  full_name     String          @db.VarChar(255)
+  photo         String          @db.VarChar(255)
+  institution   String          @db.VarChar(255)
+  postal_code   String          @db.VarChar(255)
+  enrollments   Enrollment[]
   // certificates   Certificate[]
   // completedTasks CompletedTask[]
   // roleId         Int
   // role           Role            @relation(fields: [roleId], references: [id])
+  CompletedTask CompletedTask[]
 }
 
 model Certificate {
@@ -68,9 +69,9 @@ model Course {
   description String         @db.Text
   classes     Class[]
   // certificates   Certificate[]
-  // tasksIds       CourseTasks[]
   categoryId  Int
   category    CourseCategory @relation(fields: [categoryId], references: [id])
+  tasks       CourseTask[]
   // CourseStatusId Int
   // status         CourseStatus   @relation(fields: [CourseStatusId], references: [id])
 }
@@ -88,22 +89,21 @@ model CourseStatus {
   // courses     Course[]
 }
 
-model CourseTasks {
-  id            Int    @id @default(autoincrement())
-  title         String @db.VarChar(255)
-  description   String @db.VarChar(255)
-  external_link String @db.VarChar(255)
-  // CourseId        Int
-  // Course          Course         @relation(fields: [CourseId], references: [id])
-  // CompletedTaskId Int
-  // CompletedTask   CompletedTask?
+model CourseTask {
+  id             Int             @id @default(autoincrement())
+  title          String          @db.VarChar(255)
+  description    String          @db.Text
+  external_link  String          @db.Text
+  courseId       Int
+  course         Course          @relation(fields: [courseId], references: [id])
+  completedTasks CompletedTask[]
 }
 
 model CompletedTask {
-  id        Int     @id @default(autoincrement())
-  // userCompletedtaskId Int
-  completed Boolean
-  // user                User        @relation(fields: [userCompletedtaskId], references: [id])
-  // CourseTasksId       Int         @unique
-  // CourseTask          CourseTasks @relation(fields: [CourseTasksId], references: [id])
+  id            Int          @id @default(autoincrement())
+  completed     Boolean
+  userId        Int
+  user          User         @relation(fields: [userId], references: [id])
+  courseTasksId Int?
+  courseTasks   CourseTask? @relation(fields: [courseTasksId], references: [id])
 }

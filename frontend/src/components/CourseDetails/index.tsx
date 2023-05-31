@@ -3,11 +3,10 @@ import { useGlobal } from 'contexts/global'
 import * as S from './styles'
 import { Button } from '@nextui-org/react'
 import { useSession } from 'next-auth/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-// import Task from 'components/Task'
-// import fetcher from 'utils/fetcher'
-// import { useEffect, useState } from 'react'
+import Task from 'components/Task'
+import { CourseDetailsTask } from 'hooks/useClasses'
 
 export interface TypeTask {
   id: number
@@ -23,6 +22,7 @@ const CourseDetails = () => {
   const { activeClass, setActiveClass } = useGlobal()
 
   const [localClass, setLocalClass] = useState(activeClass)
+  const [tasks, setTasks] = useState<CourseDetailsTask[] | undefined>()
 
   async function enroll() {
     await fetch('http://localhost:5050/api/enrollments/new', {
@@ -40,6 +40,28 @@ const CourseDetails = () => {
       if (l) return { ...l, enrolled: true }
     })
   }
+
+  async function getTasks() {
+    const response = await fetch(
+      'http://localhost:5050/api/courses/completedTasks',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${data?.user.jwt}`
+        },
+        body: JSON.stringify({
+          courseId: activeClass?.course.id,
+          userId: data?.user.id
+        })
+      }
+    ).then((r) => r.json())
+    setTasks(response.data)
+  }
+
+  useEffect(() => {
+    getTasks()
+  }, [])
 
   return (
     <S.Container>
@@ -64,15 +86,18 @@ const CourseDetails = () => {
       ) : (
         <S.Row>
           <S.H3>Conteúdo do curso</S.H3>
-          <S.Counter>2 • {localClass?.course.workload} horas</S.Counter>
+          <S.Counter>
+            {localClass.course.tasks.length} • {localClass?.course.workload}{' '}
+            horas
+          </S.Counter>
         </S.Row>
       )}
 
-      {/* <S.TasksList>
-        {classDetails?.tasks.map((task) => (
-          <Task key={task.id} {...task} />
+      <S.TasksList>
+        {tasks?.map((task) => (
+          <Task key={task.id} {...task} getTasks={getTasks}/>
         ))}
-      </S.TasksList> */}
+      </S.TasksList>
     </S.Container>
   )
 }
