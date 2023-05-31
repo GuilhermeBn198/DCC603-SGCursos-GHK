@@ -23,8 +23,15 @@ export const createEnrollment = async (
 ) => {
   try {
     const { classId, userId } = req.body;
-    const data = await prisma.enrollment.create({
-      data: { class: { connect: { id: Number(classId) } }, user: { connect: { id: Number(userId) } } },
+    await prisma.enrollment.create({
+      data: {
+        class: { connect: { id: Number(classId) } },
+        user: { connect: { id: Number(userId) } },
+      },
+    });
+    const data = await prisma.class.findFirst({
+      where: { id: Number(classId) },
+      include: { course: { include: { category: {} } } }
     });
     return res.status(200).json({ data, errors: [] });
   } catch (error) {
@@ -40,7 +47,7 @@ export const deleteEnrollment = async (
 ) => {
   try {
     const { id } = req.params;
-    const data = await prisma.enrollment.delete({ where: { id: Number(id) } })
+    const data = await prisma.enrollment.delete({ where: { id: Number(id) } });
     return res.status(200).json({ data, errors: [] });
   } catch (error) {
     console.log(error);
