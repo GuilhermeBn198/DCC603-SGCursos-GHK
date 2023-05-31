@@ -8,14 +8,13 @@ export const listClasses = async (
   next: NextFunction
 ) => {
   try {
-
     const data = await prisma.class.findMany({ include: { course: { include: { category: {} } } } })
-
-    const customData = data.map(c => {
-      const enrolled = prisma.enrollment.findFirst({ where: { userId: req.user?.id, classId: c.id } })
+    const customData = await Promise.all(data.map(async c => {
+      const enrolled = await prisma.enrollment.findFirst({ where: { userId: req.user?.id, classId: c.id } })
       const test = { ...c, enrolled: !!enrolled }
       return test
-    })
+    }));
+
     return res.status(200).json({ data: customData, errors: [] });
   } catch (error) {
     console.log(error);

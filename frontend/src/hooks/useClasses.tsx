@@ -14,6 +14,7 @@ export interface SGCLass {
   end_date: string
   courseId: number
   course: Course
+  enrolled: boolean
 }
 
 export interface Course {

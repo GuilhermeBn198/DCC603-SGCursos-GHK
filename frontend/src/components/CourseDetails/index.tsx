@@ -1,26 +1,10 @@
 'use client'
 import { useGlobal } from 'contexts/global'
 import * as S from './styles'
+import { Button } from '@nextui-org/react'
 // import Task from 'components/Task'
 // import fetcher from 'utils/fetcher'
 // import { useEffect, useState } from 'react'
-
-export interface Response {
-  data: Class
-  error: any
-}
-
-export interface Class {
-  course_name: string
-  course_description: string
-  workload: number
-  start_date: string
-  end_date: string
-  total_enrollments: number
-  photo: string
-  couse_category: string
-  tasks: TypeTask[]
-}
 
 export interface TypeTask {
   id: number
@@ -50,10 +34,14 @@ const CourseDetails = () => {
       <S.Title>{activeClass?.course.name}</S.Title>
       <S.Text>{activeClass?.course.description}</S.Text>
 
-      <S.Row>
-        <S.H3>Conteúdo do curso</S.H3>
-        <S.Counter>2 • {activeClass?.course.workload} horas</S.Counter>
-      </S.Row>
+      {!activeClass?.enrolled ? (
+        <Button>Inscrever-se</Button>
+      ) : (
+        <S.Row>
+          <S.H3>Conteúdo do curso</S.H3>
+          <S.Counter>2 • {activeClass?.course.workload} horas</S.Counter>
+        </S.Row>
+      )}
 
       {/* <S.TasksList>
         {classDetails?.tasks.map((task) => (
