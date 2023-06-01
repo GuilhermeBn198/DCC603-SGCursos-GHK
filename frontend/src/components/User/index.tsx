@@ -39,7 +39,7 @@ const User = ({ photo, username, full_name, role, id, mail }: User) => {
         </S.Column>
       </S.Row>
 
-      {role.id !== 1 && (
+      {role.id !== 1 && data?.user.role.id === 1 && (
         <>
           <label>
             Administrador

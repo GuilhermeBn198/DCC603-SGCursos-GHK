@@ -84,20 +84,21 @@ const CourseDetails = () => {
           Inscrever-se
         </Button>
       ) : (
-        <S.Row>
-          <S.H3>Conteúdo do curso</S.H3>
-          <S.Counter>
-            {localClass.course.tasks.length} • {localClass?.course.workload}{' '}
-            horas
-          </S.Counter>
-        </S.Row>
+        <>
+          <S.Row>
+            <S.H3>Conteúdo do curso</S.H3>
+            <S.Counter>
+              {localClass.course.tasks.length} • {localClass?.course.workload}{' '}
+              horas
+            </S.Counter>
+          </S.Row>
+          <S.TasksList>
+            {tasks?.map((task) => (
+              <Task key={task.id} {...task} getTasks={getTasks} />
+            ))}
+          </S.TasksList>
+        </>
       )}
-
-      <S.TasksList>
-        {tasks?.map((task) => (
-          <Task key={task.id} {...task} getTasks={getTasks}/>
-        ))}
-      </S.TasksList>
     </S.Container>
   )
 }
