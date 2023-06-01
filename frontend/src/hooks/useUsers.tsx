@@ -22,6 +22,7 @@ export interface User {
   roleId: number
   role: Role
   jwt: string
+  suspended: boolean
 }
 
 export interface Role {

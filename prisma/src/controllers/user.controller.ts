@@ -35,3 +35,23 @@ export const changeUserRole = async (
     next(error);
   }
 };
+
+export const suspenseUser = async (
+  req: Request,
+  res: express.Response,
+  next: NextFunction
+) => {
+  try {
+    const { userId } = req.params;
+    const { suspended } = req.body;
+
+    const data = await prisma.user.update({
+      data: { suspended },
+      where: { id: Number(userId) },
+    });
+    return res.status(200).json({ data, errors: [] });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};

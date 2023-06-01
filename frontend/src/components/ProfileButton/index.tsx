@@ -23,7 +23,6 @@ const ProfileButton = () => {
 
   // const [visible, setVisible] = useState(false)
   const { data } = useSession()
-  console.log(data)
   if (data === null) return null
 
   // function closeHandler() {

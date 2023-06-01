@@ -10,7 +10,15 @@ type Inputs = {
   roleId: string
 }
 
-const User = ({ photo, username, full_name, role, id, mail }: User) => {
+const User = ({
+  photo,
+  username,
+  full_name,
+  role,
+  id,
+  mail,
+  suspended
+}: User) => {
   const { data } = useSession()
   const { register } = useForm<Inputs>({
     defaultValues: { roleId: String(role.id) }
@@ -25,6 +33,19 @@ const User = ({ photo, username, full_name, role, id, mail }: User) => {
       },
       body: JSON.stringify({
         roleId: e.target.value
+      })
+    }).then((r) => r.json())
+  }
+
+  async function onChangeSuspenseStatus(e: ChangeEvent<HTMLInputElement>) {
+    await fetch(`http://localhost:5050/api/users/${id}/suspense`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${data?.user.jwt}`
+      },
+      body: JSON.stringify({
+        suspended: e.target.checked
       })
     }).then((r) => r.json())
   }
@@ -62,6 +83,15 @@ const User = ({ photo, username, full_name, role, id, mail }: User) => {
           </label>
         </>
       )}
+
+      <label>
+        Conta suspensa
+        <input
+          type="checkbox"
+          defaultChecked={suspended}
+          onChange={onChangeSuspenseStatus}
+        />
+      </label>
     </S.Container>
   )
 }
