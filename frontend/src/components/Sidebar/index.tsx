@@ -14,6 +14,8 @@ export type SidebarProps = {
 const Sidebar = ({ small = false }: SidebarProps) => {
   const { data } = useSession()
 
+  const importantRoles = [1, 2]
+
   return (
     <S.SidebarContainer $small={small}>
       {small ? null : (
@@ -25,13 +27,13 @@ const Sidebar = ({ small = false }: SidebarProps) => {
         <Home size={16} />
         <p>Início</p>
       </S.SidebarLink>
-      {data?.user.role === 'admin' && (
+      {data && importantRoles.includes(data?.user.roleId) && (
         <S.SidebarLink href="/categories">
           <Stack size={16} />
           <p>Categorias</p>
         </S.SidebarLink>
       )}
-      {data?.user.role === 'admin' && (
+      {data && importantRoles.includes(data?.user.roleId) && (
         <S.SidebarLink href="/users">
           <Person size={16} />
           <p>Usuários</p>

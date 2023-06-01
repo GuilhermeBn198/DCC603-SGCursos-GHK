@@ -1,3 +1,4 @@
+import userRouter from "routes/user";
 import signInRouter from "routes/signin";
 import signUpRouter from "routes/signup";
 import courseRouter from "routes/course";
@@ -12,11 +13,12 @@ import jwtMiddleware from "middlewares/jwt";
 import express from "express";
 
 const routers = [
+  { "/users": userRouter },
   { "/courses": courseRouter },
-  { "/courses/categories": courseCategoryRouter },
   { "/classes": classeRouter },
   { "/enrollments": enrollmentRouter },
   { "/courses/tasks": courseTaskRouter },
+  { "/courses/categories": courseCategoryRouter },
   { "/courses/completedTasks": completedTaskRouter },
 ];
 

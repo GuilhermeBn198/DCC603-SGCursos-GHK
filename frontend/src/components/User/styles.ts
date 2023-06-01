@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import styled from 'styled-components'
 
-export const Container = styled.div`
+export const Container = styled.form`
   display: flex;
   align-items: center;
   justify-content: space-between;
