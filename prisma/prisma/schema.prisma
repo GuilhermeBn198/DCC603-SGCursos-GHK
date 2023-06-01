@@ -7,11 +7,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// model Role {
-//   id    Int    @id @default(autoincrement())
-//   name  String @db.VarChar(255)
-//   Users User[]
-// }
+model Role {
+  id    Int    @id @default(autoincrement())
+  name  String @db.VarChar(255)
+  Users User[]
+}
 
 model User {
   id            Int             @id @default(autoincrement())
@@ -26,8 +26,8 @@ model User {
   enrollments   Enrollment[]
   // certificates   Certificate[]
   // completedTasks CompletedTask[]
-  // roleId         Int
-  // role           Role            @relation(fields: [roleId], references: [id])
+  roleId        Int             @default(3)
+  role          Role            @relation(fields: [roleId], references: [id])
   CompletedTask CompletedTask[]
 }
 
@@ -100,10 +100,10 @@ model CourseTask {
 }
 
 model CompletedTask {
-  id            Int          @id @default(autoincrement())
+  id            Int         @id @default(autoincrement())
   completed     Boolean
   userId        Int
-  user          User         @relation(fields: [userId], references: [id])
+  user          User        @relation(fields: [userId], references: [id])
   courseTasksId Int?
   courseTasks   CourseTask? @relation(fields: [courseTasksId], references: [id])
 }

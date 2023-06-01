@@ -7,7 +7,7 @@ import { prisma } from "app";
 export const index = async (req: express.Request, res: express.Response, next: NextFunction) => {
   try {
     const { username, password } = req.body
-    const data = await prisma.user.findFirst({ where: { username, password } })
+    const data = await prisma.user.findFirst({ where: { username, password }, include: { role: {} } })
 
     if (!data?.username) return res.status(404).json({ data: null, errors: ['Usuário ou senha inválidas'] })
 

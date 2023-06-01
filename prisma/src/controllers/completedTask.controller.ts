@@ -36,7 +36,6 @@ export const changeCompletedTaskStatus = async (
 ) => {
   try {
     const { completedTaskId, courseTaskId, completed, userId } = req.body;
-    console.log(completedTaskId, courseTaskId, completed, userId)
     let result = {};
     if (completed) {
       result = await prisma.completedTask.create({
