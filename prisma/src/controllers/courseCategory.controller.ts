@@ -39,3 +39,14 @@ export const deleteCategory = async (req: express.Request, res: express.Response
     next(error)
   }
 };
+
+export const editCategory = async (req: express.Request, res: express.Response, next: NextFunction) => {
+  try {
+    const { id } = req.params
+    const data = await prisma.courseCategory.update({ data: req.body, where: { id: Number(id) } })
+    return res.status(200).json({ data, errors: [] });
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+};

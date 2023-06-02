@@ -44,7 +44,6 @@ export type CourseDetailsTask = {
 export interface Category {
   id: number
   name: string
-  description: string
 }
 
 function useClasses() {

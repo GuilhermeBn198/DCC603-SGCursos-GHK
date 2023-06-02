@@ -1,14 +1,14 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 
+import { useForm } from 'react-hook-form'
+import { useSession } from 'next-auth/react'
 import { Button, Input } from '@nextui-org/react'
 
 import { Content } from 'components/Content'
+import CategoryItems from 'components/CategoryItem'
 
 import * as S from './styles'
-import { useSession } from 'next-auth/react'
-import { useForm } from 'react-hook-form'
-import { Trash } from '@styled-icons/octicons'
 
 export interface ResponseCategory {
   data: Category[]
@@ -62,22 +62,6 @@ const Categories = () => {
     getCategories()
   }
 
-  async function deleteCategory(categoryId: number) {
-    if (session?.user.jwt) {
-      await fetch(
-        `http://localhost:5050/api/courses/categories/delete/${categoryId}`,
-        {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${session.user.jwt}`
-          }
-        }
-      )
-    }
-    getCategories()
-  }
-
   useEffect(() => {
     getCategories()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -100,10 +84,7 @@ const Categories = () => {
 
       <S.CategoryList>
         {categories?.map((c) => (
-          <S.Category key={c.id}>
-            {c.name}
-            <Trash size={24} onClick={() => deleteCategory(c.id)} />
-          </S.Category>
+          <CategoryItems key={c.id} {...c} getCategories={getCategories} />
         ))}
       </S.CategoryList>
     </Content>

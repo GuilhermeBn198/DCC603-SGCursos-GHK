@@ -1,10 +1,10 @@
 import { Raleway } from 'next/font/google'
 
 import StyledComponentsRegistry from './registry'
+import { NextAuthProvider } from './providers'
 
 import { GlobalStyle } from 'styles/global'
 import { GlobalProvider } from 'contexts/global'
-import { NextAuthProvider } from './providers'
 
 import Base from 'components/Base'
 
