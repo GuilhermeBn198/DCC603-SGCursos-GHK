@@ -16,17 +16,23 @@ export const listUsers = async (
   }
 };
 
-export const changeUserRole = async (
+export const editUser = async (
   req: Request,
   res: express.Response,
   next: NextFunction
 ) => {
   try {
     const { userId } = req.params;
-    const { roleId } = req.body;
+    const { roleId, user } = req.body;
+    let updateData
+    if (roleId) {
+      updateData = { ...user, role: { connect: { id: Number(roleId) } } }
+    } else {
+      updateData = { ...user }
+    }
 
     const data = await prisma.user.update({
-      data: { role: { connect: { id: Number(roleId) } } },
+      data: updateData,
       where: { id: Number(userId) },
     });
     return res.status(200).json({ data, errors: [] });
