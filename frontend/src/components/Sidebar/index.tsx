@@ -2,7 +2,7 @@
 import React from 'react'
 
 import { signOut, useSession } from 'next-auth/react'
-import { Home, Person, SignOut, Stack } from '@styled-icons/octicons'
+import { Home, Person, SignOut, Stack, Repo } from '@styled-icons/octicons'
 
 import Logo from 'components/Logo'
 import * as S from './styles'
@@ -31,6 +31,12 @@ const Sidebar = ({ small = false }: SidebarProps) => {
         <S.SidebarLink href="/categories">
           <Stack size={16} />
           <p>Categorias</p>
+        </S.SidebarLink>
+      )}
+      {data && importantRoles.includes(data?.user.roleId) && (
+        <S.SidebarLink href="/classes">
+          <Repo size={16} />
+          <p>Turmas</p>
         </S.SidebarLink>
       )}
       {data && importantRoles.includes(data?.user.roleId) && (

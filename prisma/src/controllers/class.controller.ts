@@ -35,11 +35,11 @@ export const createClass = async (
 ) => {
   try {
     // TODO: verificar se o curso existe
-    const { courseId } = req.body;
+    const { courseId, start_date, end_date } = req.body;
     const data = await prisma.class.create({
       data: {
-        start_date: new Date(),
-        end_date: new Date(),
+        start_date,
+        end_date,
         course: { connect: { id: Number(courseId) } },
       },
     });
