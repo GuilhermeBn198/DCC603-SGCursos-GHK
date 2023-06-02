@@ -9,8 +9,9 @@ import { SGCLass } from 'hooks/useClasses'
 import { IconsWrapper } from 'components/CategoryItem/styles'
 
 import * as S from './styles'
+import dayjs from 'dayjs'
 
-const ClassItem = ({ course, id }: SGCLass) => {
+const ClassItem = ({ course, id, start_date, end_date }: SGCLass) => {
   const { data: session } = useSession()
 
   async function deleteClass(id: number) {
@@ -28,7 +29,9 @@ const ClassItem = ({ course, id }: SGCLass) => {
 
   return (
     <S.Class>
-      {course.name}
+      {`${course.name} • ${dayjs(start_date).format('DD/MM')} até ${dayjs(
+        end_date
+      ).format('DD/MM')}`}
       <IconsWrapper>
         <Trash
           size={24}
