@@ -85,3 +85,15 @@ export const editClass = async (
     next(error);
   }
 };
+
+export const generateCertificates = async (req: express.Request,
+  res: express.Response,
+  next: NextFunction) => {
+  try {
+    console.log('tatatataa')
+    return res.status(200).json({ data: {}, errors: [] });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+}
