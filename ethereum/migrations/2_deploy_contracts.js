@@ -1,5 +1,5 @@
-const MyContract = artifacts.require('MyContract');
+const CertificateContract = artifacts.require('CertificateContract');
 
 module.exports = function (deployer) {
-  deployer.deploy(MyContract)
+  deployer.deploy(CertificateContract)
 }

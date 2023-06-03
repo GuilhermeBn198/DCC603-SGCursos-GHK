@@ -1,8 +1,8 @@
 const express = require('express');
 const Web3 = require('web3');
-const MyContract = require("./build/contracts/MyContract.json");
+const MyContract = require("./build/contracts/CertificateContract.json");
 const contractABI = MyContract.abi;
-const contractAddress = '0x331B8ec775FB481E5F03fa740b2F175306D71c14'; // Enter your contract address here
+const contractAddress = '0x3EA7b2f44b93CCa58d431399F4840d8f94156e47'; // Enter your contract address here
 const rpcEndpoint = 'http://127.0.0.1:8545'; // Enter your RPC server endpoint URL here
 
 const app = express();
@@ -12,18 +12,19 @@ const contract = new web3.eth.Contract(contractABI, contractAddress);
 
 app.use(express.json());
 
-app.get('/number', async (req, res) => {
-const number = await contract.methods.getNumber().call();
-res.json({ number });
+app.get('/certificate/:uuid', async (req, res) => {
+  const { uuid } = req.params
+  const exists = await contract.methods.findCertificate(uuid).call();
+  res.json({ exists: !!exists });
 });
 
-app.post('/number', async (req, res) => {
-const { number } = req.body;
-const accounts = await web3.eth.getAccounts();
-const result = await contract.methods.setNumber(number).send({ from: accounts[0] });
-res.json({ message: 'number set successfully' });
+app.post('/certificate/new', async (req, res) => {
+  const { uuid } = req.body;
+  const accounts = await web3.eth.getAccounts();
+  await contract.methods.addCertificate(uuid).send({ from: accounts[0] });
+  res.json({ ok: true });
 });
 
-app.listen(3000, () => {
-console.log('Server listening on port 3000');
+app.listen(4041, () => {
+  console.log('Server listening on port 4041');
 });
