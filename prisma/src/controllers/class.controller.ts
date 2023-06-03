@@ -1,4 +1,5 @@
 import express, { NextFunction, Request } from "express";
+import { v4 } from "uuid";
 
 import { prisma } from "app";
 
@@ -86,14 +87,48 @@ export const editClass = async (
   }
 };
 
-export const generateCertificates = async (req: express.Request,
+export const generateCertificates = async (
+  req: express.Request,
   res: express.Response,
-  next: NextFunction) => {
+  next: NextFunction
+) => {
   try {
-    console.log('tatatataa')
+    const { courseId, classId } = req.body;
+
+    const enrolledUsers = (
+      await prisma.enrollment.findMany({ where: { class: { id: classId } } })
+    ).map((e) => e.userId);
+    const courseTotalTasks = (
+      await prisma.courseTask.findMany({ where: { course: { id: courseId } } })
+    ).length;
+    const minQtdToGetCertificate = Math.round(0.9 * courseTotalTasks);
+
+    enrolledUsers.forEach(async (userId) => {
+      const alreadyHasCertificate = !!(await prisma.certificate.findFirst({
+        where: { user: { id: userId }, class: { id: classId } },
+      }));
+
+      const userTotalCompletedTasks = (
+        await prisma.completedTask.findMany({
+          where: { user: { id: userId } },
+        })
+      ).length;
+
+      if (userTotalCompletedTasks >= minQtdToGetCertificate && !alreadyHasCertificate) {
+        const uuid = v4();
+        await prisma.certificate.create({
+          data: {
+            uuid,
+            user: { connect: { id: userId } },
+            class: { connect: { id: classId } },
+          },
+        });
+      }
+    });
+
     return res.status(200).json({ data: {}, errors: [] });
   } catch (error) {
     console.log(error);
     next(error);
   }
-}
+};

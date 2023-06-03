@@ -25,21 +25,19 @@ model User {
   postal_code   String          @db.VarChar(255)
   suspended     Boolean         @default(false)
   enrollments   Enrollment[]
-  // certificates   Certificate[]
-  // completedTasks CompletedTask[]
+  certificates  Certificate[]
   roleId        Int             @default(3)
   role          Role            @relation(fields: [roleId], references: [id])
   CompletedTask CompletedTask[]
 }
 
 model Certificate {
-  id       Int @id @default(autoincrement())
-  courseId Int
-  // course   Course @relation(fields: [courseId], references: [id])
-  // classId  Int
-  // class    Class  @relation(fields: [classId], references: [id])
-  // userId   Int    @unique
-  // User     User   @relation(fields: [userId], references: [id])
+  id      Int    @id @default(autoincrement())
+  uuid    String @unique
+  classId Int
+  class   Class  @relation(fields: [classId], references: [id])
+  userId  Int    @unique
+  user    User   @relation(fields: [userId], references: [id])
 }
 
 model Enrollment {
@@ -53,13 +51,13 @@ model Enrollment {
 }
 
 model Class {
-  id          Int          @id @default(autoincrement())
-  start_date  DateTime
-  end_date    DateTime
-  courseId    Int
-  course      Course       @relation(fields: [courseId], references: [id])
-  enrollments Enrollment[]
-  // certificates Certificate[]
+  id           Int           @id @default(autoincrement())
+  start_date   DateTime
+  end_date     DateTime
+  courseId     Int
+  course       Course        @relation(fields: [courseId], references: [id])
+  enrollments  Enrollment[]
+  certificates Certificate[]
 }
 
 model Course {
@@ -78,9 +76,9 @@ model Course {
 }
 
 model CourseCategory {
-  id          Int      @id @default(autoincrement())
-  name        String   @db.VarChar(255)
-  courses     Course[]
+  id      Int      @id @default(autoincrement())
+  name    String   @db.VarChar(255)
+  courses Course[]
 }
 
 model CourseStatus {

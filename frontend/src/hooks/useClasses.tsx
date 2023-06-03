@@ -50,14 +50,15 @@ function useClasses() {
   const { data: session } = useSession()
   const { data, error, isLoading, mutate } = useSWR<ClassResponse>(
     `http://localhost:5050/api/classes`,
-    (params) =>
-      fetcher(params, {
+    (params) => {
+      return fetcher(params, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `${session?.user.jwt}`
         }
       })
+    }
   )
 
   useEffect(() => {

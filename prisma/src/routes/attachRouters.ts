@@ -13,13 +13,13 @@ import jwtMiddleware from "middlewares/jwt";
 import express from "express";
 
 const routers = [
+  { "/courses/completedTasks": completedTaskRouter },
   { "/users": userRouter },
   { "/courses": courseRouter },
   { "/classes": classeRouter },
   { "/enrollments": enrollmentRouter },
   { "/courses/tasks": courseTaskRouter },
   { "/courses/categories": courseCategoryRouter },
-  { "/courses/completedTasks": completedTaskRouter },
 ];
 
 const middlewares = [jwtMiddleware];
