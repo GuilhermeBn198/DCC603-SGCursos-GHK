@@ -67,4 +67,21 @@ export const deleteClass = async (
   }
 };
 
-// TODO: finishClass
+export const editClass = async (
+  req: express.Request,
+  res: express.Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    const { start_date, end_date } = req.body;
+    const data = await prisma.class.update({
+      data: { start_date, end_date },
+      where: { id: Number(id) },
+    });
+    return res.status(200).json({ data, errors: [] });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};

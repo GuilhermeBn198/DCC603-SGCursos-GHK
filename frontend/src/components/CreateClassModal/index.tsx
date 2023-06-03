@@ -39,8 +39,8 @@ const CreateClassModal = ({ visible, setVisible }: CreateClassModalProps) => {
         },
         body: JSON.stringify({
           courseId,
-          start_date: new Date(start_date),
-          end_date: new Date(end_date)
+          start_date: new Date(start_date).toISOString(),
+          end_date: new Date(end_date).toISOString()
         })
       })
     }
