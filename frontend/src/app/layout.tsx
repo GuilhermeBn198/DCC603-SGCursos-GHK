@@ -1,4 +1,5 @@
 import { Raleway } from 'next/font/google'
+import NextTopLoader from 'nextjs-toploader'
 
 import StyledComponentsRegistry from './registry'
 import { NextAuthProvider } from './providers'
@@ -25,6 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt">
+      <NextTopLoader />
       <body className={inter.className}>
         <NextAuthProvider>
           <StyledComponentsRegistry>

@@ -10,6 +10,8 @@ import EditClassModal from 'components/EditClassModal'
 import { IconsWrapper } from 'components/CategoryItem/styles'
 
 import * as S from './styles'
+import { Avatar } from '@nextui-org/react'
+import dayjs from 'dayjs'
 
 const ClassItem = (sgclass: SGCLass) => {
   const { data: session } = useSession()
@@ -33,9 +35,12 @@ const ClassItem = (sgclass: SGCLass) => {
   return (
     <>
       <S.Class>
-        {`${course.name} • ${new Date(
-          start_date
-        ).toLocaleString()} até ${new Date(end_date).toLocaleDateString()}`}
+        <IconsWrapper>
+          <Avatar src={course.photo} size="xl" />
+          {`${course.name} • ${dayjs(start_date).format('DD/MM')} até ${dayjs(
+            end_date
+          ).format('DD/MM')} • 4 inscrito(s)`}
+        </IconsWrapper>
         <IconsWrapper>
           <Pencil size={24} onClick={() => setVisible(true)} />
           <Trash
