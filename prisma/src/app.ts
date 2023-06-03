@@ -1,6 +1,6 @@
 import 'dotenv/config'
-import express, { Application, ErrorRequestHandler, NextFunction, Request, Response } from 'express';
-
+import express, { Application, NextFunction, Request, Response } from 'express';
+import cors from 'cors';
 import { PrismaClient } from '@prisma/client'
 
 import { attachRouters } from 'routes/attachRouters';
@@ -8,6 +8,7 @@ import { attachRouters } from 'routes/attachRouters';
 const app: Application = express();
 export const prisma = new PrismaClient();
 
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
