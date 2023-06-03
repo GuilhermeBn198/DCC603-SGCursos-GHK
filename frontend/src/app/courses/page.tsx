@@ -10,6 +10,7 @@ import CourseItem from 'components/CourseItem'
 import { Course } from 'hooks/useClasses'
 
 import * as S from './styles'
+import CreateCourseModal from 'components/CreateCourseModal'
 
 export interface CoursesResponse {
   data: Course[]
@@ -20,6 +21,8 @@ const Index = () => {
   const { data: session } = useSession()
 
   const [courses, setCourses] = useState<Course[]>()
+  const [createCourseModalVisible, setCreateCourseModalVisible] =
+    useState(false)
 
   async function getCourses() {
     if (session?.user.jwt) {
@@ -42,19 +45,32 @@ const Index = () => {
   }, [session?.user.jwt])
 
   return (
-    <Content>
-      <h1>Cursos</h1>
+    <>
+      <Content>
+        <h1>Cursos</h1>
 
-      <Button type="submit" size="sm" style={{ width: 'fit-content' }}>
-        Criar novo curso
-      </Button>
+        <Button
+          type="submit"
+          size="sm"
+          style={{ width: 'fit-content' }}
+          onPress={() => setCreateCourseModalVisible(true)}
+        >
+          Criar novo curso
+        </Button>
 
-      <S.CourseList>
-        {courses?.map((c) => (
-          <CourseItem key={c.id} {...c} />
-        ))}
-      </S.CourseList>
-    </Content>
+        <S.CourseList>
+          {courses?.map((c) => (
+            <CourseItem key={c.id} {...c} getCourses={getCourses} />
+          ))}
+        </S.CourseList>
+      </Content>
+
+      <CreateCourseModal
+        visible={createCourseModalVisible}
+        setVisible={setCreateCourseModalVisible}
+        getCourses={getCourses}
+      />
+    </>
   )
 }
 
