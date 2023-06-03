@@ -60,7 +60,7 @@ const Index = () => {
 
         <S.CourseList>
           {courses?.map((c) => (
-            <CourseItem key={c.id} {...c} getCourses={getCourses} />
+            <CourseItem key={c.id} course={c} getCourses={getCourses} />
           ))}
         </S.CourseList>
       </Content>
