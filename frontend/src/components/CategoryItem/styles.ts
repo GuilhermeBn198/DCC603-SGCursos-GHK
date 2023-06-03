@@ -17,5 +17,6 @@ export const Category = styled.div`
 
 export const IconsWrapper = styled.span`
   display: flex;
+  align-items: center;
   gap: 0.8rem;
 `
