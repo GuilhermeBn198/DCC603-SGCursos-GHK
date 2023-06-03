@@ -11,7 +11,7 @@ export interface Response {
   errors: any[]
 }
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/signin'
   },
