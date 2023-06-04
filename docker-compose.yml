@@ -23,7 +23,7 @@ services:
     depends_on:
       - postgres
     ports:
-      - "3000:3000"
+      - "5050:5050"
       - "5555:5555"
     restart: always
 
@@ -48,6 +48,13 @@ services:
       - '4041:4041'
     networks:
       - eth-network
+    
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+
 
 networks:
   eth-network:
