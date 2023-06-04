@@ -2,7 +2,15 @@
 import React from 'react'
 
 import { signOut, useSession } from 'next-auth/react'
-import { Home, Person, SignOut, Stack, Repo, Terminal } from '@styled-icons/octicons'
+import {
+  Home,
+  Person,
+  SignOut,
+  Stack,
+  Repo,
+  Terminal,
+  MortarBoard
+} from '@styled-icons/octicons'
 
 import Logo from 'components/Logo'
 import * as S from './styles'
@@ -51,6 +59,10 @@ const Sidebar = ({ small = false }: SidebarProps) => {
           <p>Usuários</p>
         </S.SidebarLink>
       )}
+      <S.SidebarLink href="/certificates">
+        <MortarBoard size={16} />
+        <p>Meus certificados</p>
+      </S.SidebarLink>
       <S.SidebarLink as="button" onClick={() => signOut()} href="/support">
         <SignOut size={16} />
         <p>Sair</p>

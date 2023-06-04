@@ -3,6 +3,7 @@ import signInRouter from "routes/signin";
 import signUpRouter from "routes/signup";
 import courseRouter from "routes/course";
 import classeRouter from "routes/classe";
+import certificateRouter from "routes/certificate";
 import courseTaskRouter from "routes/courseTask";
 import enrollmentRouter from "routes/enrollment";
 import completedTaskRouter from "routes/completedTask";
@@ -20,6 +21,7 @@ const routers = [
   { "/enrollments": enrollmentRouter },
   { "/courses/tasks": courseTaskRouter },
   { "/courses/categories": courseCategoryRouter },
+  { "/certificates": certificateRouter },
 ];
 
 const middlewares = [jwtMiddleware];

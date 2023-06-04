@@ -32,12 +32,13 @@ model User {
 }
 
 model Certificate {
-  id      Int    @id @default(autoincrement())
-  uuid    String @unique
-  classId Int
-  class   Class  @relation(fields: [classId], references: [id])
-  userId  Int    @unique
-  user    User   @relation(fields: [userId], references: [id])
+  id        Int      @id @default(autoincrement())
+  uuid      String   @unique
+  createdAt DateTime @default(now())
+  classId   Int
+  class     Class    @relation(fields: [classId], references: [id])
+  userId    Int      @unique
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model Enrollment {
