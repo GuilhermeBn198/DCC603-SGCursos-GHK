@@ -10,12 +10,14 @@ import EditClassModal from 'components/EditClassModal'
 import { IconsWrapper } from 'components/CategoryItem/styles'
 
 import * as S from './styles'
-import { Avatar, Tooltip } from '@nextui-org/react'
+import { Avatar, Loading, Tooltip } from '@nextui-org/react'
 import dayjs from 'dayjs'
 
 const ClassItem = (sgclass: SGCLass) => {
   const { data: session } = useSession()
+
   const [visible, setVisible] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const { course, end_date, id, start_date } = sgclass
 
@@ -32,6 +34,27 @@ const ClassItem = (sgclass: SGCLass) => {
     mutate('http://localhost:5050/api/classes')
   }
 
+  async function generateCertificates() {
+    if (session?.user.jwt) {
+      setLoading(true)
+      await fetch(
+        `http://localhost:5050/api/classes/${session.user.id}/generate-certificates`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${session.user.jwt}`
+          },
+          body: JSON.stringify({
+            courseId: sgclass.course.id,
+            classId: sgclass.id
+          })
+        }
+      )
+      setLoading(false)
+    }
+  }
+
   return (
     <>
       <S.Class>
@@ -43,7 +66,11 @@ const ClassItem = (sgclass: SGCLass) => {
         </IconsWrapper>
         <IconsWrapper>
           <Tooltip content="Gerar certificados" color="primary">
-            <MortarBoard size={24} />
+            {loading ? (
+              <Loading />
+            ) : (
+              <MortarBoard size={24} onClick={generateCertificates} />
+            )}
           </Tooltip>
           <Pencil size={24} onClick={() => setVisible(true)} />
           <Trash

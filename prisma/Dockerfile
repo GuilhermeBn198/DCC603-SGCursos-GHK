@@ -26,4 +26,5 @@ EXPOSE 5050
 EXPOSE 5555
 
 # A command to start the server
+RUN npm migrate
 CMD npm start

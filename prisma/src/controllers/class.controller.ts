@@ -1,5 +1,6 @@
 import express, { NextFunction, Request } from "express";
-import { v4 } from "uuid";
+import { generate } from "short-uuid";
+import axios from 'axios'
 
 import { prisma } from "app";
 
@@ -115,10 +116,14 @@ export const generateCertificates = async (
       ).length;
 
       if (userTotalCompletedTasks >= minQtdToGetCertificate && !alreadyHasCertificate) {
-        const uuid = v4();
+        const shortUuid = generate();
+        console.log(`Gerando certificado: ${shortUuid}`)
+        await axios.post('http://localhost:4041/certificate/new', {
+          uuid: String(shortUuid)
+        })
         await prisma.certificate.create({
           data: {
-            uuid,
+            uuid: shortUuid,
             user: { connect: { id: userId } },
             class: { connect: { id: classId } },
           },

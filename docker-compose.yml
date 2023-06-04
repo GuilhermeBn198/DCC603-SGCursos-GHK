@@ -14,7 +14,7 @@ services:
       - ./prisma/postgres-data:/var/lib/postgresql/data
     restart: unless-stopped
 
-  prisma-postgres-api:
+  prisma-api:
     stdin_open: true
     build:
       context: ./prisma
