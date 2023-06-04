@@ -1,0 +1,24 @@
+FROM node:16-bullseye-slim as base
+
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y \
+        build-essential \
+        python3 && \
+    rm -fr /var/lib/apt/lists/* && \
+    rm -rf /etc/apt/sources.list.d/*
+
+RUN npm install --global --quiet npm truffle
+
+FROM base as truffle
+
+WORKDIR /app
+
+COPY package*.json ./
+
+COPY . .
+
+RUN npm install
+
+EXPOSE 4041
+
+CMD npm start

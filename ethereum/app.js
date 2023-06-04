@@ -2,8 +2,8 @@ const express = require('express');
 const Web3 = require('web3');
 const MyContract = require("./build/contracts/CertificateContract.json");
 const contractABI = MyContract.abi;
-const contractAddress = '0x3EA7b2f44b93CCa58d431399F4840d8f94156e47'; // Enter your contract address here
-const rpcEndpoint = 'http://127.0.0.1:8545'; // Enter your RPC server endpoint URL here
+const contractAddress = '0xedc9fca97e7607009a307e723e3ecdb0b4f727fe'; // Enter your contract address here
+const rpcEndpoint = 'http://ganache:8545'; // Enter your RPC server endpoint URL here
 
 const app = express();
 const web3 = new Web3(new Web3.providers.HttpProvider(rpcEndpoint));

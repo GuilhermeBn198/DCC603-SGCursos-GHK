@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "compile": "truffle compile",
-    "migrate": "truffle migrate",
-    "start:ganache": "ganache-cli",
-    "start": "node app.js"
+    "compile": "truffle compile --host=ganache",
+    "migrate": "truffle migrate --host=ganache",
+    "start": "truffle compile --host=ganache && truffle migrate --host=ganache && node app.js"
   },
   "keywords": [],
   "author": "",

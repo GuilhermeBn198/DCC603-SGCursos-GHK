@@ -14,20 +14,6 @@ services:
       - ./prisma/postgres-data:/var/lib/postgresql/data
     restart: unless-stopped
 
-  # pgadmin:
-  #   image: dpage/pgadmin4
-  #   container_name: pgadmin
-  #   depends_on:
-  #     - postgres
-  #   ports:
-  #     - "5555:80"
-  #   environment:
-  #     PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
-  #     PGADMIN_DEFAULT_PASSWORD: admin
-  #   volumes:
-  #     - ./prisma/pgadmin-data:/var/lib/pgadmin
-  #   restart: unless-stopped
-
   prisma-postgres-api:
     stdin_open: true
     build:
@@ -41,6 +27,30 @@ services:
       - "5555:5555"
     restart: always
 
+  ganache:
+    build:
+      context: ./ethereum
+      dockerfile: GanacheDockerfile
+    container_name: ganache
+    ports:
+      - '8545:8545'
+    networks:
+      - eth-network
+
+  ethereum-api:
+    build:
+      context: ./ethereum
+      dockerfile: APIDockerfile
+    container_name: eth-api
+    depends_on:
+      - ganache
+    ports:
+      - '4041:4041'
+    networks:
+      - eth-network
+
+networks:
+  eth-network:
+
 volumes:
   postgres-data:
-  # pgadmin-data:
