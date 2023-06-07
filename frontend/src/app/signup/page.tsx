@@ -13,6 +13,7 @@ type Inputs = {
   full_name: string
   institution: string
   password: string
+  phone: string
   mail: string
   photo: string
   postal_code: string
@@ -102,6 +103,12 @@ const SignUp = () => {
           placeholder="E-mail"
           aria-label="E-mail"
           {...register('mail', { required: true })}
+        />
+        <Input
+          type="tel"
+          placeholder="Celular"
+          aria-label="phone"
+          {...register('phone', { required: true })}
         />
         <Input
           type="text"
