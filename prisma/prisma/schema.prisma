@@ -45,9 +45,9 @@ model Enrollment {
   id         Int      @id @default(autoincrement())
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  userId     Int      @unique
+  userId     Int
   user       User     @relation(fields: [userId], references: [id])
-  classId    Int      @unique
+  classId    Int
   class      Class    @relation(fields: [classId], references: [id])
 }
 
