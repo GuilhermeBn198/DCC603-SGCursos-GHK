@@ -26,7 +26,7 @@ const authOptions: NextAuthOptions = {
         const { username, password } = credentials as Credentials
 
         try {
-          const data: Response = await fetch(`http://localhost:5050/api/signin`, {
+          const data: Response = await fetch(`${process.env.NEXT_PUBLIC_API}/api/signin`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

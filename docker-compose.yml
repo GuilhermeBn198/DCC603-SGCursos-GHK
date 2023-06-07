@@ -2,7 +2,7 @@ version: "3.9"
 services:
   postgres:
     image: postgres:latest
-    container_name: postgres
+    container_name: ufrr-postgres
     hostname: postgres
     ports:
       - 5432:5432
@@ -12,14 +12,16 @@ services:
       POSTGRES_DB: sgcursos
     volumes:
       - ./prisma/postgres-data:/var/lib/postgresql/data
+      - ./prisma/init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: unless-stopped
 
   prisma-api:
+    container_name: ufrr-prisma-api
     stdin_open: true
+    hostname: prisma
     build:
       context: ./prisma
       dockerfile: Dockerfile
-    container_name: prisma-postgres-api
     depends_on:
       - postgres
     ports:
@@ -28,20 +30,22 @@ services:
     restart: always
 
   ganache:
+    image: ufrr-ganache
+    container_name: ufrr-ganache
     build:
       context: ./ethereum
       dockerfile: GanacheDockerfile
-    container_name: ganache
     ports:
       - '8545:8545'
     networks:
       - eth-network
 
   ethereum-api:
+    image: ufrr-ethereum-api
+    container_name: ufrr-ethereum
     build:
       context: ./ethereum
       dockerfile: APIDockerfile
-    container_name: eth-api
     depends_on:
       - ganache
     ports:
@@ -49,7 +53,8 @@ services:
     networks:
       - eth-network
     
-  frontend:
+  nextjs:
+    container_name: ufrr-nextjs
     build:
       context: ./frontend
     ports:
