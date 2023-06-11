@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 import Link from 'next/link'
 import { Checkbox } from '@mui/material'
@@ -21,6 +21,8 @@ const Task = ({
 }: TaskProps) => {
   const { data } = useSession()
 
+  const [checked, setChecked] = useState(completed)
+
   async function onInputChange(e: ChangeEvent<HTMLInputElement>) {
     const completed = e.target.checked
     await fetch('http://localhost:5050/api/courses/completedTasks/edit', {
@@ -36,6 +38,7 @@ const Task = ({
         userId: data?.user.id
       })
     }).then((r) => r.json())
+    setChecked((c) => !c)
     await getTasks()
   }
 
@@ -53,7 +56,7 @@ const Task = ({
           <S.Text>{title}</S.Text>
         </Link>
       </S.Row>
-      <Checkbox defaultChecked={completed} onChange={onInputChange} />
+      <Checkbox checked={!!checked} onChange={onInputChange} />
     </S.Container>
   )
 }
