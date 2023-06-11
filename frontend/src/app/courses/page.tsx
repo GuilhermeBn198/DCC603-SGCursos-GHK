@@ -11,6 +11,7 @@ import CourseItem from 'components/CourseItem'
 import CreateCourseModal from 'components/CreateCourseModal'
 
 import * as S from './styles'
+import CreateTaskModal from 'components/CreateTaskModal'
 
 export interface CoursesResponse {
   data: Course[]
@@ -23,6 +24,7 @@ const Index = () => {
   const [courses, setCourses] = useState<Course[]>()
   const [createCourseModalVisible, setCreateCourseModalVisible] =
     useState(false)
+  const [createTaskModalVisible, setCreateTaskModalVisible] = useState(false)
 
   async function getCourses() {
     if (session?.user.jwt) {
@@ -49,13 +51,23 @@ const Index = () => {
       <Content>
         <h1>Cursos</h1>
 
-        <Button
-          type="submit"
-          style={{ width: 'fit-content' }}
-          onClick={() => setCreateCourseModalVisible(true)}
-        >
-          Criar novo curso
-        </Button>
+        <S.ButtonsWrapper>
+          <Button
+            variant="outlined"
+            style={{ width: 'fit-content' }}
+            onClick={() => setCreateCourseModalVisible(true)}
+          >
+            Criar novo curso
+          </Button>
+
+          <Button
+            variant="outlined"
+            style={{ width: 'fit-content' }}
+            onClick={() => setCreateTaskModalVisible(true)}
+          >
+            Criar nova tarefa
+          </Button>
+        </S.ButtonsWrapper>
 
         <S.CourseList>
           {courses?.map((c) => (
@@ -69,6 +81,14 @@ const Index = () => {
         setVisible={setCreateCourseModalVisible}
         getCourses={getCourses}
       />
+
+      {courses && (
+        <CreateTaskModal
+          visible={createTaskModalVisible}
+          setVisible={setCreateTaskModalVisible}
+          courses={courses}
+        />
+      )}
     </>
   )
 }
