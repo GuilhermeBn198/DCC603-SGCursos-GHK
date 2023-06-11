@@ -63,9 +63,11 @@ const Sidebar = ({ small = false }: SidebarProps) => {
         <MortarBoard size={16} />
         <p>Meus certificados</p>
       </S.SidebarLink>
-      <S.SidebarLink as="button" onClick={() => signOut()} href="/support">
-        <SignOut size={16} />
-        <p>Sair</p>
+      <S.SidebarLink as="button" onClick={() => signOut()}>
+        <>
+          <SignOut size={16} />
+          <p>Sair</p>
+        </>
       </S.SidebarLink>
     </S.SidebarContainer>
   )
