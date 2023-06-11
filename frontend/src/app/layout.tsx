@@ -1,5 +1,4 @@
 import { Raleway } from 'next/font/google'
-import NextTopLoader from 'nextjs-toploader'
 
 import StyledComponentsRegistry from './registry'
 import { NextAuthProvider } from './providers'
@@ -25,18 +24,17 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt">
-      <NextTopLoader />
-      <body className={inter.className}>
-        <NextAuthProvider>
-          <StyledComponentsRegistry>
+    <StyledComponentsRegistry>
+      <html lang="pt">
+        <body className={inter.className}>
+          <NextAuthProvider>
             <GlobalStyle />
             <GlobalProvider>
               <Base>{children}</Base>
             </GlobalProvider>
-          </StyledComponentsRegistry>
-        </NextAuthProvider>
-      </body>
-    </html>
+          </NextAuthProvider>
+        </body>
+      </html>
+    </StyledComponentsRegistry>
   )
 }
