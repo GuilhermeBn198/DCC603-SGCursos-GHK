@@ -505,6 +505,9 @@ COPY public."Certificate" (id, "classId", "userId", uuid, "createdAt") FROM stdi
 
 COPY public."Class" (id, "courseId", start_date, end_date) FROM stdin;
 5	6	2023-06-03 00:00:00	2023-06-29 00:00:00
+16	14	2023-06-01 04:00:00	2023-06-28 04:00:00
+17	15	2023-06-01 04:00:00	2023-07-31 04:00:00
+18	16	2023-06-01 04:00:00	2023-08-31 04:00:00
 \.
 
 
@@ -513,9 +516,9 @@ COPY public."Class" (id, "courseId", start_date, end_date) FROM stdin;
 --
 
 COPY public."CompletedTask" (id, completed, "userId", "courseTasksId") FROM stdin;
-16	t	1	1
 17	t	1	2
 20	t	1	3
+24	t	1	1
 \.
 
 
@@ -525,6 +528,9 @@ COPY public."CompletedTask" (id, completed, "userId", "courseTasksId") FROM stdi
 
 COPY public."Course" (id, workload, name, photo, "categoryId", description) FROM stdin;
 6	60	Macuxi Digital	macuxi.png	1	Este projeto é uma ação que incentiva a presença e a atuação de meninas e mulheres na tecnologia, estimulando o acesso desse público às áreas das ciências exatas. As participantes receberão capacitação sobre pensamento computacional, habilidades de criação de apps e de divulgação profissional no LinkedIn.
+15	120	Intensivo ICT competition	ict.jpeg	1	Preparatório para a etapa brasileira da Huawei ICT Competition, desafio criado em 2015 para oferecer a estudantes de instituições parceiras, como a UFRR, oportunidades de estudos e intercâmbio de ideias, experiências e aprimoramento de conhecimento em Tecnologia da Informação e Comunicação (TIC), com estímulo à criatividade.\n\n
+16	240	Criação de Apps com Thunkable	thunkable.png	1	Capacitar pessoas, a partir de 12 anos por meio do software Thunkable, para criação de aplicativos móveis, para Android de IOS.
+14	50	ABCIA	abcia.png	4	Este curso é gratuito e 100% online. Consiste em uma introdução ao universo da Inteligência Artificial (IA), especificamente, na subárea de Aprendizado de Máquina. Por esse motivo, se aplica a graduandos e profissionais de áreas da Computação ou relacionadas, bem como entusiastas de tecnologia que são de outras áreas do conhecimento.\n
 \.
 
 
@@ -533,9 +539,9 @@ COPY public."Course" (id, workload, name, photo, "categoryId", description) FROM
 --
 
 COPY public."CourseCategory" (id, name) FROM stdin;
-1	Development
 2	Design
 4	Inteligência Artificial uau🤖
+1	Desenvolvimento
 \.
 
 
@@ -555,6 +561,12 @@ COPY public."CourseTask" (id, title, description, external_link, "courseId") FRO
 1	Link do curso	Descrição	https://www.youtube.com/@cursoabcia	6
 2	Atividade 1	Descrição	https://www.youtube.com/@cursoabcia	6
 3	Atividade 1	Descrição	https://www.youtube.com/@cursoabcia	6
+5	Link da live de abertura	descrição	https://www.youtube.com/live/xjJRw6kQpFo?feature=share	14
+6	Módulo 01 - Aula 01: Introdução à Inteligência Artificial	descrição	https://youtu.be/f7EBg7sMluQ	14
+7	Módulo 02 - Aula 01: Machine Learning	descrição	https://youtu.be/1zRcPvJVdqQ	14
+8	Prova Final	prova	https://sites.google.com/view/abcia/	14
+9	Tarefa de teste	descrição	https://dcc-ufrr.app	15
+10	Tarefa de teste	teste	https://dcc-ufrr.app	16
 \.
 
 
@@ -564,6 +576,9 @@ COPY public."CourseTask" (id, title, description, external_link, "courseId") FRO
 
 COPY public."Enrollment" (id, "classId", created_at, updated_at, "userId") FROM stdin;
 16	5	2023-05-31 01:28:04.725	2023-05-31 01:28:04.725	1
+52	16	2023-06-11 03:03:05.504	2023-06-11 03:03:05.504	1
+53	17	2023-06-11 03:04:38.134	2023-06-11 03:04:38.134	1
+54	18	2023-06-11 03:04:41.109	2023-06-11 03:04:41.109	1
 \.
 
 
@@ -612,6 +627,7 @@ b3fa0102-398b-4f2a-bfa6-53b4d1620274	735154a86b1ce8ff5cc0ed83c145ffd345bcd14629d
 1ccb5b04-c1e8-4f76-a369-f7422262a58b	8abe399331d565b351edc5292c799b3c2c496bfb634f6aacfe787890f46fa967	2023-06-04 16:52:39.964816+00	20230604165239_	\N	\N	2023-06-04 16:52:39.955112+00	1
 fae800c1-8e4e-48f8-9c13-10850e052c69	fb091432e93057e0d835ecfba3fc3ac1e1cfd19db0a11864b3542dc9ebcc9bb2	2023-06-01 16:29:29.289869+00	20230601162929_2	\N	\N	2023-06-01 16:29:29.278841+00	1
 880948ae-2038-4f96-acf5-8445656e3d9c	f00424eb08976833964cde431267ebc517efb3cdc61b3aa9d40cf7089099259d	2023-06-01 16:58:59.531262+00	20230601165859_1	\N	\N	2023-06-01 16:58:59.526014+00	1
+65f06a09-bfbe-46e4-86d3-d3ed7b454282	761755d2b8b417e7416b591972706ad75d24d77d7bf0c22c8a7047f8edb6b592	2023-06-11 02:23:32.830825+00	20230607215712_	\N	\N	2023-06-11 02:23:32.818678+00	1
 \.
 
 
@@ -626,21 +642,21 @@ SELECT pg_catalog.setval('public."Certificate_id_seq"', 38, true);
 -- Name: Class_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public."Class_id_seq"', 15, true);
+SELECT pg_catalog.setval('public."Class_id_seq"', 18, true);
 
 
 --
 -- Name: CompletedTask_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public."CompletedTask_id_seq"', 20, true);
+SELECT pg_catalog.setval('public."CompletedTask_id_seq"', 53, true);
 
 
 --
 -- Name: CourseCategory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public."CourseCategory_id_seq"', 7, true);
+SELECT pg_catalog.setval('public."CourseCategory_id_seq"', 12, true);
 
 
 --
@@ -654,21 +670,21 @@ SELECT pg_catalog.setval('public."CourseStatus_id_seq"', 1, false);
 -- Name: CourseTask_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public."CourseTask_id_seq"', 3, true);
+SELECT pg_catalog.setval('public."CourseTask_id_seq"', 10, true);
 
 
 --
 -- Name: Course_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public."Course_id_seq"', 13, true);
+SELECT pg_catalog.setval('public."Course_id_seq"', 14, true);
 
 
 --
 -- Name: Enrollment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public."Enrollment_id_seq"', 16, true);
+SELECT pg_catalog.setval('public."Enrollment_id_seq"', 54, true);
 
 
 --
@@ -682,7 +698,7 @@ SELECT pg_catalog.setval('public."Role_id_seq"', 1, false);
 -- Name: User_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public."User_id_seq"', 5, true);
+SELECT pg_catalog.setval('public."User_id_seq"', 39, true);
 
 
 --
@@ -785,20 +801,6 @@ CREATE UNIQUE INDEX "Certificate_userId_key" ON public."Certificate" USING btree
 --
 
 CREATE UNIQUE INDEX "Certificate_uuid_key" ON public."Certificate" USING btree (uuid);
-
-
---
--- Name: Enrollment_classId_key; Type: INDEX; Schema: public; Owner: admin
---
-
-CREATE UNIQUE INDEX "Enrollment_classId_key" ON public."Enrollment" USING btree ("classId");
-
-
---
--- Name: Enrollment_userId_key; Type: INDEX; Schema: public; Owner: admin
---
-
-CREATE UNIQUE INDEX "Enrollment_userId_key" ON public."Enrollment" USING btree ("userId");
 
 
 --
