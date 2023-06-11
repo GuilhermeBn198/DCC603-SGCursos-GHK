@@ -1,12 +1,16 @@
 'use client'
-import { useGlobal } from 'contexts/global'
-import * as S from './styles'
-import { Button } from '@nextui-org/react'
-import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 
-import Task from 'components/Task'
+import { Button } from '@mui/material'
+import { useSession } from 'next-auth/react'
+
+import { useGlobal } from 'contexts/global'
+
 import { CourseDetailsTask } from 'hooks/useClasses'
+
+import Task from 'components/Task'
+
+import * as S from './styles'
 
 export interface TypeTask {
   id: number
@@ -81,7 +85,7 @@ const CourseDetails = () => {
       <S.Text>{localClass?.course.description}</S.Text>
 
       {!localClass?.enrolled ? (
-        <Button type="button" onPress={enroll}>
+        <Button type="button" onClick={enroll}>
           Inscrever-se
         </Button>
       ) : (

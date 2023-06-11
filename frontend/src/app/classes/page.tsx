@@ -1,10 +1,9 @@
 'use client'
 import React, { useState } from 'react'
 
-import { Button } from '@nextui-org/react'
-
-import { Content } from 'components/Content'
+import { Button } from '@mui/material'
 import ClassItem from 'components/ClassItem'
+import { Content } from 'components/Content'
 import CreateClassModal from 'components/CreateClassModal'
 
 import useClasses from 'hooks/useClasses'
@@ -22,9 +21,8 @@ const Classes = () => {
 
       <Button
         type="submit"
-        size="sm"
         style={{ width: 'fit-content' }}
-        onPress={() => setCreateClass(true)}
+        onClick={() => setCreateClass(true)}
       >
         Criar nova turma
       </Button>

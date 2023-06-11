@@ -1,5 +1,8 @@
 import React from 'react'
-import { Modal, Text } from '@nextui-org/react'
+
+import Modal from '@mui/material/Modal'
+
+import * as S from './styles'
 
 type AppModalProps = {
   title: string
@@ -8,26 +11,17 @@ type AppModalProps = {
   setVisible: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const AppModal = ({ title, children, visible, setVisible }: AppModalProps) => {
+const AppModal = ({ visible, setVisible, children, title }: AppModalProps) => {
   const closeHandler = () => {
     setVisible(false)
   }
 
   return (
-    <Modal
-      closeButton
-      blur
-      aria-labelledby={title}
-      open={visible}
-      onClose={closeHandler}
-    >
-      <Modal.Header>
-        <Text id={title} size={18}>
-          {title}
-        </Text>
-      </Modal.Header>
-
-      {children}
+    <Modal open={visible} onClose={closeHandler}>
+      <S.ModalContainer>
+        <S.Title>{title}</S.Title>
+        {children}
+      </S.ModalContainer>
     </Modal>
   )
 }

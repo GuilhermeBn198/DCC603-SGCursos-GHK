@@ -3,7 +3,14 @@ import React, { useEffect, useState } from 'react'
 
 import { useForm } from 'react-hook-form'
 import { useSession } from 'next-auth/react'
-import { Button, Input, Modal, Textarea } from '@nextui-org/react'
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField
+} from '@mui/material'
 
 import { Category } from 'hooks/useClasses'
 
@@ -91,36 +98,40 @@ const CreateCourseModal = ({
       setVisible={setVisible}
     >
       <S.Form onSubmit={handleSubmit(onSubmit)}>
-        <Modal.Body>
-          <label htmlFor="categoryId">Categoria</label>
-          <select {...register('categoryId', { required: true })}>
+        <FormControl>
+          <InputLabel id="categoryLabel">Categoria</InputLabel>
+          <Select
+            defaultValue=""
+            {...register('categoryId', { required: true })}
+            labelId="categoryLabel"
+            label="Categoria"
+          >
             {categories?.map((c) => (
-              <option key={c.id} value={c.id}>
+              <MenuItem key={c.id} value={c.id}>
                 {c.name}
-              </option>
+              </MenuItem>
             ))}
-          </select>
-          <Input label="Nome" {...register('name', { required: true })} />
-          <Textarea
-            label="Descrição"
-            {...register('description', { required: true })}
-          />
-          <Input label="Foto" {...register('photo', { required: true })} />
-          <Input
-            type="number"
-            label="Carga horária"
-            {...register('workload', { required: true })}
-          />
-        </Modal.Body>
+          </Select>
+        </FormControl>
 
-        <Modal.Footer>
-          <Button auto flat color="error" onClick={() => setVisible(false)}>
-            Cancelar
-          </Button>
-          <Button auto type="submit">
+        <TextField label="Nome" {...register('name', { required: true })} />
+        <TextField
+          label="Descrição"
+          {...register('description', { required: true })}
+        />
+        <TextField label="Foto" {...register('photo', { required: true })} />
+        <TextField
+          type="number"
+          label="Carga horária"
+          {...register('workload', { required: true })}
+        />
+
+        <span className="buttonsWrapper">
+          <Button onClick={() => setVisible(false)}>Cancelar</Button>
+          <Button variant="contained" type="submit">
             Criar
           </Button>
-        </Modal.Footer>
+        </span>
       </S.Form>
     </AppModal>
   )

@@ -2,35 +2,37 @@
 import React from 'react'
 
 import { usePathname } from 'next/navigation'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 import Badges from 'components/Badges'
 import Sidebar from 'components/Sidebar'
 import CourseDetails from 'components/CourseDetails'
 
-import * as S from './style'
 import { useGlobal } from 'contexts/global'
-import { useSSR } from '@nextui-org/react'
+
+import * as S from './style'
 
 type BaseProps = {
   children: React.ReactNode
 }
 
 const Base = ({ children }: BaseProps) => {
-  const { isBrowser } = useSSR()
-
   const { activeClass } = useGlobal()
   const pathname = usePathname()
   const paths = ['/signin', '/signup', '/profile']
 
   if (paths.includes(pathname)) return <S.Main>{children}</S.Main>
 
-  return isBrowser ? (
-    <S.Container $hasActiveCourse={!!activeClass}>
-      <Sidebar small={!!activeClass} />
-      <S.Main>{children}</S.Main>
-      {activeClass ? <CourseDetails /> : <Badges />}
-    </S.Container>
-  ) : null
+  return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <S.Container $hasActiveCourse={!!activeClass}>
+        <Sidebar small={!!activeClass} />
+        <S.Main>{children}</S.Main>
+        {activeClass ? <CourseDetails /> : <Badges />}
+      </S.Container>
+    </LocalizationProvider>
+  )
 }
 
 export default Base

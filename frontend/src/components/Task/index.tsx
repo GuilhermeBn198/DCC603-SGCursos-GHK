@@ -1,11 +1,11 @@
 import { ChangeEvent } from 'react'
 
 import Link from 'next/link'
+import { Checkbox } from '@mui/material'
+import { useSession } from 'next-auth/react'
 import { Beaker, File, Globe } from '@styled-icons/octicons'
 
 import { CourseDetailsTask } from 'hooks/useClasses'
-
-import { useSession } from 'next-auth/react'
 
 import * as S from './styles'
 
@@ -53,11 +53,7 @@ const Task = ({
           <S.Text>{title}</S.Text>
         </Link>
       </S.Row>
-      <input
-        type="checkbox"
-        defaultChecked={completed}
-        onChange={onInputChange}
-      />
+      <Checkbox defaultChecked={completed} onChange={onInputChange} />
     </S.Container>
   )
 }

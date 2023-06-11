@@ -1,10 +1,12 @@
 import { ChangeEvent } from 'react'
-import { useForm } from 'react-hook-form'
+
+import { Controller, useForm } from 'react-hook-form'
+import { useSession } from 'next-auth/react'
+import { Checkbox, FormControlLabel, Radio, RadioGroup } from '@mui/material'
 
 import { User } from 'hooks/useUsers'
 
 import * as S from './styles'
-import { useSession } from 'next-auth/react'
 
 type Inputs = {
   roleId: string
@@ -20,7 +22,7 @@ const User = ({
   suspended
 }: User) => {
   const { data } = useSession()
-  const { register } = useForm<Inputs>({
+  const { register, control } = useForm<Inputs>({
     defaultValues: { roleId: String(role.id) }
   })
 
@@ -61,33 +63,47 @@ const User = ({
       </S.Row>
 
       {role.id !== 1 && data?.user.role.id === 1 && (
-        <>
-          <label>
-            Administrador
-            <input
-              type="radio"
-              value="2"
-              {...register('roleId')}
-              onChange={onChangeRole}
-            />
-          </label>
-
-          <label>
-            Estudante
-            <input
-              type="radio"
-              value="3"
-              {...register('roleId')}
-              onChange={onChangeRole}
-            />
-          </label>
-        </>
+        <Controller
+          name="roleId"
+          control={control}
+          render={({ field }) => (
+            <RadioGroup row defaultValue={field.value}>
+              <FormControlLabel
+                value="2"
+                {...register('roleId')}
+                control={<Radio onChange={onChangeRole} />}
+                label="Administrador"
+              />
+              <FormControlLabel
+                value="3"
+                {...register('roleId')}
+                control={<Radio onChange={onChangeRole} />}
+                label="Estudante"
+              />
+            </RadioGroup>
+          )}
+        />
       )}
+      {/* {role.id !== 1 && data?.user.role.id === 1 && (
+        <RadioGroup row>
+          <FormControlLabel
+            value="2"
+            {...register('roleId')}
+            control={<Radio onChange={onChangeRole} />}
+            label="Administrador"
+          />
+          <FormControlLabel
+            value="3"
+            {...register('roleId')}
+            control={<Radio onChange={onChangeRole} />}
+            label="Estudante"
+          />
+        </RadioGroup>
+      )} */}
 
       <label>
         Conta suspensa
-        <input
-          type="checkbox"
+        <Checkbox
           defaultChecked={suspended}
           onChange={onChangeSuspenseStatus}
         />

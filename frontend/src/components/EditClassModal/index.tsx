@@ -2,16 +2,16 @@
 import React from 'react'
 
 import { mutate } from 'swr'
-import { useForm } from 'react-hook-form'
+import { Button } from '@mui/material'
 import { useSession } from 'next-auth/react'
-import { Button, Modal } from '@nextui-org/react'
-
-import AppModal from 'components/AppModal'
+import { DatePicker } from '@mui/x-date-pickers'
+import { Controller, useForm } from 'react-hook-form'
 
 import { SGCLass } from 'hooks/useClasses'
 
+import AppModal from 'components/AppModal'
+
 import * as S from './styles'
-import dayjs from 'dayjs'
 
 type EditClassModalProps = {
   visible: boolean
@@ -19,27 +19,15 @@ type EditClassModalProps = {
 } & SGCLass
 
 type Inputs = {
-  start_date: string
-  end_date: string
+  start_date: Date
+  end_date: Date
 }
 
-const EditClassModal = ({
-  visible,
-  setVisible,
-  start_date,
-  id,
-  end_date
-}: EditClassModalProps) => {
-  const { handleSubmit, register } = useForm<Inputs>({
-    defaultValues: {
-      start_date,
-      end_date
-    }
-  })
+const EditClassModal = ({ visible, setVisible, id }: EditClassModalProps) => {
+  const { handleSubmit, control, setValue } = useForm<Inputs>()
   const { data: session } = useSession()
 
   async function onSubmit({ end_date, start_date }: Inputs) {
-    console.log(start_date, end_date, new Date(start_date))
     if (session?.user.jwt) {
       fetch(`http://localhost:5050/api/classes/${id}/edit`, {
         method: 'POST',
@@ -60,30 +48,36 @@ const EditClassModal = ({
   return (
     <AppModal title="Editar turma" visible={visible} setVisible={setVisible}>
       <S.Form onSubmit={handleSubmit(onSubmit)}>
-        <Modal.Body>
-          <label htmlFor="start_date">Data de início</label>
-          <input
-            type="date"
-            {...register('start_date', { required: true })}
-            defaultValue={dayjs(start_date).format('YYYY-MM-DD')}
-          />
+        <label htmlFor="start_date">Data de início</label>
+        <Controller
+          name="start_date"
+          control={control}
+          rules={{ required: true }}
+          render={() => (
+            <DatePicker
+              format="DD/MM/YYYY"
+              onChange={(event) => setValue('start_date', event as Date)}
+            />
+          )}
+        />
 
-          <label htmlFor="end_date">Data de término</label>
-          <input
-            type="date"
-            {...register('end_date', { required: true })}
-            defaultValue={dayjs(end_date).format('YYYY-MM-DD')}
-          />
-        </Modal.Body>
+        <label htmlFor="end_date">Data de término</label>
+        <Controller
+          name="end_date"
+          control={control}
+          rules={{ required: true }}
+          render={() => (
+            <DatePicker
+              format="DD/MM/YYYY"
+              onChange={(event) => setValue('end_date', event as Date)}
+            />
+          )}
+        />
 
-        <Modal.Footer>
-          <Button auto flat color="error" onClick={() => setVisible(false)}>
-            Cancelar
-          </Button>
-          <Button auto type="submit">
-            Editar
-          </Button>
-        </Modal.Footer>
+        <Button onClick={() => setVisible(false)}>Cancelar</Button>
+        <Button variant="contained" type="submit">
+          Editar
+        </Button>
       </S.Form>
     </AppModal>
   )

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 
-import { Avatar } from '@nextui-org/react'
 import { Pencil, Trash } from '@styled-icons/octicons'
 
 import { Course } from 'hooks/useClasses'
@@ -10,6 +9,7 @@ import { IconsWrapper } from 'components/CategoryItem/styles'
 import * as S from './styles'
 import { useSession } from 'next-auth/react'
 import EditCourseModal from 'components/EditCourseModal'
+import { Avatar } from '@mui/material'
 
 type CourseItemProps = {
   course: Course
@@ -40,7 +40,7 @@ const CourseItem = ({ course, getCourses }: CourseItemProps) => {
     <>
       <S.Container>
         <IconsWrapper>
-          <Avatar src={photo} size="xl" />
+          <Avatar alt={name} src={photo} sx={{ width: 64, height: 64 }} />
           {name}
         </IconsWrapper>
         <IconsWrapper>

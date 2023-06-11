@@ -1,15 +1,15 @@
 'use client'
 import React, { useState } from 'react'
 
+import Link from 'next/link'
+import { signIn } from 'next-auth/react'
+import { useForm } from 'react-hook-form'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { Button, CircularProgress, TextField } from '@mui/material'
+
 import Auth from 'templates/Auth'
 
-import { useForm } from 'react-hook-form'
-import { Button, Input, Loading, Text } from '@nextui-org/react'
-
 import { Form } from 'components/Form'
-import { signIn } from 'next-auth/react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import Link from 'next/link'
 
 type Inputs = {
   username: string
@@ -21,8 +21,8 @@ const SignIn = () => {
   const searchParams = useSearchParams()
   const { register, handleSubmit } = useForm<Inputs>()
 
-  const [loading, setLoading] = useState(false)
   const [failed, setFailed] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   async function onSubmit(data: Inputs) {
     setLoading(true)
@@ -42,25 +42,30 @@ const SignIn = () => {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <h1>Entrar</h1>
 
-        {failed ? <Text color="red">Usuário ou senha inválidos</Text> : null}
+        {failed ? <p>Usuário ou senha inválidos</p> : null}
 
-        <Input
+        <TextField
           type="text"
-          placeholder="Nome"
-          aria-label="Nome"
+          label="Nome"
           {...register('username', { required: true })}
         />
-        <Input
+        <TextField
           type="password"
-          placeholder="Senha"
-          aria-label="Senha"
+          label="Senha"
           {...register('password', { required: true })}
         />
 
         <p>
           Primeira vez aqui? <Link href="/signup">Crie uma conta</Link>
         </p>
-        {loading ? <Loading /> : <Button type="submit">Enviar</Button>}
+
+        {loading ? (
+          <CircularProgress sx={{ alignSelf: 'center' }} />
+        ) : (
+          <Button type="submit" variant="contained">
+            Enviar
+          </Button>
+        )}
       </Form>
     </Auth>
   )

@@ -2,13 +2,20 @@
 import React, { useEffect, useState } from 'react'
 
 import { mutate } from 'swr'
-import { useForm } from 'react-hook-form'
 import { useSession } from 'next-auth/react'
-import { Button, Modal } from '@nextui-org/react'
-
-import AppModal from 'components/AppModal'
+import { DatePicker } from '@mui/x-date-pickers'
+import { Controller, useForm } from 'react-hook-form'
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select
+} from '@mui/material'
 
 import { Course } from 'hooks/useClasses'
+
+import AppModal from 'components/AppModal'
 
 import * as S from './styles'
 
@@ -19,13 +26,13 @@ type CreateClassModalProps = {
 
 type Inputs = {
   courseId: string
-  start_date: string
-  end_date: string
+  start_date: Date
+  end_date: Date
 }
 
 const CreateClassModal = ({ visible, setVisible }: CreateClassModalProps) => {
-  const { handleSubmit, register } = useForm<Inputs>()
   const { data: session } = useSession()
+  const { handleSubmit, register, control, setValue } = useForm<Inputs>()
 
   const [courses, setCourses] = useState<Course[] | undefined>()
 
@@ -72,31 +79,50 @@ const CreateClassModal = ({ visible, setVisible }: CreateClassModalProps) => {
       setVisible={setVisible}
     >
       <S.Form onSubmit={handleSubmit(onSubmit)}>
-        <Modal.Body>
-          <label htmlFor="courseId">Escolha um curso</label>
-          <select {...register('courseId', { required: true })}>
+        <FormControl>
+          <InputLabel id="courseId">Escolha um curso</InputLabel>
+          <Select
+            {...register('courseId', { required: true })}
+            labelId="courseId"
+            label="Escolha um curso"
+            defaultValue=""
+          >
             {courses?.map((c) => (
-              <option key={c.id} value={c.id}>
+              <MenuItem key={c.id} value={c.id}>
                 {c.name}
-              </option>
+              </MenuItem>
             ))}
-          </select>
+          </Select>
+        </FormControl>
 
-          <label htmlFor="start_date">Data de início</label>
-          <input type="date" {...register('start_date', { required: true })} />
+        <label htmlFor="start_date">Data de início</label>
+        <Controller
+          name="start_date"
+          control={control}
+          render={() => (
+            <DatePicker
+              format="DD/MM/YYYY"
+              onChange={(event) => setValue('start_date', event as Date)}
+            />
+          )}
+        />
 
-          <label htmlFor="end_date">Data de término</label>
-          <input type="date" {...register('end_date', { required: true })} />
-        </Modal.Body>
+        <label htmlFor="end_date">Data de término</label>
+        <Controller
+          name="end_date"
+          control={control}
+          render={() => (
+            <DatePicker
+              format="DD/MM/YYYY"
+              onChange={(event) => setValue('end_date', event as Date)}
+            />
+          )}
+        />
 
-        <Modal.Footer>
-          <Button auto flat color="error" onClick={() => setVisible(false)}>
-            Cancelar
-          </Button>
-          <Button auto type="submit">
-            Criar
-          </Button>
-        </Modal.Footer>
+        <Button onClick={() => setVisible(false)}>Cancelar</Button>
+        <Button variant="contained" type="submit">
+          Criar
+        </Button>
       </S.Form>
     </AppModal>
   )

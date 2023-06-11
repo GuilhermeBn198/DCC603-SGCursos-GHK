@@ -1,16 +1,16 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 
-import { Button } from '@nextui-org/react'
+import { Button } from '@mui/material'
 import { useSession } from 'next-auth/react'
-
-import { Content } from 'components/Content'
-import CourseItem from 'components/CourseItem'
 
 import { Course } from 'hooks/useClasses'
 
-import * as S from './styles'
+import { Content } from 'components/Content'
+import CourseItem from 'components/CourseItem'
 import CreateCourseModal from 'components/CreateCourseModal'
+
+import * as S from './styles'
 
 export interface CoursesResponse {
   data: Course[]
@@ -51,9 +51,8 @@ const Index = () => {
 
         <Button
           type="submit"
-          size="sm"
           style={{ width: 'fit-content' }}
-          onPress={() => setCreateCourseModalVisible(true)}
+          onClick={() => setCreateCourseModalVisible(true)}
         >
           Criar novo curso
         </Button>

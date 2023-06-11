@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 import { useForm } from 'react-hook-form'
 import { useSession } from 'next-auth/react'
-import { Button, Input } from '@nextui-org/react'
+import { Button, TextField } from '@mui/material'
 
 import { Content } from 'components/Content'
 import CategoryItems from 'components/CategoryItem'
@@ -72,12 +72,12 @@ const Categories = () => {
       <h1>Categorias</h1>
 
       <S.CreateCategoryWrapper onSubmit={handleSubmit(createCategory)}>
-        <Input
-          aria-label="Nome da nova categoria"
-          placeholder="Nome da nova categoria"
+        <TextField
+          type="text"
+          label="Nome da nova categoria"
           {...register('name', { required: true })}
         />
-        <Button type="submit" size="sm" style={{ width: 'fit-content' }}>
+        <Button type="submit" variant="contained">
           Criar categoria
         </Button>
       </S.CreateCategoryWrapper>

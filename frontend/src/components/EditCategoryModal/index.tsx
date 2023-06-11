@@ -1,10 +1,10 @@
 'use client'
 import React from 'react'
 
-import { Button, Input, Modal } from '@nextui-org/react'
 import { useForm } from 'react-hook-form'
 import { Category } from 'hooks/useClasses'
 import { useSession } from 'next-auth/react'
+import { Button, TextField } from '@mui/material'
 
 import AppModal from 'components/AppModal'
 
@@ -56,22 +56,18 @@ const EditCategoryModal = ({
       setVisible={setVisible}
     >
       <S.Form onSubmit={handleSubmit(onSubmit)}>
-        <Modal.Body>
-          <Input
-            placeholder="Nome da categoria"
-            initialValue={name}
-            {...register('name', { required: true })}
-          />
-        </Modal.Body>
+        <TextField
+          label="Nome da categoria"
+          defaultValue={name}
+          {...register('name', { required: true })}
+        />
 
-        <Modal.Footer>
-          <Button auto flat color="error">
-            Cancelar
-          </Button>
-          <Button auto type="submit">
+        <span className="buttonsWrapper">
+          <Button>Cancelar</Button>
+          <Button variant="contained" type="submit">
             Editar
           </Button>
-        </Modal.Footer>
+        </span>
       </S.Form>
     </AppModal>
   )

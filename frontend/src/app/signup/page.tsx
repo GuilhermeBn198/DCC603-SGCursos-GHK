@@ -1,12 +1,14 @@
 'use client'
 import React, { useState } from 'react'
-import { Form } from 'components/Form'
+
+import { signIn } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
-import { Button, Input, Loading, Text } from '@nextui-org/react'
+import { useRouter } from 'next/navigation'
+import { Button, CircularProgress, TextField } from '@mui/material'
 
 import Auth from 'templates/Auth'
-import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+
+import { Form } from 'components/Form'
 
 type Inputs = {
   username: string
@@ -75,54 +77,53 @@ const SignUp = () => {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <h1>Criar conta</h1>
         {errors.map((err) => (
-          <Text key={err} color="red">
+          <p key={err} color="red">
             {err}
-          </Text>
+          </p>
         ))}
 
-        <Input
+        <TextField
           type="text"
-          placeholder="Usuário"
-          aria-label="Usuário"
+          label="Usuário"
           {...register('username', { required: true })}
         />
-        <Input
+        <TextField
           type="password"
-          placeholder="Senha"
-          aria-label="Senha"
+          label="Senha"
           {...register('password', { required: true })}
         />
-        <Input
+        <TextField
           type="text"
-          placeholder="Nome Completo"
-          aria-label="Nome Completo"
+          label="Nome Completo"
           {...register('full_name', { required: true })}
         />
-        <Input
+        <TextField
           type="email"
-          placeholder="E-mail"
-          aria-label="E-mail"
+          label="E-mail"
           {...register('mail', { required: true })}
         />
-        <Input
+        <TextField
           type="tel"
-          placeholder="Celular"
-          aria-label="phone"
+          label="Celular"
           {...register('phone', { required: true })}
         />
-        <Input
+        <TextField
           type="text"
-          placeholder="Instituição"
-          aria-label="Instituição"
+          label="Instituição"
           {...register('institution', { required: true })}
         />
-        <Input
+        <TextField
           type="text"
-          placeholder="CEP"
-          aria-label="CEP"
+          label="CEP"
           {...register('postal_code', { required: true })}
         />
-        {loading ? <Loading /> : <Button type="submit">Enviar</Button>}
+        {loading ? (
+          <CircularProgress sx={{ alignSelf: 'center' }} />
+        ) : (
+          <Button type="submit" variant="contained">
+            Criar conta
+          </Button>
+        )}
       </Form>
     </Auth>
   )
