@@ -34,7 +34,6 @@ const SignIn = () => {
       setFailed(true)
       console.error('Falha no login')
     }
-    setLoading(false)
   }
 
   return (
