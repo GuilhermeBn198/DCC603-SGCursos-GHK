@@ -77,6 +77,7 @@ const CourseDetails = () => {
             src={`/${localClass.course.photo}`}
             alt="Course photo"
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </S.ImageWrapper>
       ) : null}
