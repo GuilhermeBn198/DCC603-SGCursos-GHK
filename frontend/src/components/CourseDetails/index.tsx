@@ -86,7 +86,7 @@ const CourseDetails = () => {
       <S.Text>{localClass?.course.description}</S.Text>
 
       {!localClass?.enrolled ? (
-        <Button type="button" onClick={enroll}>
+        <Button variant="contained" type="button" onClick={enroll}>
           Inscrever-se
         </Button>
       ) : (
