@@ -13,15 +13,13 @@ export const listClasses = async (
     const data = await prisma.class.findMany({
       include: { course: { include: { category: {}, tasks: {} } } },
     });
-    const customData = await Promise.all(
-      data.map(async (c) => {
-        const enrolled = await prisma.enrollment.findFirst({
-          where: { userId: req.user?.id, classId: c.id },
-        });
-        const test = { ...c, enrolled: !!enrolled };
-        return test;
-      })
-    );
+
+    const enrollments = await prisma.enrollment.findMany()
+
+    const customData = data.map(c => {
+      const enrolled = enrollments.find(e => e.userId === req.user?.id && e.classId === c.id)
+      return { ...c, enrolled: !!enrolled };
+    })
 
     return res.status(200).json({ data: customData, errors: [] });
   } catch (error) {
