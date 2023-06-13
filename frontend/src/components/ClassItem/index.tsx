@@ -19,7 +19,7 @@ const ClassItem = (sgclass: SGCLass) => {
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const { course, end_date, id, start_date } = sgclass
+  const { course, end_date, id, start_date, totalEnrollments } = sgclass
 
   async function deleteClass(id: number) {
     if (session?.user.jwt) {
@@ -66,7 +66,7 @@ const ClassItem = (sgclass: SGCLass) => {
           />
           {`${course.name} • ${dayjs(start_date).format('DD/MM')} até ${dayjs(
             end_date
-          ).format('DD/MM')} • 4 inscrito(s)`}
+          ).format('DD/MM')} • ${totalEnrollments} inscrito(s)`}
         </IconsWrapper>
         <IconsWrapper>
           {loading ? (

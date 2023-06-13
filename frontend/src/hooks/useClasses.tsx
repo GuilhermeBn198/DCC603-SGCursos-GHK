@@ -15,6 +15,7 @@ export interface SGCLass {
   courseId: number
   course: Course
   enrolled: boolean
+  totalEnrollments: number
 }
 
 export interface Course {

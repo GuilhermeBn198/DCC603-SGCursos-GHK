@@ -1,6 +1,6 @@
 import express, { NextFunction, Request } from "express";
 import { generate } from "short-uuid";
-import axios from 'axios'
+import axios from "axios";
 
 import { prisma } from "app";
 
@@ -14,12 +14,18 @@ export const listClasses = async (
       include: { course: { include: { category: {}, tasks: {} } } },
     });
 
-    const enrollments = await prisma.enrollment.findMany()
+    const enrollments = await prisma.enrollment.findMany();
 
-    const customData = data.map(c => {
-      const enrolled = enrollments.find(e => e.userId === req.user?.id && e.classId === c.id)
-      return { ...c, enrolled: !!enrolled };
-    })
+    const customData = data.map((c) => {
+      const enrolled = enrollments.find(
+        (e) => e.userId === req.user?.id && e.classId === c.id
+      );
+      return {
+        ...c,
+        enrolled: !!enrolled,
+        totalEnrollments: enrollments.filter((e) => e.classId === c.id).length,
+      };
+    });
 
     return res.status(200).json({ data: customData, errors: [] });
   } catch (error) {
@@ -113,12 +119,15 @@ export const generateCertificates = async (
         })
       ).length;
 
-      if (userTotalCompletedTasks >= minQtdToGetCertificate && !alreadyHasCertificate) {
+      if (
+        userTotalCompletedTasks >= minQtdToGetCertificate &&
+        !alreadyHasCertificate
+      ) {
         const shortUuid = generate();
-        console.log(`Gerando certificado: ${shortUuid}`)
-        await axios.post('http://ethereum:4041/certificate/new', {
-          uuid: String(shortUuid)
-        })
+        console.log(`Gerando certificado: ${shortUuid}`);
+        await axios.post("http://ethereum:4041/certificate/new", {
+          uuid: String(shortUuid),
+        });
         await prisma.certificate.create({
           data: {
             uuid: shortUuid,
