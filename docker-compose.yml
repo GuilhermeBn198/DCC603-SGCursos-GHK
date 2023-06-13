@@ -14,6 +14,8 @@ services:
       - ./prisma/postgres-data:/var/lib/postgresql/data
       - ./prisma/init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: unless-stopped
+    networks:
+      - sgcursos
 
   prisma-api:
     container_name: ufrr-prisma-api
@@ -28,6 +30,8 @@ services:
       - "5050:5050"
       - "5555:5555"
     restart: always
+    networks:
+      - sgcursos
 
   ganache:
     image: ufrr-ganache
@@ -38,11 +42,12 @@ services:
     ports:
       - '8545:8545'
     networks:
-      - eth-network
+      - sgcursos
 
   ethereum-api:
     image: ufrr-ethereum-api
     container_name: ufrr-ethereum
+    hostname: ethereum
     build:
       context: ./ethereum
       dockerfile: APIDockerfile
@@ -51,7 +56,7 @@ services:
     ports:
       - '4041:4041'
     networks:
-      - eth-network
+      - sgcursos
     
   nextjs:
     container_name: ufrr-nextjs
@@ -59,10 +64,12 @@ services:
       context: ./frontend
     ports:
       - "3000:3000"
+    networks:
+      - sgcursos
 
 
 networks:
-  eth-network:
+  sgcursos:
 
 volumes:
   postgres-data:

@@ -116,7 +116,7 @@ export const generateCertificates = async (
       if (userTotalCompletedTasks >= minQtdToGetCertificate && !alreadyHasCertificate) {
         const shortUuid = generate();
         console.log(`Gerando certificado: ${shortUuid}`)
-        await axios.post('http://localhost:4041/certificate/new', {
+        await axios.post('http://ethereum:4041/certificate/new', {
           uuid: String(shortUuid)
         })
         await prisma.certificate.create({
