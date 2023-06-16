@@ -793,7 +793,7 @@ ALTER TABLE ONLY public._prisma_migrations
 -- Name: Certificate_userId_key; Type: INDEX; Schema: public; Owner: admin
 --
 
-CREATE UNIQUE INDEX "Certificate_userId_key" ON public."Certificate" USING btree ("userId");
+CREATE INDEX "Certificate_userId_key" ON public."Certificate" USING btree ("userId");
 
 
 --
