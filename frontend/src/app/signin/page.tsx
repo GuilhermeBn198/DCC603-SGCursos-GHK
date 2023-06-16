@@ -42,7 +42,9 @@ const SignIn = () => {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <h1>Entrar</h1>
 
-        {failed ? <p>Usuário ou senha inválidos</p> : null}
+        {failed ? (
+          <p style={{ color: 'red' }}>Usuário ou senha inválidos</p>
+        ) : null}
 
         <TextField
           type="text"
