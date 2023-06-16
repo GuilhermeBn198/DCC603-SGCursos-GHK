@@ -37,7 +37,7 @@ model Certificate {
   createdAt DateTime @default(now())
   classId   Int
   class     Class    @relation(fields: [classId], references: [id])
-  userId    Int      @unique
+  userId    Int
   user      User     @relation(fields: [userId], references: [id])
 }
 
