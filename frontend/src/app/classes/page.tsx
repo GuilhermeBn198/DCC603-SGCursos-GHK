@@ -21,6 +21,7 @@ const Classes = () => {
 
       <Button
         type="submit"
+        variant="contained"
         style={{ width: 'fit-content' }}
         onClick={() => setCreateClass(true)}
       >

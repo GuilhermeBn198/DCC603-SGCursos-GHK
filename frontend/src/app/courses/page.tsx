@@ -53,7 +53,7 @@ const Index = () => {
 
         <S.ButtonsWrapper>
           <Button
-            variant="outlined"
+            variant="contained"
             style={{ width: 'fit-content' }}
             onClick={() => setCreateCourseModalVisible(true)}
           >
@@ -61,7 +61,7 @@ const Index = () => {
           </Button>
 
           <Button
-            variant="outlined"
+            variant="contained"
             style={{ width: 'fit-content' }}
             onClick={() => setCreateTaskModalVisible(true)}
           >
