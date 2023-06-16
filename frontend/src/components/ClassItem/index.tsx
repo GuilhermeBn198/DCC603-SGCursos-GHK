@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import dayjs from 'dayjs'
 import { mutate } from 'swr'
+import { enqueueSnackbar } from 'notistack'
 import { useSession } from 'next-auth/react'
 import { Avatar, CircularProgress, Tooltip } from '@mui/material'
 import { MortarBoard, Pencil, Trash } from '@styled-icons/octicons'
@@ -30,6 +31,10 @@ const ClassItem = (sgclass: SGCLass) => {
           Authorization: `Bearer ${session.user.jwt}`
         }
       })
+        .then((r) => r.json())
+        .catch(() =>
+          enqueueSnackbar('Falha ao deletar turma', { variant: 'error' })
+        )
     }
     mutate(`${process.env.NEXT_PUBLIC_API}/api/classes`)
   }
@@ -51,6 +56,9 @@ const ClassItem = (sgclass: SGCLass) => {
           })
         }
       )
+      enqueueSnackbar('Certificados gerados com sucesso!', {
+        variant: 'success'
+      })
       setLoading(false)
     }
   }

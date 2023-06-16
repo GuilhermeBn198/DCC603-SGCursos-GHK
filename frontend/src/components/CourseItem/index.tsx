@@ -10,6 +10,7 @@ import * as S from './styles'
 import { useSession } from 'next-auth/react'
 import EditCourseModal from 'components/EditCourseModal'
 import { Avatar } from '@mui/material'
+import { enqueueSnackbar } from 'notistack'
 
 type CourseItemProps = {
   course: Course
@@ -32,6 +33,10 @@ const CourseItem = ({ course, getCourses }: CourseItemProps) => {
           Authorization: `Bearer ${session.user.jwt}`
         }
       })
+        .then((r) => r.json())
+        .catch(() =>
+          enqueueSnackbar('Falha ao deletar curso', { variant: 'error' })
+        )
       getCourses()
     }
   }

@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 
+import { SnackbarProvider } from 'notistack'
 import { usePathname } from 'next/navigation'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
@@ -25,13 +26,19 @@ const Base = ({ children }: BaseProps) => {
   if (paths.includes(pathname)) return <S.Main>{children}</S.Main>
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <S.Container $hasActiveCourse={!!activeClass}>
-        <Sidebar small={!!activeClass} />
-        <S.Main>{children}</S.Main>
-        {activeClass ? <CourseDetails /> : <Badges />}
-      </S.Container>
-    </LocalizationProvider>
+    <>
+      <SnackbarProvider
+        anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
+      />
+
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <S.Container $hasActiveCourse={!!activeClass}>
+          <Sidebar small={!!activeClass} />
+          <S.Main>{children}</S.Main>
+          {activeClass ? <CourseDetails /> : <Badges />}
+        </S.Container>
+      </LocalizationProvider>
+    </>
   )
 }
 

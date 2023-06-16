@@ -7,6 +7,7 @@ import { Pencil, Trash } from '@styled-icons/octicons'
 import { useSession } from 'next-auth/react'
 
 import EditCategoryModal from 'components/EditCategoryModal'
+import { enqueueSnackbar } from 'notistack'
 
 type CategoryItemsProps = { getCategories: () => void } & Category
 
@@ -27,6 +28,8 @@ const CategoryItems = ({ id, name, getCategories }: CategoryItemsProps) => {
           }
         }
       )
+        .then((r) => r.json())
+        .catch(() => enqueueSnackbar('Falha ao deletar categoria', { variant: 'error' }))
     }
     getCategories()
   }
