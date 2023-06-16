@@ -32,6 +32,7 @@ const SignIn = () => {
       setFailed(false)
     } else {
       setFailed(true)
+      setLoading(false)
       console.error('Falha no login')
     }
   }
