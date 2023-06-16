@@ -29,7 +29,7 @@ const CourseDetails = () => {
   const [tasks, setTasks] = useState<CourseDetailsTask[] | undefined>()
 
   async function enroll() {
-    await fetch('http://localhost:5050/api/enrollments/new', {
+    await fetch(`http:///api/enrollments/new`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ const CourseDetails = () => {
 
   async function getTasks() {
     const response = await fetch(
-      'http://localhost:5050/api/courses/completedTasks',
+      `http://${process.env.NEXT_PUBLIC_API}/api/courses/completedTasks`,
       {
         method: 'POST',
         headers: {

@@ -29,7 +29,7 @@ const EditClassModal = ({ visible, setVisible, id }: EditClassModalProps) => {
 
   async function onSubmit({ end_date, start_date }: Inputs) {
     if (session?.user.jwt) {
-      fetch(`http://localhost:5050/api/classes/${id}/edit`, {
+      fetch(`http://${process.env.NEXT_PUBLIC_API}/api/classes/${id}/edit`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ const EditClassModal = ({ visible, setVisible, id }: EditClassModalProps) => {
       })
     }
     setVisible(false)
-    mutate('http://localhost:5050/api/classes')
+    mutate(`http://${process.env.NEXT_PUBLIC_API}/api/classes`)
   }
 
   return (

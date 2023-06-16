@@ -45,18 +45,21 @@ const CreateTaskModal = ({
     courseId
   }: Inputs) {
     if (session?.user.jwt) {
-      await fetch(`http://localhost:5050/api/courses/${courseId}/task/new`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session.user.jwt}`
-        },
-        body: JSON.stringify({
-          title,
-          description,
-          external_link
-        })
-      }).then((r) => r.json())
+      await fetch(
+        `http://${process.env.NEXT_PUBLIC_API}/api/courses/${courseId}/task/new`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${session.user.jwt}`
+          },
+          body: JSON.stringify({
+            title,
+            description,
+            external_link
+          })
+        }
+      ).then((r) => r.json())
       setVisible(false)
       reset()
     }

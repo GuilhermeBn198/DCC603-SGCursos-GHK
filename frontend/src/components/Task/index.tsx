@@ -25,19 +25,22 @@ const Task = ({
 
   async function onInputChange(e: ChangeEvent<HTMLInputElement>) {
     const completed = e.target.checked
-    await fetch('http://localhost:5050/api/courses/completedTasks/edit', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${data?.user.jwt}`
-      },
-      body: JSON.stringify({
-        courseTaskId: id,
-        completedTaskId,
-        completed,
-        userId: data?.user.id
-      })
-    }).then((r) => r.json())
+    await fetch(
+      `http://${process.env.NEXT_PUBLIC_API}/api/courses/completedTasks/edit`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${data?.user.jwt}`
+        },
+        body: JSON.stringify({
+          courseTaskId: id,
+          completedTaskId,
+          completed,
+          userId: data?.user.id
+        })
+      }
+    ).then((r) => r.json())
     setChecked((c) => !c)
     await getTasks()
   }

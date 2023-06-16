@@ -29,7 +29,7 @@ const Index = () => {
   async function getCourses() {
     if (session?.user.jwt) {
       const response: CoursesResponse = await fetch(
-        'http://localhost:5050/api/courses',
+        `http://${process.env.NEXT_PUBLIC_API}/api/courses`,
         {
           headers: {
             'Content-Type': 'application/json',

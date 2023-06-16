@@ -65,22 +65,25 @@ const EditCourseModal = ({
     categoryId
   }: Inputs) {
     if (session?.user.jwt) {
-      await fetch(`http://localhost:5050/api/courses/${course.id}/edit`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session.user.jwt}`
-        },
-        body: JSON.stringify({
-          course: {
-            name,
-            description,
-            photo,
-            workload: Number(workload)
+      await fetch(
+        `http://${process.env.NEXT_PUBLIC_API}/api/courses/${course.id}/edit`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${session.user.jwt}`
           },
-          categoryId
-        })
-      })
+          body: JSON.stringify({
+            course: {
+              name,
+              description,
+              photo,
+              workload: Number(workload)
+            },
+            categoryId
+          })
+        }
+      )
     }
     getCourses()
     setVisible(false)
@@ -89,7 +92,7 @@ const EditCourseModal = ({
   async function getCategories() {
     if (session?.user.jwt) {
       const response: CategoryResponse = await fetch(
-        'http://localhost:5050/api/courses/categories',
+        `http://${process.env.NEXT_PUBLIC_API}/api/courses/categories`,
         {
           headers: {
             'Content-Type': 'application/json',

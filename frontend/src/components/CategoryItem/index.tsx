@@ -18,7 +18,7 @@ const CategoryItems = ({ id, name, getCategories }: CategoryItemsProps) => {
   async function deleteCategory(categoryId: number) {
     if (session?.user.jwt) {
       await fetch(
-        `http://localhost:5050/api/courses/categories/delete/${categoryId}`,
+        `http://${process.env.NEXT_PUBLIC_API}/api/courses/categories/delete/${categoryId}`,
         {
           method: 'DELETE',
           headers: {

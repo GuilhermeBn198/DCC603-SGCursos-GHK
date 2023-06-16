@@ -25,13 +25,16 @@ const CourseItem = ({ course, getCourses }: CourseItemProps) => {
 
   async function deleteCourse() {
     if (session?.user.jwt) {
-      await fetch(`http://localhost:5050/api/courses/delete/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session.user.jwt}`
+      await fetch(
+        `http://${process.env.NEXT_PUBLIC_API}/api/courses/delete/${id}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${session.user.jwt}`
+          }
         }
-      })
+      )
       getCourses()
     }
   }

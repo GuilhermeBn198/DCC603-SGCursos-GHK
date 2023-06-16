@@ -49,13 +49,16 @@ const SignUp = () => {
   async function onSubmit(data: Inputs) {
     setLoading(true)
 
-    const response: Response = await fetch(`http://localhost:5050/api/signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    }).then((r) => r.json())
+    const response: Response = await fetch(
+      `http://${process.env.NEXT_PUBLIC_API}/api/signup`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      }
+    ).then((r) => r.json())
 
     if (response.data) {
       await signIn('credentials', {

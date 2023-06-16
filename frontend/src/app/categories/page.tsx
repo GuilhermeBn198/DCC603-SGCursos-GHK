@@ -33,7 +33,7 @@ const Categories = () => {
   async function getCategories() {
     if (session?.user.jwt) {
       const response: ResponseCategory = await fetch(
-        `http://localhost:5050/api/courses/categories`,
+        `http://${process.env.NEXT_PUBLIC_API}/api/courses/categories`,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -47,16 +47,19 @@ const Categories = () => {
 
   async function createCategory({ name }: Inputs) {
     if (session?.user.jwt) {
-      await fetch(`http://localhost:5050/api/courses/categories/new`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session.user.jwt}`
-        },
-        body: JSON.stringify({
-          name
-        })
-      })
+      await fetch(
+        `http://${process.env.NEXT_PUBLIC_API}/api/courses/categories/new`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${session.user.jwt}`
+          },
+          body: JSON.stringify({
+            name
+          })
+        }
+      )
     }
     reset()
     getCategories()
