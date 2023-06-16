@@ -125,7 +125,7 @@ export const generateCertificates = async (
       ) {
         const shortUuid = generate();
         console.log(`Gerando certificado: ${shortUuid}`);
-        await axios.post(`http://${process.env.HOSTNAME}:4041/certificate/new`, {
+        await axios.post(`http://35.209.59.111:4041/certificate/new`, {
           uuid: String(shortUuid),
         });
         await prisma.certificate.create({
