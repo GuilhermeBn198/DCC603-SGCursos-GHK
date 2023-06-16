@@ -100,14 +100,15 @@ const User = ({
           />
         </RadioGroup>
       )} */}
-
-      <label>
-        Conta suspensa
-        <Checkbox
-          defaultChecked={suspended}
-          onChange={onChangeSuspenseStatus}
-        />
-      </label>
+      {role.id !== 1 && (
+        <label>
+          Conta suspensa
+          <Checkbox
+            defaultChecked={suspended}
+            onChange={onChangeSuspenseStatus}
+          />
+        </label>
+      )}
     </S.Container>
   )
 }
