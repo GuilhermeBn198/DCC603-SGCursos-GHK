@@ -65,8 +65,9 @@ const CourseDetails = () => {
 
   useEffect(() => {
     getTasks()
+    setLocalClass(activeClass)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [activeClass])
 
   return (
     <S.Container>
