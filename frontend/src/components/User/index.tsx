@@ -27,7 +27,7 @@ const User = ({
   })
 
   async function onChangeRole(e: ChangeEvent<HTMLInputElement>) {
-    await fetch(`http://${process.env.NEXT_PUBLIC_API}/api/users/${id}/edit`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API}/api/users/${id}/edit`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -40,19 +40,16 @@ const User = ({
   }
 
   async function onChangeSuspenseStatus(e: ChangeEvent<HTMLInputElement>) {
-    await fetch(
-      `http://${process.env.NEXT_PUBLIC_API}/api/users/${id}/suspense`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${data?.user.jwt}`
-        },
-        body: JSON.stringify({
-          suspended: e.target.checked
-        })
-      }
-    ).then((r) => r.json())
+    await fetch(`${process.env.NEXT_PUBLIC_API}/api/users/${id}/suspense`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${data?.user.jwt}`
+      },
+      body: JSON.stringify({
+        suspended: e.target.checked
+      })
+    }).then((r) => r.json())
   }
 
   return (

@@ -33,7 +33,7 @@ export interface Role {
 function useUsers() {
   const { data: session } = useSession()
   const { data, error, isLoading, mutate } = useSWR<UserResponse>(
-    `http://${process.env.NEXT_PUBLIC_API}/api/users`,
+    `${process.env.NEXT_PUBLIC_API}/api/users`,
     (params) =>
       fetcher(params, {
         method: 'GET',

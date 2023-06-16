@@ -50,7 +50,7 @@ const SignUp = () => {
     setLoading(true)
 
     const response: Response = await fetch(
-      `http://${process.env.NEXT_PUBLIC_API}/api/signup`,
+      `${process.env.NEXT_PUBLIC_API}/api/signup`,
       {
         method: 'POST',
         headers: {

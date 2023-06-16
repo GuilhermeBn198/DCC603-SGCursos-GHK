@@ -66,7 +66,7 @@ const EditCourseModal = ({
   }: Inputs) {
     if (session?.user.jwt) {
       await fetch(
-        `http://${process.env.NEXT_PUBLIC_API}/api/courses/${course.id}/edit`,
+        `${process.env.NEXT_PUBLIC_API}/api/courses/${course.id}/edit`,
         {
           method: 'POST',
           headers: {
@@ -92,7 +92,7 @@ const EditCourseModal = ({
   async function getCategories() {
     if (session?.user.jwt) {
       const response: CategoryResponse = await fetch(
-        `http://${process.env.NEXT_PUBLIC_API}/api/courses/categories`,
+        `${process.env.NEXT_PUBLIC_API}/api/courses/categories`,
         {
           headers: {
             'Content-Type': 'application/json',

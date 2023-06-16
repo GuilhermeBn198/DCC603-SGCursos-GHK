@@ -55,7 +55,7 @@ const CreateCourseModal = ({
     categoryId
   }: Inputs) {
     if (session?.user.jwt) {
-      await fetch(`http://${process.env.NEXT_PUBLIC_API}/api/courses/new`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API}/api/courses/new`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ const CreateCourseModal = ({
   async function getCategories() {
     if (session?.user.jwt) {
       const response: CategoryResponse = await fetch(
-        `http://${process.env.NEXT_PUBLIC_API}/api/courses/categories`,
+        `${process.env.NEXT_PUBLIC_API}/api/courses/categories`,
         {
           headers: {
             'Content-Type': 'application/json',

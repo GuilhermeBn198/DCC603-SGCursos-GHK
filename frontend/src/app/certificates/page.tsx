@@ -29,7 +29,7 @@ const Certificates = () => {
   async function getCertificatesByUser() {
     if (session?.user.jwt) {
       const response = await fetch(
-        `http://${process.env.NEXT_PUBLIC_API}/api/certificates/${session.user.id}`,
+        `${process.env.NEXT_PUBLIC_API}/api/certificates/${session.user.id}`,
         {
           headers: {
             'Content-Type': 'application/json',

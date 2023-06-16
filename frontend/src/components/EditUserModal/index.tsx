@@ -27,7 +27,7 @@ const EditUserModal = ({ visible, setVisible }: EditUserModalProps) => {
   async function onSubmit(data: Inputs) {
     if (session?.user.jwt) {
       const response = await fetch(
-        `http://${process.env.NEXT_PUBLIC_API}/api/users/${session.user.id}/edit`,
+        `${process.env.NEXT_PUBLIC_API}/api/users/${session.user.id}/edit`,
         {
           method: 'POST',
           headers: {

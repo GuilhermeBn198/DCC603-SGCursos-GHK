@@ -46,7 +46,7 @@ const CreateTaskModal = ({
   }: Inputs) {
     if (session?.user.jwt) {
       await fetch(
-        `http://${process.env.NEXT_PUBLIC_API}/api/courses/${courseId}/task/new`,
+        `${process.env.NEXT_PUBLIC_API}/api/courses/${courseId}/task/new`,
         {
           method: 'POST',
           headers: {

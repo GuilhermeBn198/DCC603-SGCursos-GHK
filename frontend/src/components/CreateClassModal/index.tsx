@@ -38,7 +38,7 @@ const CreateClassModal = ({ visible, setVisible }: CreateClassModalProps) => {
 
   async function onSubmit({ courseId, end_date, start_date }: Inputs) {
     if (session?.user.jwt) {
-      fetch(`http://${process.env.NEXT_PUBLIC_API}/api/classes/new`, {
+      fetch(`${process.env.NEXT_PUBLIC_API}/api/classes/new`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,13 +52,13 @@ const CreateClassModal = ({ visible, setVisible }: CreateClassModalProps) => {
       })
     }
     setVisible(false)
-    mutate(`http://${process.env.NEXT_PUBLIC_API}/api/classes`)
+    mutate(`${process.env.NEXT_PUBLIC_API}/api/classes`)
   }
 
   async function getCourses() {
     if (session?.user.jwt) {
       const response = await fetch(
-        `http://${process.env.NEXT_PUBLIC_API}/api/courses`,
+        `${process.env.NEXT_PUBLIC_API}/api/courses`,
         {
           headers: {
             'Content-Type': 'application/json',

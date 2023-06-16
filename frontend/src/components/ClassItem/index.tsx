@@ -23,25 +23,22 @@ const ClassItem = (sgclass: SGCLass) => {
 
   async function deleteClass(id: number) {
     if (session?.user.jwt) {
-      await fetch(
-        `http://${process.env.NEXT_PUBLIC_API}/api/classes/delete/${id}`,
-        {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${session.user.jwt}`
-          }
+      await fetch(`${process.env.NEXT_PUBLIC_API}/api/classes/delete/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session.user.jwt}`
         }
-      )
+      })
     }
-    mutate('http://${process.env.NEXT_PUBLIC_API}/api/classes')
+    mutate(`${process.env.NEXT_PUBLIC_API}/api/classes`)
   }
 
   async function generateCertificates() {
     if (session?.user.jwt) {
       setLoading(true)
       await fetch(
-        `http://${process.env.NEXT_PUBLIC_API}/api/classes/${session.user.id}/generate-certificates`,
+        `${process.env.NEXT_PUBLIC_API}/api/classes/${session.user.id}/generate-certificates`,
         {
           method: 'POST',
           headers: {

@@ -50,7 +50,7 @@ export interface Category {
 function useClasses() {
   const { data: session } = useSession()
   const { data, error, isLoading, mutate } = useSWR<ClassResponse>(
-    `http://${process.env.NEXT_PUBLIC_API}/api/classes`,
+    `${process.env.NEXT_PUBLIC_API}/api/classes`,
     (params) => {
       return fetcher(params, {
         method: 'GET',

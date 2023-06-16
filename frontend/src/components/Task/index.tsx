@@ -26,7 +26,7 @@ const Task = ({
   async function onInputChange(e: ChangeEvent<HTMLInputElement>) {
     const completed = e.target.checked
     await fetch(
-      `http://${process.env.NEXT_PUBLIC_API}/api/courses/completedTasks/edit`,
+      `${process.env.NEXT_PUBLIC_API}/api/courses/completedTasks/edit`,
       {
         method: 'POST',
         headers: {

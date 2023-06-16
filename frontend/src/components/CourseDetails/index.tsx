@@ -47,7 +47,7 @@ const CourseDetails = () => {
 
   async function getTasks() {
     const response = await fetch(
-      `http://${process.env.NEXT_PUBLIC_API}/api/courses/completedTasks`,
+      `${process.env.NEXT_PUBLIC_API}/api/courses/completedTasks`,
       {
         method: 'POST',
         headers: {
