@@ -14,17 +14,29 @@ export const listClasses = async (
       include: { course: { include: { category: {}, tasks: {} } } },
     });
 
+    const users = await prisma.user.findMany({ include: { enrollments: {}, CompletedTask: {} } });
+
     const enrollments = await prisma.enrollment.findMany();
 
     const customData = data.map((c) => {
       const enrolled = enrollments.find(
         (e) => e.userId === req.user?.id && e.classId === c.id
       );
-      return {
+
+      const enrolledUsers = users.filter(u => u.enrollments.findIndex(u => u.classId === c.id) !== -1)
+
+      const data = req.user?.roleId !== 3 ? {
+        ...c,
+        enrolled: !!enrolled,
+        enrolledUsers,
+        totalEnrollments: enrollments.filter((e) => e.classId === c.id).length,
+      } : {
         ...c,
         enrolled: !!enrolled,
         totalEnrollments: enrollments.filter((e) => e.classId === c.id).length,
-      };
+      }
+
+      return data;
     });
 
     return res.status(200).json({ data: customData, errors: [] });

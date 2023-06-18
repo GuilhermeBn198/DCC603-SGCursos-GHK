@@ -18,6 +18,8 @@ type BaseProps = {
   children: React.ReactNode
 }
 
+const SnackbarProviderX: any = SnackbarProvider
+
 const Base = ({ children }: BaseProps) => {
   const { activeClass } = useGlobal()
   const pathname = usePathname()
@@ -27,7 +29,7 @@ const Base = ({ children }: BaseProps) => {
 
   return (
     <>
-      <SnackbarProvider
+      <SnackbarProviderX
         anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
       />
 

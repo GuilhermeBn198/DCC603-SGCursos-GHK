@@ -10,8 +10,17 @@ export interface User {
   photo: string
   institution: string
   postal_code: string
+  suspended: boolean
+  roleId: number
+  role: Role
   iat: number
 }
+
+export interface Role {
+  id: number
+  name: string
+}
+
 
 declare global {
   namespace Express {

@@ -15,6 +15,7 @@ export interface SGCLass {
   courseId: number
   course: Course
   enrolled: boolean
+  enrolledUsers: EnrolledUser[] | null
   totalEnrollments: number
 }
 
@@ -47,6 +48,30 @@ export interface Category {
   name: string
 }
 
+export interface EnrolledUser {
+  id: number
+  username: string
+  mail: string
+  phone: string
+  password: string
+  full_name: string
+  photo: string
+  institution: string
+  postal_code: string
+  suspended: boolean
+  roleId: number
+  CompletedTask: any[]
+  enrollments: Enrollment[]
+}
+
+export interface Enrollment {
+  id: number
+  created_at: string
+  updated_at: string
+  userId: number
+  classId: number
+}
+
 function useClasses() {
   const { data: session } = useSession()
   const { data, error, isLoading, mutate } = useSWR<ClassResponse>(
@@ -69,6 +94,7 @@ function useClasses() {
   return {
     classes: data?.data,
     isLoading,
+    mutate,
     isError: data?.errors || error
   }
 }

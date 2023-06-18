@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 15.3 (Debian 15.3-1.pgdg110+1)
--- Dumped by pg_dump version 15.3 (Debian 15.3-1.pgdg110+1)
+-- Dumped from database version 15.3 (Debian 15.3-1.pgdg120+1)
+-- Dumped by pg_dump version 15.3 (Debian 15.3-1.pgdg120+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -15,22 +15,6 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
-
---
--- Name: public; Type: SCHEMA; Schema: -; Owner: admin
---
-
--- *not* creating schema, since initdb creates it
-
-
-ALTER SCHEMA public OWNER TO admin;
-
---
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: admin
---
-
-COMMENT ON SCHEMA public IS '';
-
 
 SET default_tablespace = '';
 
@@ -81,7 +65,8 @@ CREATE TABLE public."Class" (
     id integer NOT NULL,
     "courseId" integer NOT NULL,
     start_date timestamp(3) without time zone NOT NULL,
-    end_date timestamp(3) without time zone NOT NULL
+    end_date timestamp(3) without time zone NOT NULL,
+    closed boolean DEFAULT false NOT NULL
 );
 
 
@@ -193,40 +178,6 @@ ALTER TABLE public."CourseCategory_id_seq" OWNER TO admin;
 --
 
 ALTER SEQUENCE public."CourseCategory_id_seq" OWNED BY public."CourseCategory".id;
-
-
---
--- Name: CourseStatus; Type: TABLE; Schema: public; Owner: admin
---
-
-CREATE TABLE public."CourseStatus" (
-    id integer NOT NULL,
-    status_name character varying(255) NOT NULL
-);
-
-
-ALTER TABLE public."CourseStatus" OWNER TO admin;
-
---
--- Name: CourseStatus_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
---
-
-CREATE SEQUENCE public."CourseStatus_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public."CourseStatus_id_seq" OWNER TO admin;
-
---
--- Name: CourseStatus_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
---
-
-ALTER SEQUENCE public."CourseStatus_id_seq" OWNED BY public."CourseStatus".id;
 
 
 --
@@ -456,13 +407,6 @@ ALTER TABLE ONLY public."CourseCategory" ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
--- Name: CourseStatus id; Type: DEFAULT; Schema: public; Owner: admin
---
-
-ALTER TABLE ONLY public."CourseStatus" ALTER COLUMN id SET DEFAULT nextval('public."CourseStatus_id_seq"'::regclass);
-
-
---
 -- Name: CourseTask id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -495,7 +439,6 @@ ALTER TABLE ONLY public."User" ALTER COLUMN id SET DEFAULT nextval('public."User
 --
 
 COPY public."Certificate" (id, "classId", "userId", uuid, "createdAt") FROM stdin;
-6	5	1	jYjFzQs3uwKLjLMa4eW7b7	2023-06-04 16:52:56.953
 \.
 
 
@@ -503,11 +446,11 @@ COPY public."Certificate" (id, "classId", "userId", uuid, "createdAt") FROM stdi
 -- Data for Name: Class; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-COPY public."Class" (id, "courseId", start_date, end_date) FROM stdin;
-5	6	2023-06-03 00:00:00	2023-06-29 00:00:00
-16	14	2023-06-01 04:00:00	2023-06-28 04:00:00
-17	15	2023-06-01 04:00:00	2023-07-31 04:00:00
-18	16	2023-06-01 04:00:00	2023-08-31 04:00:00
+COPY public."Class" (id, "courseId", start_date, end_date, closed) FROM stdin;
+1	1	2023-01-01 00:00:00	2023-04-01 00:00:00	f
+2	2	2023-01-01 00:00:00	2023-04-01 00:00:00	f
+3	3	2023-01-01 00:00:00	2023-04-01 00:00:00	f
+4	4	2023-01-01 00:00:00	2023-04-01 00:00:00	f
 \.
 
 
@@ -516,9 +459,15 @@ COPY public."Class" (id, "courseId", start_date, end_date) FROM stdin;
 --
 
 COPY public."CompletedTask" (id, completed, "userId", "courseTasksId") FROM stdin;
-17	t	1	2
-20	t	1	3
-24	t	1	1
+4	t	2	2
+16	t	3	1
+17	t	3	2
+18	t	3	3
+37	t	2	1
+38	t	2	3
+42	t	2	4
+43	t	2	5
+51	t	2	6
 \.
 
 
@@ -527,10 +476,10 @@ COPY public."CompletedTask" (id, completed, "userId", "courseTasksId") FROM stdi
 --
 
 COPY public."Course" (id, workload, name, photo, "categoryId", description) FROM stdin;
-6	60	Macuxi Digital	macuxi.png	1	Este projeto é uma ação que incentiva a presença e a atuação de meninas e mulheres na tecnologia, estimulando o acesso desse público às áreas das ciências exatas. As participantes receberão capacitação sobre pensamento computacional, habilidades de criação de apps e de divulgação profissional no LinkedIn.
-15	120	Intensivo ICT competition	ict.jpeg	1	Preparatório para a etapa brasileira da Huawei ICT Competition, desafio criado em 2015 para oferecer a estudantes de instituições parceiras, como a UFRR, oportunidades de estudos e intercâmbio de ideias, experiências e aprimoramento de conhecimento em Tecnologia da Informação e Comunicação (TIC), com estímulo à criatividade.\n\n
-16	240	Criação de Apps com Thunkable	thunkable.png	1	Capacitar pessoas, a partir de 12 anos por meio do software Thunkable, para criação de aplicativos móveis, para Android de IOS.
-14	50	ABCIA	abcia.png	4	Este curso é gratuito e 100% online. Consiste em uma introdução ao universo da Inteligência Artificial (IA), especificamente, na subárea de Aprendizado de Máquina. Por esse motivo, se aplica a graduandos e profissionais de áreas da Computação ou relacionadas, bem como entusiastas de tecnologia que são de outras áreas do conhecimento.\n
+1	120	Macuxi Digital	macuxi.png	1	Este projeto é uma ação que incentiva a presença e a atuação de meninas e mulheres na tecnologia, estimulando o acesso desse público às áreas das ciências exatas. As participantes receberão capacitação sobre pensamento computacional, habilidades de criação de apps e de divulgação profissional no LinkedIn.
+2	240	Criação de Apps com Thunkable	thunkable.png	1	Capacitar pessoas, a partir de 12 anos por meio do software Thunkable, para criação de aplicativos móveis, para Android de IOS.
+3	40	ABCIA	abcia.png	1	Este curso é gratuito e 100% online. Consiste em uma introdução ao universo da Inteligência Artificial (IA), especificamente, na subárea de Aprendizado de Máquina. Por esse motivo, se aplica a graduandos e profissionais de áreas da Computação ou relacionadas, bem como entusiastas de tecnologia que são de outras áreas do conhecimento.\n
+4	60	Criação de Apps com Thunkable	ict.jpeg	1	Preparatório para a etapa brasileira da Huawei ICT Competition, desafio criado em 2015 para oferecer a estudantes de instituições parceiras, como a UFRR, oportunidades de estudos e intercâmbio de ideias, experiências e aprimoramento de conhecimento em Tecnologia da Informação e Comunicação (TIC), com estímulo à criatividade.\n\n
 \.
 
 
@@ -539,17 +488,9 @@ COPY public."Course" (id, workload, name, photo, "categoryId", description) FROM
 --
 
 COPY public."CourseCategory" (id, name) FROM stdin;
-2	Design
-4	Inteligência Artificial uau🤖
 1	Desenvolvimento
-\.
-
-
---
--- Data for Name: CourseStatus; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY public."CourseStatus" (id, status_name) FROM stdin;
+2	Inteligência Artificial uau🤖
+3	Metodologia Científica
 \.
 
 
@@ -558,15 +499,46 @@ COPY public."CourseStatus" (id, status_name) FROM stdin;
 --
 
 COPY public."CourseTask" (id, title, description, external_link, "courseId") FROM stdin;
-1	Link do curso	Descrição	https://www.youtube.com/@cursoabcia	6
-2	Atividade 1	Descrição	https://www.youtube.com/@cursoabcia	6
-3	Atividade 1	Descrição	https://www.youtube.com/@cursoabcia	6
-5	Link da live de abertura	descrição	https://www.youtube.com/live/xjJRw6kQpFo?feature=share	14
-6	Módulo 01 - Aula 01: Introdução à Inteligência Artificial	descrição	https://youtu.be/f7EBg7sMluQ	14
-7	Módulo 02 - Aula 01: Machine Learning	descrição	https://youtu.be/1zRcPvJVdqQ	14
-8	Prova Final	prova	https://sites.google.com/view/abcia/	14
-9	Tarefa de teste	descrição	https://dcc-ufrr.app	15
-10	Tarefa de teste	teste	https://dcc-ufrr.app	16
+1	Atividade 1	Descrição	https://dcc-ufrr.app	1
+2	Atividade 2	Descrição	https://dcc-ufrr.app	1
+3	Atividade 3	Descrição	https://dcc-ufrr.app	1
+4	Atividade 4	Descrição	https://dcc-ufrr.app	1
+5	Atividade 5	Descrição	https://dcc-ufrr.app	1
+6	Atividade 6	Descrição	https://dcc-ufrr.app	1
+7	Atividade 7	Descrição	https://dcc-ufrr.app	1
+8	Atividade 8	Descrição	https://dcc-ufrr.app	1
+9	Atividade 9	Descrição	https://dcc-ufrr.app	1
+10	Atividade 10	Descrição	https://dcc-ufrr.app	1
+11	Atividade 1	Descrição	https://dcc-ufrr.app	2
+12	Atividade 2	Descrição	https://dcc-ufrr.app	2
+13	Atividade 3	Descrição	https://dcc-ufrr.app	2
+14	Atividade 4	Descrição	https://dcc-ufrr.app	2
+15	Atividade 5	Descrição	https://dcc-ufrr.app	2
+16	Atividade 6	Descrição	https://dcc-ufrr.app	2
+17	Atividade 7	Descrição	https://dcc-ufrr.app	2
+18	Atividade 8	Descrição	https://dcc-ufrr.app	2
+19	Atividade 9	Descrição	https://dcc-ufrr.app	2
+20	Atividade 10	Descrição	https://dcc-ufrr.app	2
+21	Atividade 1	Descrição	https://dcc-ufrr.app	3
+22	Atividade 2	Descrição	https://dcc-ufrr.app	3
+23	Atividade 3	Descrição	https://dcc-ufrr.app	3
+24	Atividade 4	Descrição	https://dcc-ufrr.app	3
+25	Atividade 5	Descrição	https://dcc-ufrr.app	3
+26	Atividade 6	Descrição	https://dcc-ufrr.app	3
+27	Atividade 7	Descrição	https://dcc-ufrr.app	3
+28	Atividade 8	Descrição	https://dcc-ufrr.app	3
+29	Atividade 9	Descrição	https://dcc-ufrr.app	3
+30	Atividade 10	Descrição	https://dcc-ufrr.app	3
+31	Atividade 1	Descrição	https://dcc-ufrr.app	4
+32	Atividade 2	Descrição	https://dcc-ufrr.app	4
+33	Atividade 3	Descrição	https://dcc-ufrr.app	4
+34	Atividade 4	Descrição	https://dcc-ufrr.app	4
+35	Atividade 5	Descrição	https://dcc-ufrr.app	4
+36	Atividade 6	Descrição	https://dcc-ufrr.app	4
+37	Atividade 7	Descrição	https://dcc-ufrr.app	4
+38	Atividade 8	Descrição	https://dcc-ufrr.app	4
+39	Atividade 9	Descrição	https://dcc-ufrr.app	4
+40	Atividade 10	Descrição	https://dcc-ufrr.app	4
 \.
 
 
@@ -575,10 +547,12 @@ COPY public."CourseTask" (id, title, description, external_link, "courseId") FRO
 --
 
 COPY public."Enrollment" (id, "classId", created_at, updated_at, "userId") FROM stdin;
-16	5	2023-05-31 01:28:04.725	2023-05-31 01:28:04.725	1
-52	16	2023-06-11 03:03:05.504	2023-06-11 03:03:05.504	1
-53	17	2023-06-11 03:04:38.134	2023-06-11 03:04:38.134	1
-54	18	2023-06-11 03:04:41.109	2023-06-11 03:04:41.109	1
+1	1	2023-06-18 18:31:32.047	2023-06-18 18:31:32.047	2
+2	1	2023-06-18 18:34:32.398	2023-06-18 18:34:32.398	4
+3	1	2023-06-18 18:34:44.028	2023-06-18 18:34:44.028	3
+4	2	2023-06-18 19:48:27.924	2023-06-18 19:48:27.924	2
+5	3	2023-06-18 19:48:29.165	2023-06-18 19:48:29.165	2
+6	4	2023-06-18 19:48:30.043	2023-06-18 19:48:30.043	2
 \.
 
 
@@ -598,8 +572,9 @@ COPY public."Role" (id, name) FROM stdin;
 --
 
 COPY public."User" (id, username, mail, phone, password, full_name, photo, institution, postal_code, "roleId", suspended) FROM stdin;
-1	hugolima	hugo8romao@gmail.com	5595984230269	123	Hugo Lima Romão	https://en.gravatar.com/userimage/190721742/cd8880350cceaded5ecf954eb4522c58.jpeg	UFRR	69309590	1	f
-2	admin	admin@admin.com	999999999999	123	Administrador	https://www.gravatar.com/avatar/admin	UFRR	99999999	1	f
+2	hugolima	hugo8romao@gmail.com	95984230269	123	Hugo Lima	https://www.gravatar.com/avatar/2e96f6336bc01870009185a521aecc9a	UFRR	69309590	1	f
+3	gui	gui@gmail.com	999999999	123	Guilherme Lucas	https://www.gravatar.com/avatar/bd001b48d731245c0abe1cacfdc1cb1d	UFRR	99999999	3	f
+4	kel	kelvin@gmail.com	99999999999	123	Kelvin Araújo	https://www.gravatar.com/avatar/45e3d42e30c983aac4ea4c4a8b665599	UFRR	99999999	3	f
 \.
 
 
@@ -608,26 +583,29 @@ COPY public."User" (id, username, mail, phone, password, full_name, photo, insti
 --
 
 COPY public._prisma_migrations (id, checksum, finished_at, migration_name, logs, rolled_back_at, started_at, applied_steps_count) FROM stdin;
-93de60f0-d211-4db7-9977-18612fa8e0cd	35a2c369b8fc547fc507df23c734637ac0f32da62f8682a3d87c8d6dbd2f82f7	2023-06-03 20:53:00.6717+00	20230603205300_1	\N	\N	2023-06-03 20:53:00.650615+00	1
-4b2a9226-74da-4653-970a-17906aaad815	52396ee3c9c565c0dffec678c8f63ebb31e0ffe1c099299cedfb642a2da73913	2023-05-30 21:16:04.457986+00	20230530211604_1	\N	\N	2023-05-30 21:16:04.358789+00	1
-88cdc943-8a91-4193-8f1e-7671916eb4b7	eeefce81a3c268e7191e75d587c24dfb974a61548723817af08459491e629973	2023-05-30 21:41:06.48993+00	20230530214106_1	\N	\N	2023-05-30 21:41:06.470425+00	1
-ae1b6a6a-a395-4bde-93e1-8766da0481eb	5dcea21540771e4a8cd0aea3fb779c21c125638d62dfdfa14b8b4228d65d3d1d	2023-05-30 21:53:02.97998+00	20230530215302_2	\N	\N	2023-05-30 21:53:02.967098+00	1
-66613143-c86e-4751-86c5-f8b02bebe651	3eaaaffa0bd31d5bb328b72d0e034311a92c164045499cb3f4abf26b983ddf02	2023-06-03 21:22:57.891135+00	20230603212257_1	\N	\N	2023-06-03 21:22:57.884+00	1
-fd5198a8-0f27-41c7-a965-63b6b3e3c826	c54c65f9e4a9289f367f436b1eebafa2f3d8b16b633a5bff94d4965053e711d4	2023-05-30 21:56:10.616924+00	20230530215610_3	\N	\N	2023-05-30 21:56:10.612091+00	1
-27ad68a4-30a7-438c-82ee-57080678c567	a69f135dbcf49406b5ea0045e6388102b9134dcfea1d1d3c6e33d0a727703ac3	2023-05-30 23:08:32.366923+00	20230530230832_1	\N	\N	2023-05-30 23:08:32.357148+00	1
-d25856fa-e191-4002-a64b-11c2c675d5d5	180193b37e58e94ebf937ca119dd47e0b2923db427f4a3e3509b7caf1da4d5a9	2023-05-30 23:24:36.520458+00	20230530232436_1	\N	\N	2023-05-30 23:24:36.5151+00	1
-34f52670-842e-4acc-b444-a6ed6b3e6792	80601832f930fe18b4ca358ac51ca429c015789813aa835a3b3fae5d866675be	2023-06-03 21:50:48.765312+00	20230603215048_	\N	\N	2023-06-03 21:50:48.7535+00	1
-b3fa0102-398b-4f2a-bfa6-53b4d1620274	735154a86b1ce8ff5cc0ed83c145ffd345bcd14629d263d2a247d8162eb31591	2023-05-30 23:50:45.083686+00	20230530235045_1	\N	\N	2023-05-30 23:50:45.065873+00	1
-43135ddd-7ee0-4e2c-9290-588e02426c77	188f5e68394abbf0fd22426d28cc557eeff39fc8d6d07a8fa62a7ea36aa3a21b	2023-05-31 01:34:41.515626+00	20230531013441_1	\N	\N	2023-05-31 01:34:41.504044+00	1
-8ed8d5f6-1f7b-4898-a39a-aea34c193719	a6c6f85018f9d058ff49cc543a7e2d09b59453f66d2645704fbe940c642bbdfc	2023-05-31 12:49:28.212059+00	20230531124928_1	\N	\N	2023-05-31 12:49:28.197475+00	1
-767fd82d-5872-490b-938f-6b0c7ae50c91	e98e47fb911f5e8887d3525251c0b25b7f818d8a5179a7fb116f7f42bf152f15	2023-06-04 16:51:59.734736+00	20230604165159_	\N	\N	2023-06-04 16:51:59.728326+00	1
-3c132a1f-4c48-43a7-a43f-bb35eb11c37b	6377cb09d6e1cd1412508c4dacff4b066dbf48b3927543259e830bed780c7f49	2023-05-31 12:50:41.009145+00	20230531125040_1	\N	\N	2023-05-31 12:50:40.977384+00	1
-396d835f-4e11-4050-a964-da8304b976e2	9777e8ea5e35d1029deb1504cf8552463649f607e7f91172493ea771427582fa	2023-06-01 13:15:34.981129+00	20230601131534_1	\N	\N	2023-06-01 13:15:34.955263+00	1
-65119ec2-7c80-4360-8bd1-1add4d8d9271	be7fee42ac70e68fe1baf4d0f85f0f533103dde47535df347e0252cdbdeeb4f2	2023-06-01 13:17:42.976474+00	20230601131742_1	\N	\N	2023-06-01 13:17:42.967377+00	1
-1ccb5b04-c1e8-4f76-a369-f7422262a58b	8abe399331d565b351edc5292c799b3c2c496bfb634f6aacfe787890f46fa967	2023-06-04 16:52:39.964816+00	20230604165239_	\N	\N	2023-06-04 16:52:39.955112+00	1
-fae800c1-8e4e-48f8-9c13-10850e052c69	fb091432e93057e0d835ecfba3fc3ac1e1cfd19db0a11864b3542dc9ebcc9bb2	2023-06-01 16:29:29.289869+00	20230601162929_2	\N	\N	2023-06-01 16:29:29.278841+00	1
-880948ae-2038-4f96-acf5-8445656e3d9c	f00424eb08976833964cde431267ebc517efb3cdc61b3aa9d40cf7089099259d	2023-06-01 16:58:59.531262+00	20230601165859_1	\N	\N	2023-06-01 16:58:59.526014+00	1
-65f06a09-bfbe-46e4-86d3-d3ed7b454282	761755d2b8b417e7416b591972706ad75d24d77d7bf0c22c8a7047f8edb6b592	2023-06-11 02:23:32.830825+00	20230607215712_	\N	\N	2023-06-11 02:23:32.818678+00	1
+1e748ec8-b35c-49a0-a756-f63e3320b2f1	35a2c369b8fc547fc507df23c734637ac0f32da62f8682a3d87c8d6dbd2f82f7	2023-06-18 17:31:26.498865+00	20230603205300_1	\N	\N	2023-06-18 17:31:26.491653+00	1
+199d20a4-7f1f-4e82-89eb-9785ee004e24	52396ee3c9c565c0dffec678c8f63ebb31e0ffe1c099299cedfb642a2da73913	2023-06-18 17:31:26.383927+00	20230530211604_1	\N	\N	2023-06-18 17:31:26.279845+00	1
+b0c1d5e3-f2df-44b0-a0a0-48027216cf94	eeefce81a3c268e7191e75d587c24dfb974a61548723817af08459491e629973	2023-06-18 17:31:26.401402+00	20230530214106_1	\N	\N	2023-06-18 17:31:26.385174+00	1
+3a553224-27a1-41e3-bf78-768f412b6907	5dcea21540771e4a8cd0aea3fb779c21c125638d62dfdfa14b8b4228d65d3d1d	2023-06-18 17:31:26.412125+00	20230530215302_2	\N	\N	2023-06-18 17:31:26.40263+00	1
+6c67bb82-cad4-41b3-8f4c-0032385fed5b	3eaaaffa0bd31d5bb328b72d0e034311a92c164045499cb3f4abf26b983ddf02	2023-06-18 17:31:26.502736+00	20230603212257_1	\N	\N	2023-06-18 17:31:26.499849+00	1
+2faf9045-fbf0-45e5-9e68-a529f1642d60	c54c65f9e4a9289f367f436b1eebafa2f3d8b16b633a5bff94d4965053e711d4	2023-06-18 17:31:26.41578+00	20230530215610_3	\N	\N	2023-06-18 17:31:26.413084+00	1
+aa6b0a53-0f1b-490d-8419-d80a8edbaad7	a69f135dbcf49406b5ea0045e6388102b9134dcfea1d1d3c6e33d0a727703ac3	2023-06-18 17:31:26.420318+00	20230530230832_1	\N	\N	2023-06-18 17:31:26.416596+00	1
+b86ef3eb-2279-4ce7-9f7d-f7700fd2dace	180193b37e58e94ebf937ca119dd47e0b2923db427f4a3e3509b7caf1da4d5a9	2023-06-18 17:31:26.424192+00	20230530232436_1	\N	\N	2023-06-18 17:31:26.421318+00	1
+dd4b8e8b-15dc-4f43-9315-1c0162747d1f	80601832f930fe18b4ca358ac51ca429c015789813aa835a3b3fae5d866675be	2023-06-18 17:31:26.512664+00	20230603215048_	\N	\N	2023-06-18 17:31:26.503749+00	1
+8bdca717-c96b-401d-bba3-b2fafde77136	735154a86b1ce8ff5cc0ed83c145ffd345bcd14629d263d2a247d8162eb31591	2023-06-18 17:31:26.435967+00	20230530235045_1	\N	\N	2023-06-18 17:31:26.425158+00	1
+f5585701-1f8d-4170-8052-165a5fcbf62a	188f5e68394abbf0fd22426d28cc557eeff39fc8d6d07a8fa62a7ea36aa3a21b	2023-06-18 17:31:26.442412+00	20230531013441_1	\N	\N	2023-06-18 17:31:26.43694+00	1
+53f79c4b-7b8f-4f08-9924-e402fd2ae6fb	a6c6f85018f9d058ff49cc543a7e2d09b59453f66d2645704fbe940c642bbdfc	2023-06-18 17:31:26.447257+00	20230531124928_1	\N	\N	2023-06-18 17:31:26.443586+00	1
+9d864157-f61b-45f2-aea9-2770c948b31d	e98e47fb911f5e8887d3525251c0b25b7f818d8a5179a7fb116f7f42bf152f15	2023-06-18 17:31:26.515957+00	20230604165159_	\N	\N	2023-06-18 17:31:26.513517+00	1
+dc83a3a5-0081-4334-a494-535490cceb63	6377cb09d6e1cd1412508c4dacff4b066dbf48b3927543259e830bed780c7f49	2023-06-18 17:31:26.469638+00	20230531125040_1	\N	\N	2023-06-18 17:31:26.448493+00	1
+a4a86fd2-e6bd-4603-968d-0d68a9b51589	9777e8ea5e35d1029deb1504cf8552463649f607e7f91172493ea771427582fa	2023-06-18 17:31:26.47971+00	20230601131534_1	\N	\N	2023-06-18 17:31:26.470765+00	1
+75287bde-541a-4ea6-89c6-277dc0505b34	be7fee42ac70e68fe1baf4d0f85f0f533103dde47535df347e0252cdbdeeb4f2	2023-06-18 17:31:26.484468+00	20230601131742_1	\N	\N	2023-06-18 17:31:26.480595+00	1
+742f19ac-0e6b-4d2f-8b95-0c52578e3f79	8abe399331d565b351edc5292c799b3c2c496bfb634f6aacfe787890f46fa967	2023-06-18 17:31:26.519359+00	20230604165239_	\N	\N	2023-06-18 17:31:26.516789+00	1
+bc0235ec-c67d-4dce-9b5f-f1ab10ce3d40	fb091432e93057e0d835ecfba3fc3ac1e1cfd19db0a11864b3542dc9ebcc9bb2	2023-06-18 17:31:26.487746+00	20230601162929_2	\N	\N	2023-06-18 17:31:26.485491+00	1
+aa8ac6f4-b7c1-48af-b34f-f9e47688c734	f00424eb08976833964cde431267ebc517efb3cdc61b3aa9d40cf7089099259d	2023-06-18 17:31:26.490815+00	20230601165859_1	\N	\N	2023-06-18 17:31:26.488729+00	1
+f2bbc24b-9d64-484b-97ad-af51fa1db561	761755d2b8b417e7416b591972706ad75d24d77d7bf0c22c8a7047f8edb6b592	2023-06-18 17:31:26.526792+00	20230607215712_	\N	\N	2023-06-18 17:31:26.520326+00	1
+0afb56d9-7214-49dd-9315-8831c2475daf	83db3cfd9fe84df1f70aa65372a43765ff720421474c40cfe06e2474d7c1095f	2023-06-18 17:31:29.307558+00	20230618173129_	\N	\N	2023-06-18 17:31:29.302569+00	1
+827becf1-6c57-41be-8874-9cdc26121975	3a6c7ecf21c12a8d0c4c6f1127d47dc5a6180bd81d3708ae657d15ad768b8ba2	2023-06-18 17:32:01.304174+00	20230618173201_	\N	\N	2023-06-18 17:32:01.297233+00	1
+4eeb74d4-1b30-4adb-a0d0-04aeb95353d3	9d23211f115735656dccc43324fba651aa815d7f83c2d1153a560227b47d0651	2023-06-18 19:44:38.895782+00	20230618194438_	\N	\N	2023-06-18 19:44:38.883582+00	1
 \.
 
 
@@ -635,56 +613,49 @@ fae800c1-8e4e-48f8-9c13-10850e052c69	fb091432e93057e0d835ecfba3fc3ac1e1cfd19db0a
 -- Name: Certificate_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public."Certificate_id_seq"', 38, true);
+SELECT pg_catalog.setval('public."Certificate_id_seq"', 1, false);
 
 
 --
 -- Name: Class_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public."Class_id_seq"', 18, true);
+SELECT pg_catalog.setval('public."Class_id_seq"', 1, false);
 
 
 --
 -- Name: CompletedTask_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public."CompletedTask_id_seq"', 53, true);
+SELECT pg_catalog.setval('public."CompletedTask_id_seq"', 58, true);
 
 
 --
 -- Name: CourseCategory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public."CourseCategory_id_seq"', 12, true);
-
-
---
--- Name: CourseStatus_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('public."CourseStatus_id_seq"', 1, false);
+SELECT pg_catalog.setval('public."CourseCategory_id_seq"', 1, false);
 
 
 --
 -- Name: CourseTask_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public."CourseTask_id_seq"', 10, true);
+SELECT pg_catalog.setval('public."CourseTask_id_seq"', 1, true);
 
 
 --
 -- Name: Course_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public."Course_id_seq"', 14, true);
+SELECT pg_catalog.setval('public."Course_id_seq"', 1, false);
 
 
 --
 -- Name: Enrollment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public."Enrollment_id_seq"', 54, true);
+SELECT pg_catalog.setval('public."Enrollment_id_seq"', 6, true);
 
 
 --
@@ -698,7 +669,7 @@ SELECT pg_catalog.setval('public."Role_id_seq"', 1, false);
 -- Name: User_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public."User_id_seq"', 39, true);
+SELECT pg_catalog.setval('public."User_id_seq"', 4, true);
 
 
 --
@@ -731,14 +702,6 @@ ALTER TABLE ONLY public."CompletedTask"
 
 ALTER TABLE ONLY public."CourseCategory"
     ADD CONSTRAINT "CourseCategory_pkey" PRIMARY KEY (id);
-
-
---
--- Name: CourseStatus CourseStatus_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
---
-
-ALTER TABLE ONLY public."CourseStatus"
-    ADD CONSTRAINT "CourseStatus_pkey" PRIMARY KEY (id);
 
 
 --
@@ -787,13 +750,6 @@ ALTER TABLE ONLY public."User"
 
 ALTER TABLE ONLY public._prisma_migrations
     ADD CONSTRAINT _prisma_migrations_pkey PRIMARY KEY (id);
-
-
---
--- Name: Certificate_userId_key; Type: INDEX; Schema: public; Owner: admin
---
-
-CREATE INDEX "Certificate_userId_key" ON public."Certificate" USING btree ("userId");
 
 
 --
@@ -888,13 +844,6 @@ ALTER TABLE ONLY public."Enrollment"
 
 ALTER TABLE ONLY public."User"
     ADD CONSTRAINT "User_roleId_fkey" FOREIGN KEY ("roleId") REFERENCES public."Role"(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: SCHEMA public; Type: ACL; Schema: -; Owner: admin
---
-
-REVOKE USAGE ON SCHEMA public FROM PUBLIC;
 
 
 --

@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react'
 
 import { useGlobal } from 'contexts/global'
 
-import { CourseDetailsTask } from 'hooks/useClasses'
+import useClasses, { CourseDetailsTask } from 'hooks/useClasses'
 
 import Task from 'components/Task'
 
@@ -23,13 +23,14 @@ export interface TypeTask {
 
 const CourseDetails = () => {
   const { data } = useSession()
+  const { mutate } = useClasses()
   const { activeClass, setActiveClass } = useGlobal()
 
   const [localClass, setLocalClass] = useState(activeClass)
   const [tasks, setTasks] = useState<CourseDetailsTask[] | undefined>()
 
   async function enroll() {
-    await fetch(`http:///api/enrollments/new`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API}/api/enrollments/new`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -61,6 +62,13 @@ const CourseDetails = () => {
       }
     ).then((r) => r.json())
     setTasks(response.data)
+    updateActiveClass()
+  }
+
+  async function updateActiveClass() {
+    await mutate().then((e) =>
+      setLocalClass((a) => e?.data.find((c) => c.id === a?.id))
+    )
   }
 
   useEffect(() => {
@@ -95,8 +103,8 @@ const CourseDetails = () => {
           <S.Row>
             <S.H3>Conteúdo do curso</S.H3>
             <S.Counter>
-              {localClass.course.tasks.length} • {localClass?.course.workload}{' '}
-              horas
+              {`${localClass.course.tasks.length} atividades`} •{' '}
+              {localClass?.course.workload} horas
             </S.Counter>
           </S.Row>
           <S.TasksList>
@@ -106,6 +114,22 @@ const CourseDetails = () => {
           </S.TasksList>
         </>
       )}
+
+      {localClass?.enrolledUsers ? (
+        <>
+          <S.Row>
+            <S.H3>Alunos matriculados</S.H3>
+          </S.Row>
+          {localClass.enrolledUsers.map((e) => (
+            <S.User key={e.id}>
+              <p>{`${e.full_name} (${e.institution}).`}</p>
+              <p>{`Progresso: ${
+                (e.CompletedTask.length / localClass.course.tasks.length) * 100
+              }%`}</p>
+            </S.User>
+          ))}
+        </>
+      ) : null}
     </S.Container>
   )
 }

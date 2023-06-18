@@ -57,6 +57,7 @@ model Class {
   end_date     DateTime
   courseId     Int
   course       Course        @relation(fields: [courseId], references: [id])
+  closed       Boolean       @default(false)
   enrollments  Enrollment[]
   certificates Certificate[]
 }
@@ -72,20 +73,12 @@ model Course {
   categoryId  Int
   category    CourseCategory @relation(fields: [categoryId], references: [id])
   tasks       CourseTask[]
-  // CourseStatusId Int
-  // status         CourseStatus   @relation(fields: [CourseStatusId], references: [id])
 }
 
 model CourseCategory {
   id      Int      @id @default(autoincrement())
   name    String   @db.VarChar(255)
   courses Course[]
-}
-
-model CourseStatus {
-  id          Int    @id @default(autoincrement())
-  status_name String @db.VarChar(255)
-  // courses     Course[]
 }
 
 model CourseTask {

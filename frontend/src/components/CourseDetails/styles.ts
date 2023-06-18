@@ -66,3 +66,8 @@ export const TasksList = styled.div`
   display: flex;
   flex-direction: column;
 `
+
+export const User = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
