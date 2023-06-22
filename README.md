@@ -25,6 +25,9 @@
 - **ufrr-nextjs**
   - microsserviço destinado a manter o frontend da aplicação. De forma responsiva, também é capaz de fornecer uma versão mobile para a aplicação.
 
+![image](./assets/casosdeuso.png)
+
+
 ## **Tecnologias usadas:**
 
 - **frontend**:
