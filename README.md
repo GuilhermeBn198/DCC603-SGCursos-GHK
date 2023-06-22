@@ -10,13 +10,9 @@
 - Hugo Lima Romão
 - Kelvin Araújo Ferreira
 
----
-
----
-
----
-
 ## **microsserviços e suas funcionalidades**
+
+![image](./assets/diagram.png)
 
 - **ufrr-postgres**
   - microsserviço destinado a manter o banco de dados da aplicação, com uso da imagem oficial do docker para postgres:latest
@@ -60,12 +56,6 @@
   - Truffle
   - Ganache
   - Solidity
-
----
-
----
-
----
 
 # **Relatório de desenvolvimento da aplicação:**
 
